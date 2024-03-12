@@ -56,7 +56,7 @@ const Register = () => {
 
   const onSubmit = (form: RegisterFormProps) => {
     mutateAsync({
-      url: 'auth/register',
+      url: 'user',
       data: { ...form, passwordConfirmation: undefined },
     })
       .then(async (data) => {
@@ -74,10 +74,10 @@ const Register = () => {
   }
 
   return (
-    <div className="from-main to-main-white flex min-h-screen items-center justify-center bg-gradient-to-b">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-main to-main-white">
       {isPending && <Loading />}
       {!isPending && (
-        <div className="bg-main-200 shadow-main-200 rounded-md p-10 shadow-sm brightness-90 md:w-[500px] md:p-16 md:pt-8">
+        <div className="rounded-md bg-main-200 p-10 shadow-sm shadow-main-200 brightness-90 md:w-[500px] md:p-16 md:pt-8">
           <form onSubmit={handleSubmit(onSubmit)}>
             {/*<div className="mb-6 flex items-center justify-center">*/}
             {/*  <Image alt="logo" src={logo} width={200} height={200} />*/}

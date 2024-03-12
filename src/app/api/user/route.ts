@@ -1,32 +1,38 @@
-import { PrismaClient } from '@prisma/client'
-import type { NextApiRequest, NextApiResponse } from 'next'
 import { userService } from '@/app/api/user/service'
-import bcrypt from 'bcrypt'
+import { NextResponse } from 'next/server'
+import { getQuery } from '@/lib/query'
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
-  const { method, query, body } = req
+export async function GET(req: Request) {
+  const query = getQuery(req)
+  const users = await userService.find(query)
+  return NextResponse.json(users, { status: 200 })
+}
 
-  switch (method) {
-    case 'GET':
-      const users = await userService.find({ where: { id: Number(query.id) } })
-      res.status(200).json(users)
-      break
-    case 'POST':
-      const newUser = await userService.createUser(body)
-      res.status(201).json(newUser)
-      break
-    case 'PUT':
-      const updatedUser = await userService.update({
-        where: { id: Number(body.id) },
-        data: body,
-      })
-      res.status(200).json(updatedUser)
-      break
-    default:
-      res.setHeader('Allow', ['GET', 'PUT', 'POST'])
-      res.status(405).end(`Method ${method} Not Allowed`)
+export async function POST(req: Request) {
+  // register user
+  const body = await req.json()
+  // check if email and password are provided
+  if (!body.email || !body.password) {
+    return NextResponse.json(
+      { message: 'Email and password are required' },
+      {
+        status: 400,
+      },
+    )
   }
+  // check if user exists
+  const user = await userService.findOne({ where: { email: body.email } })
+  if (user) {
+    return NextResponse.json(
+      { message: 'User already exists' },
+      { status: 400 },
+    )
+  }
+  // create new user
+  const password = await userService.hashPassword(body.password)
+  const newUser = await userService.createUser({
+    ...body,
+    password,
+  })
+  return NextResponse.json(newUser, { status: 201 })
 }

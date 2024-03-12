@@ -1,3 +1,6 @@
+export interface ContextApiProps {
+  params?: { id?: string }
+}
 export interface GetData {
   url: string
   query?: string
