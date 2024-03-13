@@ -16,6 +16,7 @@ import { cookiesSettings } from '@/lib/constants'
 import { useAuthState } from '@/hooks/auth'
 import { AxiosError } from 'axios'
 import { inputStyleLogin } from '@/app/(public)/constants.styles'
+import { toast } from 'react-toastify'
 
 // import '../style.css'
 
@@ -61,7 +62,7 @@ const Register = () => {
     })
       .then(async (data) => {
         Cookie.set('signed', 'true', cookiesSettings)
-
+        toast.success('User registered successfully, redirecting...')
         setSigned(true)
         setProfile(data)
         if (redirect) router.push(redirect)
