@@ -9,9 +9,8 @@ import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persist
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
 import { useEffect, useState } from 'react'
 import { queryClientConfig } from '@/lib/constants'
-import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { NextUIProvider } from '@nextui-org/react'
+import { Button, NextUIProvider } from '@nextui-org/react'
 import { ThemeProvider as NextThemesProvider } from 'next-themes'
 
 let persister: any

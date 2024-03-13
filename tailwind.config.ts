@@ -55,7 +55,6 @@ const config: Config = {
       prefix: 'nextui',
       addCommonColors: true,
       layout: {},
-
       themes: {
         light: {
           colors: {
