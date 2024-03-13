@@ -36,7 +36,6 @@ import {
 } from 'react-icons/fa'
 import { menuItems } from './constants'
 import { fisrtAndSecondLetterName, formatName } from './functions'
-import { FaArrowRightArrowLeft } from 'react-icons/fa6'
 import { PiMonitorFill } from 'react-icons/pi'
 import { IoMdPaper } from 'react-icons/io'
 import { useAuthState } from '@/hooks/auth'
@@ -47,7 +46,6 @@ const NavbarComp: React.FC = () => {
   const { logout, profile } = useAuthState()
 
   const [hoverProfile, setHoverProfile] = useState(false)
-  const [hoverNotifications, setHoverNotifications] = useState(false)
   const { theme, setTheme } = useTheme()
 
   return (
@@ -83,99 +81,32 @@ const NavbarComp: React.FC = () => {
         </NavbarContent>
 
         <NavbarContent className="hidden gap-4 md:flex" justify="center">
-          {menuItems
-            .filter((a) => !a.dropdown)
-            .map((item) => (
-              <>
-                {
-                  <NavbarItem
-                    key={item.path}
-                    isActive={
-                      item.path === '/'
-                        ? pathname === '/'
-                        : pathname.includes(item.path)
-                    }
+          {menuItems.map((item) => (
+            <>
+              {
+                <NavbarItem
+                  key={item.path}
+                  isActive={
+                    item.path === '/'
+                      ? pathname === '/'
+                      : pathname.includes(item.path)
+                  }
+                >
+                  <Link
+                    className="nav-link text-white"
+                    color="foreground"
+                    href={item.path}
+                    title={item.name}
                   >
-                    <Link
-                      className="nav-link text-white"
-                      color="foreground"
-                      href={item.path}
-                      title={item.name}
-                    >
-                      {item.icon === 'home' && <FaHome className="mr-2" />}
-                      {item.icon === 'monitoring' && (
-                        <PiMonitorFill className="mr-2" />
-                      )}
-                      {item.icon === 'rol' && <IoMdPaper className="mr-2" />}
-
-                      <span className="hidden mdlg:flex">{item.name}</span>
-                    </Link>
-                  </NavbarItem>
-                }
-              </>
-            ))}
-          {menuItems
-            .filter((a) => a.dropdown !== null)
-            .map((item) => (
-              <>
-                {
-                  <NavbarItem
-                    key={item.path}
-                    isActive={
-                      item.path === '/'
-                        ? pathname === '/'
-                        : pathname.includes(item.path)
-                    }
-                  >
-                    <Dropdown placement="bottom-end" className="w-lg">
-                      <DropdownTrigger title={item.name}>
-                        <div className="nav-link flex cursor-pointer items-center text-white hover:text-main-white">
-                          {item.icon === 'settings' && (
-                            <FaCogs className="mr-2" />
-                          )}
-                          <span className="hidden items-center mdlg:flex">
-                            {item.name}
-                          </span>
-                        </div>
-                      </DropdownTrigger>
-                      <DropdownMenu
-                        aria-label={`Dropdown navbar ${item.path}`}
-                        variant="flat"
-                      >
-                        {item.dropdown!.map((itemDropdown) => (
-                          <DropdownItem
-                            key={itemDropdown.path}
-                            className={cn(
-                              'h-14 cursor-pointer gap-2 dark:text-white dark:hover:text-main-white',
-                              `dark:hover:text-main-white [&>span]:font-semibold`,
-                            )}
-                            href={itemDropdown.path}
-                            as={Link}
-                            textValue={itemDropdown.name}
-                          >
-                            <div className="flex items-center">
-                              {itemDropdown.icon === 'user' && (
-                                <FaUsers className="mr-2" />
-                              )}
-                              {itemDropdown.icon === 'client' && (
-                                <FaBuilding className="mr-2" />
-                              )}
-                              {itemDropdown.icon === 'sector' && (
-                                <FaUserCog className="mr-2" />
-                              )}
-                              {itemDropdown.icon === 'employee' && (
-                                <FaUserTie className="mr-2" />
-                              )}
-                              {itemDropdown.name}
-                            </div>
-                          </DropdownItem>
-                        ))}
-                      </DropdownMenu>
-                    </Dropdown>
-                  </NavbarItem>
-                }
-              </>
-            ))}
+                    {item.icon === 'home' && <FaHome className="mr-2" />}
+                    {item.icon === 'group' && <FaUsers className="mr-2" />}
+                    {item.icon === 'user' && <FaUser className="mr-2" />}
+                    <span className="hidden mdlg:flex">{item.name}</span>
+                  </Link>
+                </NavbarItem>
+              }
+            </>
+          ))}
         </NavbarContent>
         <NavbarContent justify="end">
           <NavbarItem>
@@ -186,25 +117,26 @@ const NavbarComp: React.FC = () => {
               className="w-lg"
             >
               <DropdownTrigger
-                onMouseOver={() => setHoverProfile(true)}
-                onMouseLeave={() => setHoverProfile(false)}
+              // onMouseOver={() => setHoverProfile(true)}
+              // onMouseLeave={() => setHoverProfile(false)}
               >
                 <User
                   name={formatName(profile?.name || '') || 'Nome não informado'}
                   avatarProps={{
                     name: fisrtAndSecondLetterName(profile?.name || ''),
                     showFallback: true,
-                    className: 'mr-2',
+                    className: 'mr-2 cursor-pointer',
                   }}
                   classNames={{
-                    description: 'hidden 2xs:block text-main-white',
-                    name: 'hidden 2xs:block',
+                    description:
+                      'hidden cursor-pointer 2xs:block text-main-white',
+                    name: 'hidden cursor-pointer 2xs:block',
                   }}
                 />
               </DropdownTrigger>
               <DropdownMenu
-                onMouseOver={() => setHoverProfile(true)}
-                onMouseLeave={() => setHoverProfile(false)}
+                // onMouseOver={() => setHoverProfile(true)}
+                // onMouseLeave={() => setHoverProfile(false)}
                 aria-label="Perfil"
                 variant="flat"
               >
@@ -246,82 +178,29 @@ const NavbarComp: React.FC = () => {
           </NavbarItem>
         </NavbarContent>
         <NavbarMenu className={'pt-8'}>
-          {menuItems
-            .filter((a) => !a.dropdown)
-            .map((item) => (
-              <>
-                {
-                  <NavbarMenuItem
-                    key={item.path}
-                    isActive={item.path.includes(pathname)}
+          {menuItems.map((item) => (
+            <>
+              {
+                <NavbarMenuItem
+                  key={item.path}
+                  isActive={item.path.includes(pathname)}
+                >
+                  <Link
+                    color="foreground"
+                    className="nav-link w-full"
+                    href={item.path}
+                    size="lg"
+                    onClick={() => setIsMenuOpen(false)}
                   >
-                    <Link
-                      color="foreground"
-                      className="nav-link w-full"
-                      href={item.path}
-                      size="lg"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      {item.icon === 'home' && <FaHome className="mr-2" />}
-                      {item.icon === 'monitoring' && (
-                        <PiMonitorFill className="mr-2" />
-                      )}
-                      {item.icon === 'rol' && <IoMdPaper className="mr-2" />}
-                      {item.name}
-                    </Link>
-                  </NavbarMenuItem>
-                }
-              </>
-            ))}
-          {menuItems
-            .filter((a) => a.dropdown !== null)
-            .map((item) => (
-              <>
-                {
-                  <NavbarItem
-                    key={item.path}
-                    isActive={
-                      item.path === '/'
-                        ? pathname === '/'
-                        : pathname.includes(item.path)
-                    }
-                  >
-                    <span className="w-full text-sm text-foreground-500">
-                      {item.name}
-                    </span>
-                    {item.dropdown!.map((itemDropdown) => (
-                      <NavbarMenuItem
-                        key={itemDropdown.path}
-                        isActive={itemDropdown.path.includes(pathname)}
-                        className="pl-4"
-                      >
-                        <Link
-                          color="foreground"
-                          className="text-md w-full"
-                          href={itemDropdown.path}
-                          size="lg"
-                          onClick={() => setIsMenuOpen(false)}
-                        >
-                          {itemDropdown.icon === 'user' && (
-                            <FaUsers className="mr-2" />
-                          )}
-                          {itemDropdown.icon === 'client' && (
-                            <FaBuilding className="mr-2" />
-                          )}
-                          {itemDropdown.icon === 'sector' && (
-                            <FaUserCog className="mr-2" />
-                          )}
-                          {itemDropdown.icon === 'employee' && (
-                            <FaUserTie className="mr-2" />
-                          )}
-                          {itemDropdown.name}
-                        </Link>
-                      </NavbarMenuItem>
-                    ))}
-                  </NavbarItem>
-                }
-              </>
-            ))}
+                    {item.icon === 'home' && <FaHome className="mr-2" />}
+                    {item.icon === 'group' && <FaUsers className="mr-2" />}
+                    {item.icon === 'user' && <FaUser className="mr-2" />}
+                    {item.name}
+                  </Link>
+                </NavbarMenuItem>
+              }
+            </>
+          ))}
         </NavbarMenu>
       </Navbar>
     </>
