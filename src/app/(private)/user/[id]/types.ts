@@ -1,5 +1,5 @@
-import { GroupApiProps } from '@/types/group'
+import { UserApiProps } from '@/types/user'
 
-export type FormGroupApiProps = Omit<GroupApiProps, 'userIds'> & {
-  userIds: string[]
+export type FormUserProps = UserApiProps & {
+  passwordConfirmation?: string
 }
