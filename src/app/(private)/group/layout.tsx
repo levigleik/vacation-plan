@@ -1,10 +1,9 @@
 import { cn } from '@nextui-org/react'
 import Header from 'components/layout/header'
+import Loading from 'components/loading'
+import HeaderTable from 'components/table/header'
 import { Metadata } from 'next'
 import { Suspense } from 'react'
-import HeaderTable from 'components/table/header'
-import Loading from 'components/loading'
-import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Groups',
@@ -13,8 +12,7 @@ export const metadata: Metadata = {
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      {/*<Header path={'group'} defaultText="Group" />*/}
-      <Link href={'/group'}>Group</Link>
+      <Header path={'group'} defaultText="Group" />
       <div className="flex h-full flex-1 flex-col">
         <div
           className={cn(

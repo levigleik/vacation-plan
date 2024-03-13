@@ -1,20 +1,18 @@
 import { cn } from '@nextui-org/react'
 import Header from 'components/layout/header'
+import Loading from 'components/loading'
+import HeaderTable from 'components/table/header'
 import { Metadata } from 'next'
 import { Suspense } from 'react'
-import HeaderTable from 'components/table/header'
-import Loading from 'components/loading'
-import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Groups',
+  title: 'Users',
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      {/*<Header path={'group'} defaultText="Group" />*/}
-      <Link href={'/group'}>Group</Link>
+      <Header path={'user'} defaultText="User" />
       <div className="flex h-full flex-1 flex-col">
         <div
           className={cn(
@@ -22,7 +20,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             'max-h-[calc(100dvh-8em)] w-full overflow-auto rounded-large shadow-small',
           )}
         >
-          <HeaderTable path={'group'} defaultText="Group" />
+          <HeaderTable path={'user'} defaultText="User" />
           <Suspense fallback={<Loading />}>{children}</Suspense>
         </div>
       </div>
