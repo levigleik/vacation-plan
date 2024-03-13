@@ -15,7 +15,7 @@ async function find(args: Prisma.UserFindManyArgs): Promise<User[]> {
   return prisma.user.findMany(args)
 }
 
-async function createUser(data: CreateUserDTO): Promise<User> {
+async function create(data: CreateUserDTO): Promise<User> {
   return prisma.user.create({
     data,
   })
@@ -35,12 +35,17 @@ export const hashPassword = async (password: string) => {
   return bcrypt.hash(password, salt)
 }
 
+export const deleteOne = async (id: number) => {
+  return prisma.user.delete({ where: { id } })
+}
+
 export const userService = {
   findOne,
   findFirst,
   comparePassword,
   hashPassword,
   find,
-  createUser,
+  create,
   update,
+  deleteOne,
 }

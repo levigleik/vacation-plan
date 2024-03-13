@@ -1,4 +1,4 @@
-import { userService } from '@/app/api/user/service'
+import { groupService } from '@/app/api/group/service'
 import { NextResponse } from 'next/server'
 import { getQuery } from '@/lib/query'
 import { ContextApiProps } from '@/types/api'
@@ -7,18 +7,21 @@ export async function GET(req: Request, context: ContextApiProps) {
   const id = Number(context.params?.id)
   if (!id) {
     return NextResponse.json(
-      { message: 'User ID is required' },
+      { message: 'Group ID is required' },
       { status: 400 },
     )
   }
-  const user = await userService.findOne({ ...getQuery(req), where: { id } })
-  if (!user) {
+  const group = await groupService.findOne({
+    ...getQuery(req),
+    where: { id },
+  })
+  if (!group) {
     return NextResponse.json(
-      { message: 'User does not exist' },
+      { message: 'Group does not exist' },
       { status: 400 },
     )
   }
-  return NextResponse.json(user, { status: 201 })
+  return NextResponse.json(group, { status: 201 })
 }
 
 export async function PUT(req: Request, context: ContextApiProps) {
@@ -28,47 +31,46 @@ export async function PUT(req: Request, context: ContextApiProps) {
     const id = Number(context.params?.id)
     if (!id) {
       return NextResponse.json(
-        { message: 'User ID is required' },
+        { message: 'Group ID is required' },
         { status: 400 },
       )
     }
-    const user = await userService.findOne({ where: { id } })
-    if (!user) {
+    const group = await groupService.findOne({ where: { id } })
+    if (!group) {
       return NextResponse.json(
-        { message: 'User does not exist' },
+        { message: 'Group does not exist' },
         { status: 400 },
       )
     }
-    const updatedUser = await userService.update({
+    const updatedGroup = await groupService.update({
       where: { id },
       data: body,
     })
 
-    return NextResponse.json(updatedUser, { status: 201 })
+    return NextResponse.json(updatedGroup, { status: 201 })
   } catch (error) {
     return NextResponse.json(
-      { message: 'Any data is required to update an user' },
+      { message: 'Any data is required to update an group' },
       { status: 400 },
     )
   }
 }
-
 export async function DELETE(req: Request, context: ContextApiProps) {
   const id = Number(context.params?.id)
   if (!id) {
     return NextResponse.json(
-      { message: 'User ID is required' },
+      { message: 'Group ID is required' },
       { status: 400 },
     )
   }
-  const user = await userService.findOne({ where: { id } })
+  const user = await groupService.findOne({ where: { id } })
   if (!user) {
     return NextResponse.json(
-      { message: 'User does not exist' },
+      { message: 'Group does not exist' },
       { status: 400 },
     )
   }
-  await userService.deleteOne(id)
+  await groupService.deleteOne(id)
 
-  return NextResponse.json({ message: 'User deleted' }, { status: 201 })
+  return NextResponse.json({ message: 'Group deleted' }, { status: 201 })
 }

@@ -30,7 +30,7 @@ export async function POST(req: Request) {
   }
   // create new user
   const password = await userService.hashPassword(body.password)
-  const newUser = await userService.createUser({
+  const newUser = await userService.create({
     ...body,
     password,
   })
