@@ -37,7 +37,7 @@ export default function RootLayout({
       <body className={font.className}>
         <Providers>
           {/*<Suspense fallback={<Loading />}>*/}
-          <main className="bg-background text-foreground dark">
+          <main className="bg-background text-foreground ">
             {children}
             {/*</Suspense>*/}
           </main>
