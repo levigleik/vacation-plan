@@ -7,9 +7,9 @@ import './globals.css'
 
 const font = Montserrat({ weight: '400', subsets: ['latin'] })
 
-const APP_NAME = "D'Lav"
-const APP_TITLE_TEMPLATE = "D'Lav | %s"
-const APP_DESCRIPTION = "D'Lav | Soluções em higienização"
+const APP_NAME = 'Vacation Planner'
+const APP_TITLE_TEMPLATE = 'Vacation Planner | %s'
+const APP_DESCRIPTION = 'Vacation Planner | Weekends and Holidays'
 
 export const metadata: Metadata = {
   applicationName: APP_NAME,
@@ -18,10 +18,9 @@ export const metadata: Metadata = {
     template: APP_TITLE_TEMPLATE,
   },
   icons: {
-    apple: '/assets/images/icon.png',
+    apple: '/assets/images/logo.png',
   },
   description: APP_DESCRIPTION,
-  manifest: '/manifest.json',
 }
 
 export const viewport: Viewport = {
@@ -38,8 +37,10 @@ export default function RootLayout({
       <body className={font.className}>
         <Providers>
           {/*<Suspense fallback={<Loading />}>*/}
-          {children}
-          {/*</Suspense>*/}
+          <main className="bg-background text-foreground dark">
+            {children}
+            {/*</Suspense>*/}
+          </main>
         </Providers>
       </body>
     </html>
