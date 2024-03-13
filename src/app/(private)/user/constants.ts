@@ -1,10 +1,16 @@
 import { ColumnProps } from 'components/table/types'
-import { GroupApiProps } from '@/types/group'
+import { UserApiProps } from '@/types/user'
 
-export const columnsGroups: ColumnProps<GroupApiProps>[] = [
+export const columnsUsers: ColumnProps<UserApiProps>[] = [
   {
     uid: 'name',
-    label: 'Nome',
+    label: 'Name',
+    sortable: true,
+    filterable: true,
+  },
+  {
+    uid: 'email',
+    label: 'E-mail',
     sortable: true,
     filterable: true,
   },

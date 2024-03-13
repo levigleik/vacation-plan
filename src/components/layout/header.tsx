@@ -23,7 +23,7 @@ export default function Header({
   return (
     <div className="my-8 flex w-full items-center justify-between">
       <h2 className="flex-grow text-3xl font-bold tracking-wide">
-        {lists && `lists de ${listText || defaultText}s`}
+        {lists && `${listText || defaultText} list`}
         {newPath && `${newText || `New ${defaultText}`}`}
         {editPath && `Edit ${editText || defaultText}`}
       </h2>

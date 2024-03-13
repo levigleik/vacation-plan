@@ -18,9 +18,9 @@ import { UserApiProps } from '@/types/user'
 import { GroupApiProps } from '@/types/group'
 import { PostData, PutData } from '@/types/api'
 import { Row } from 'components/layout/grid'
-import { FormGroupApiProps } from '@/app/(private)/group/[id]/types'
+import { FormGroupProps } from '@/app/(private)/group/[id]/types'
 
-const EmployeeEdit = () => {
+const GroupEdit = () => {
   const { id } = useParams<{ id: string | 'new' }>()
 
   const { data: dataGetGroup, isLoading: loadingGet } = useQuery({
@@ -38,18 +38,18 @@ const EmployeeEdit = () => {
   const { mutateAsync: mutatePost, isPending: loadingPost } = useMutation({
     mutationFn: async (val: PostData<GroupApiProps>) =>
       postData<GroupApiProps, GroupApiProps>(val),
-    mutationKey: ['employee-post'],
+    mutationKey: ['group-post'],
   })
 
   const { mutateAsync: mutatePut, isPending: loadingPut } = useMutation({
     mutationFn: (val: PutData<GroupApiProps>) =>
       putData<GroupApiProps, GroupApiProps>(val),
-    mutationKey: ['employee-put'],
+    mutationKey: ['group-put'],
   })
 
   const { handleSubmit, setValue, control, reset, getValues } = useForm<
-    FormGroupApiProps,
-    'employees'
+    FormGroupProps,
+    'groups'
   >()
 
   const { data: dataGetUser, isLoading: loadingGetUser } = useQuery({
@@ -61,7 +61,7 @@ const EmployeeEdit = () => {
       }),
   })
 
-  const onSubmit = (data: FormGroupApiProps) => {
+  const onSubmit = (data: FormGroupProps) => {
     const parseData = {
       ...data,
       userIds: data.userIds.map((userId) => Number(userId)),
@@ -72,7 +72,7 @@ const EmployeeEdit = () => {
         data: parseData,
       })
         .then(() => {
-          toast.success('Empregado cadastrado com sucesso')
+          toast.success('Group created successfully')
 
           reset()
         })
@@ -86,7 +86,7 @@ const EmployeeEdit = () => {
         id: parseInt(id, 10),
       })
         .then(() => {
-          toast.success('Empregado atualizado com sucesso')
+          toast.success('Group updated successfully')
         })
         .catch((err) => {
           toastErrorsApi(err)
@@ -115,7 +115,7 @@ const EmployeeEdit = () => {
           name="name"
           control={control}
           defaultValue=""
-          rules={{ required: 'Campo obrigatório' }}
+          rules={{ required: 'Field is required' }}
           render={({ field, fieldState: { error } }) => (
             <Skeleton className="rounded-md" isLoaded={!loading}>
               <Input
@@ -137,7 +137,7 @@ const EmployeeEdit = () => {
         <Controller
           name="userIds"
           control={control}
-          rules={{ required: 'Campo obrigatório' }}
+          rules={{ required: 'Field is required' }}
           render={({ field, fieldState: { error } }) => (
             <Skeleton className="rounded-md" isLoaded={!loading}>
               <Select
@@ -214,4 +214,4 @@ const EmployeeEdit = () => {
   )
 }
 
-export default EmployeeEdit
+export default GroupEdit

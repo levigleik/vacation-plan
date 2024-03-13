@@ -57,7 +57,7 @@ export default function Group() {
     ...columnsGroups,
     {
       uid: 'actions',
-      label: 'Ações',
+      label: 'Actions',
       renderCell: (item) => (
         <div className="relative flex cursor-pointer items-center justify-end gap-5">
           <Tooltip
@@ -113,16 +113,16 @@ export default function Group() {
           {(onClose) => (
             <>
               <ModalHeader className="mt-4 flex flex-col gap-1">
-                Tem certeza que deseja deletar o grupo?
+                Are you sure?
               </ModalHeader>
               <ModalBody>
                 <div className={'flex flex-col gap-2 text-default-600'}>
-                  Você está prestes a deletar o grupo, deseja continuar?
+                  You are about to delete the group, do you want to continue?
                 </div>
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
-                  Não
+                  No
                 </Button>
                 <Button
                   color="primary"
@@ -132,7 +132,7 @@ export default function Group() {
                     onClose()
                   }}
                 >
-                  Sim
+                  Yes
                 </Button>
               </ModalFooter>
             </>

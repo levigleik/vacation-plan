@@ -14,13 +14,7 @@ import { useAuthState } from '@/hooks/auth'
 import { AxiosError } from 'axios'
 import { Button, Input } from '@nextui-org/react'
 import { inputStyleLogin } from '@/app/(public)/constants.styles'
-
-// import '../style.css'
-
-interface LoginFormProps {
-  email: string
-  password: string
-}
+import { FormLoginProps } from './types'
 
 const Loading = () => {
   return (
@@ -31,7 +25,7 @@ const Loading = () => {
 }
 
 const Login = () => {
-  const { control, handleSubmit } = useForm<LoginFormProps>()
+  const { control, handleSubmit } = useForm<FormLoginProps>()
 
   const { setProfile, setSigned } = useAuthState()
 
@@ -42,12 +36,12 @@ const Login = () => {
   const router = useRouter()
 
   const { mutateAsync, isPending } = useMutation({
-    mutationFn: (val: PostData<LoginFormProps>) =>
-      postData<UserApiProps, LoginFormProps>(val),
+    mutationFn: (val: PostData<FormLoginProps>) =>
+      postData<UserApiProps, FormLoginProps>(val),
     mutationKey: ['login'],
   })
 
-  const onSubmit = (form: LoginFormProps) => {
+  const onSubmit = (form: FormLoginProps) => {
     mutateAsync({
       url: 'auth/login',
       data: form,
@@ -67,10 +61,10 @@ const Login = () => {
   }
 
   return (
-    <div className="from-main to-main-white flex min-h-screen items-center justify-center bg-gradient-to-b">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-main to-main-white">
       {isPending && <Loading />}
       {!isPending && (
-        <div className="bg-main-200 shadow-main-200 rounded-md p-10 shadow-sm brightness-90 md:w-[500px] md:p-16 md:pt-8">
+        <div className="rounded-md bg-main-200 p-10 shadow-sm shadow-main-200 brightness-90 md:w-[500px] md:p-16 md:pt-8">
           <form onSubmit={handleSubmit(onSubmit)}>
             {/*<div className="mb-6 flex items-center justify-center">*/}
             {/*  <Image alt="logo" src={logo} width={200} height={200} />*/}
@@ -81,7 +75,7 @@ const Login = () => {
                 name="email"
                 control={control}
                 defaultValue=""
-                rules={{ required: 'Campo obrigatório' }}
+                rules={{ required: 'Field is required' }}
                 render={({ field, fieldState: { error } }) => (
                   <Input
                     type="email"
@@ -102,7 +96,7 @@ const Login = () => {
                 name="password"
                 control={control}
                 defaultValue=""
-                rules={{ required: 'Campo obrigatório' }}
+                rules={{ required: 'Field is required' }}
                 render={({ field, fieldState: { error } }) => (
                   <Input
                     label="Password"
@@ -123,14 +117,6 @@ const Login = () => {
             <div className="mb-8">
               <Link
                 className="text-sm italic text-white underline"
-                href="/reset-password"
-              >
-                Esqueceu sua senha?
-              </Link>
-            </div>
-            <div className="mb-8">
-              <Link
-                className="text-sm italic text-white underline"
                 href="/register"
               >
                 Cadastrar-se
@@ -144,7 +130,7 @@ const Login = () => {
                 className="loginAnim"
                 disabled={isPending}
               >
-                Enviar
+                Login
               </Button>
             </div>
           </form>

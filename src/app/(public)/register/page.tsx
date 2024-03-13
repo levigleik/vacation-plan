@@ -17,16 +17,7 @@ import { useAuthState } from '@/hooks/auth'
 import { AxiosError } from 'axios'
 import { inputStyleLogin } from '@/app/(public)/constants.styles'
 import { toast } from 'react-toastify'
-
-// import '../style.css'
-
-interface RegisterFormProps {
-  name: string
-  email: string
-  password: string
-  passwordConfirmation?: string
-  photo?: string
-}
+import { FormRegisterProps } from './types'
 
 const Loading = () => {
   return (
@@ -37,7 +28,7 @@ const Loading = () => {
 }
 
 const Register = () => {
-  const { control, handleSubmit, watch } = useForm<RegisterFormProps>()
+  const { control, handleSubmit, watch } = useForm<FormRegisterProps>()
 
   const { setProfile, setSigned } = useAuthState()
 
@@ -50,12 +41,12 @@ const Register = () => {
   const password = watch('password')
 
   const { mutateAsync, isPending } = useMutation({
-    mutationFn: (val: PostData<RegisterFormProps>) =>
-      postData<UserApiProps, RegisterFormProps>(val),
+    mutationFn: (val: PostData<FormRegisterProps>) =>
+      postData<UserApiProps, FormRegisterProps>(val),
     mutationKey: ['login'],
   })
 
-  const onSubmit = (form: RegisterFormProps) => {
+  const onSubmit = (form: FormRegisterProps) => {
     mutateAsync({
       url: 'user',
       data: { ...form, passwordConfirmation: undefined },
@@ -89,7 +80,7 @@ const Register = () => {
                 name="name"
                 control={control}
                 defaultValue=""
-                rules={{ required: 'Campo obrigatório' }}
+                rules={{ required: 'Field is required' }}
                 render={({ field, fieldState: { error } }) => (
                   <Input
                     type="text"
@@ -108,7 +99,7 @@ const Register = () => {
                 name="email"
                 control={control}
                 defaultValue=""
-                rules={{ required: 'Campo obrigatório' }}
+                rules={{ required: 'Field is required' }}
                 render={({ field, fieldState: { error } }) => (
                   <Input
                     type="email"
@@ -127,7 +118,7 @@ const Register = () => {
                 name="password"
                 control={control}
                 defaultValue=""
-                rules={{ required: 'Campo obrigatório' }}
+                rules={{ required: 'Field is required' }}
                 render={({ field, fieldState: { error } }) => (
                   <Input
                     label="Password"
@@ -150,8 +141,8 @@ const Register = () => {
                 defaultValue=""
                 rules={{
                   validate: (value) => {
-                    if (!value) return 'Campo obrigatório'
-                    if (value !== password) return 'As senhas não coincidem'
+                    if (!value) return 'Field is required'
+                    if (value !== password) return 'Passwords do not match'
                     return true
                   },
                 }}
@@ -172,14 +163,6 @@ const Register = () => {
                 )}
               />
             </div>
-            <div className="mb-8">
-              <Link
-                className="text-sm italic text-white underline"
-                href="/reset-password"
-              >
-                Esqueceu sua senha?
-              </Link>
-            </div>
             <div className="flex justify-center">
               <Button
                 // variant="bordered"
@@ -188,7 +171,7 @@ const Register = () => {
                 className="text-white"
                 disabled={isPending}
               >
-                Enviar
+                Register
               </Button>
             </div>
           </form>
