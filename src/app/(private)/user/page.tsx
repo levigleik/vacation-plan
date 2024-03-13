@@ -18,20 +18,19 @@ import { FaPencilAlt, FaTrash } from 'react-icons/fa'
 import { ColumnProps } from 'components/table/types'
 import { DeleteData } from '@/types/api'
 import { deleteData, getData, toastErrorsApi } from '@/lib/functions.api'
-import { GroupApiProps } from '@/types/group'
-import { columnsGroups } from '@/app/(private)/group/constants'
+import { UserApiProps } from '@/types/user'
 import { toast } from 'react-toastify'
+import { columnsUsers } from './constants'
 
-export default function Group() {
+export default function User() {
   const { data, isLoading, refetch } = useQuery({
-    queryKey: ['group-get'],
-    queryFn: ({ signal }) =>
-      getData<GroupApiProps[]>({ url: '/group', signal }),
+    queryKey: ['user-get'],
+    queryFn: ({ signal }) => getData<UserApiProps[]>({ url: '/user', signal }),
   })
 
   const { mutateAsync: mutateDelete, isPending: loadingDelete } = useMutation({
-    mutationFn: async (val: DeleteData) => deleteData<GroupApiProps>(val),
-    mutationKey: ['group-delete'],
+    mutationFn: async (val: DeleteData) => deleteData<UserApiProps>(val),
+    mutationKey: ['user-delete'],
   })
   const [itemDelete, setItemDelete] = useState<number>()
 
@@ -41,11 +40,11 @@ export default function Group() {
 
   const deleteItem = (id: number) => {
     mutateDelete({
-      url: `/group`,
+      url: `/user`,
       id: id,
     })
       .then(() => {
-        toast.success('Group deleted successfully')
+        toast.success('User deleted successfully')
         void refetch()
       })
       .catch((err) => {
@@ -53,11 +52,11 @@ export default function Group() {
       })
   }
 
-  const finalColumns: ColumnProps<GroupApiProps>[] = [
-    ...columnsGroups,
+  const finalColumns: ColumnProps<UserApiProps>[] = [
+    ...columnsUsers,
     {
       uid: 'actions',
-      label: 'Ações',
+      label: 'Actions',
       renderCell: (item) => (
         <div className="relative flex cursor-pointer items-center justify-end gap-5">
           <Tooltip
@@ -70,7 +69,7 @@ export default function Group() {
               isIconOnly
               color="primary"
               className="rounded-full text-white"
-              onClick={() => router.push(`group/${item.id}`)}
+              onClick={() => router.push(`user/${item.id}`)}
             >
               <FaPencilAlt size={20} className="text-white" />
             </Button>
@@ -113,16 +112,16 @@ export default function Group() {
           {(onClose) => (
             <>
               <ModalHeader className="mt-4 flex flex-col gap-1">
-                Tem certeza que deseja deletar o grupo?
+                Are you sure?
               </ModalHeader>
               <ModalBody>
                 <div className={'flex flex-col gap-2 text-default-600'}>
-                  Você está prestes a deletar o grupo, deseja continuar?
+                  You are about to delete the user, do you want to continue?
                 </div>
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
-                  Não
+                  No
                 </Button>
                 <Button
                   color="primary"
@@ -132,7 +131,7 @@ export default function Group() {
                     onClose()
                   }}
                 >
-                  Sim
+                  Yes
                 </Button>
               </ModalFooter>
             </>
