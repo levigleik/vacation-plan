@@ -39,5 +39,5 @@ export const toastErrorsApi = (error: any) => {
     if (Array.isArray(error.response?.data.message)) {
       error.response?.data.message.forEach((err: string) => toast.error(err))
     } else toast.error(error.response?.data.message)
-  } else toast.error('Erro ao realizar a operação.')
+  } else toast.error('Error while trying to connect to the server')
 }
