@@ -31,14 +31,16 @@ model Group {
 }
 
 model Vacation {
-  id        Int            @id @default(autoincrement())
-  startDate DateTime
-  endDate   DateTime
-  user      User           @relation(fields: [userId], references: [id])
-  userId    Int
-  comments  Comment[]
-  reason    ReasonVacation @relation(fields: [reasonId], references: [id])
-  reasonId  Int
+  id          Int            @id @default(autoincrement())
+  startDate   DateTime
+  endDate     DateTime
+  user        User           @relation(fields: [userId], references: [id])
+  userId      Int
+  title       String
+  description String
+  comments    Comment[]
+  reason      ReasonVacation @relation(fields: [reasonId], references: [id])
+  reasonId    Int
 }
 
 model Comment {
