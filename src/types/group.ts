@@ -6,5 +6,6 @@ export interface GroupApiProps extends DefaultApiProps {
   description: string
   photo: string
   password: string
-  users: UserApiProps[]
+  users?: UserApiProps[]
+  userIds: number[]
 }
