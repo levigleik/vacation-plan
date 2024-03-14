@@ -208,7 +208,7 @@ const GroupEdit = () => {
         className="w-fit"
         isDisabled={loading}
       >
-        Salvar
+        Save
       </Button>
     </form>
   )

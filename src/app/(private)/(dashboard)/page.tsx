@@ -1,7 +1,6 @@
 'use client'
 import { useAuthState } from '@/hooks/auth'
 import { Calendar } from '@/components/calendar'
-import { ptBR } from 'date-fns/locale'
 import { useMemo, useState } from 'react'
 import { format } from 'date-fns'
 import {
@@ -37,12 +36,9 @@ export default function Home() {
               className="flex max-h-[490px] flex-col rounded-md border py-4 transition-all"
             >
               <h2 className="text-center text-2xl font-bold">
-                {format(new Date(new Date().getFullYear(), month, 1), 'MMMM', {
-                  locale: ptBR,
-                })}
+                {format(new Date(new Date().getFullYear(), month, 1), 'MMMM')}
               </h2>
               <Calendar
-                locale={ptBR}
                 mode="multiple"
                 month={new Date(new Date().getFullYear(), month, 0)}
                 selected={dateField}
@@ -92,9 +88,6 @@ export default function Home() {
                     {format(
                       new Date(new Date().getFullYear(), month, 1),
                       'MMMM',
-                      {
-                        locale: ptBR,
-                      },
                     )}
                   </p>
                 </div>
