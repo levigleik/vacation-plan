@@ -1,6 +1,7 @@
 import { Prisma, Group } from '@prisma/client'
 import { prisma } from '@/app/api/prisma/prisma.config'
 import { CreateGroupDTO } from './dto/createGroup'
+import { UpdateGroupDTO } from '@/app/api/group/dto/updateGroup'
 
 async function findOne(
   args: Prisma.GroupFindUniqueArgs,
@@ -28,11 +29,16 @@ async function create(data: CreateGroupDTO): Promise<Group> {
     },
   })
 }
-async function update({
-  data,
-  ...remaining
-}: Prisma.GroupUpdateArgs): Promise<Group> {
-  return prisma.group.update({ ...remaining, data })
+async function update(data: UpdateGroupDTO): Promise<Group> {
+  return prisma.group.update({
+    where: { id: data.id },
+    data: {
+      name: data.name,
+      users: {
+        connect: data.userIds.map((id) => ({ id })),
+      },
+    },
+  })
 }
 
 export const deleteOne = async (id: number) => {

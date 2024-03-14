@@ -42,17 +42,12 @@ export async function PUT(req: Request, context: ContextApiProps) {
         { status: 400 },
       )
     }
-    const updatedGroup = await groupService.update({
-      where: { id },
-      data: body,
-    })
+    const updatedGroup = await groupService.update({ ...body, id })
 
     return NextResponse.json(updatedGroup, { status: 201 })
   } catch (error) {
-    return NextResponse.json(
-      { message: 'Any data is required to update an group' },
-      { status: 400 },
-    )
+    console.log(error)
+    return NextResponse.json({ message: 'Internal error' }, { status: 400 })
   }
 }
 export async function DELETE(req: Request, context: ContextApiProps) {
