@@ -99,7 +99,6 @@ const NavbarComp: React.FC = () => {
                     title={item.name}
                   >
                     {item.icon === 'home' && <FaHome className="mr-2" />}
-                    {item.icon === 'group' && <FaUsers className="mr-2" />}
                     {item.icon === 'user' && <FaUser className="mr-2" />}
                     <span className="hidden mdlg:flex">{item.name}</span>
                   </Link>
@@ -193,7 +192,6 @@ const NavbarComp: React.FC = () => {
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.icon === 'home' && <FaHome className="mr-2" />}
-                    {item.icon === 'group' && <FaUsers className="mr-2" />}
                     {item.icon === 'user' && <FaUser className="mr-2" />}
                     {item.name}
                   </Link>
