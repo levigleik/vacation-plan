@@ -1,4 +1,4 @@
-import { UserApiProps } from '@/types/user'
+import { UserApiProps } from '@/types/models/user'
 
 export interface AuthStoreProps {
   profile?: UserApiProps
