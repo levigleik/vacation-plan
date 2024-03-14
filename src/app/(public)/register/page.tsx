@@ -18,6 +18,7 @@ import { AxiosError } from 'axios'
 import { inputStyleLogin } from '@/app/(public)/constants.styles'
 import { toast } from 'react-toastify'
 import { FormRegisterProps } from './types'
+import { validateEmail, validatePassword } from '@/lib/validations'
 
 const Loading = () => {
   return (
@@ -91,6 +92,8 @@ const Register = () => {
                     variant="bordered"
                     label="Name"
                     disabled={isPending}
+                    isInvalid={!!error}
+                    errorMessage={error?.message}
                     classNames={inputStyleLogin}
                   />
                 )}
@@ -99,7 +102,7 @@ const Register = () => {
                 name="email"
                 control={control}
                 defaultValue=""
-                rules={{ required: 'Field is required' }}
+                rules={{ validate: (value) => validateEmail(value) }}
                 render={({ field, fieldState: { error } }) => (
                   <Input
                     type="email"
@@ -110,6 +113,8 @@ const Register = () => {
                     variant="bordered"
                     label="E-mail"
                     disabled={isPending}
+                    isInvalid={!!error}
+                    errorMessage={error?.message}
                     classNames={inputStyleLogin}
                   />
                 )}
@@ -118,7 +123,7 @@ const Register = () => {
                 name="password"
                 control={control}
                 defaultValue=""
-                rules={{ required: 'Field is required' }}
+                rules={{ validate: (value) => validatePassword(value) }}
                 render={({ field, fieldState: { error } }) => (
                   <Input
                     label="Password"
@@ -140,11 +145,7 @@ const Register = () => {
                 control={control}
                 defaultValue=""
                 rules={{
-                  validate: (value) => {
-                    if (!value) return 'Field is required'
-                    if (value !== password) return 'Passwords do not match'
-                    return true
-                  },
+                  validate: (value) => validatePassword(password, value),
                 }}
                 render={({ field, fieldState: { error } }) => (
                   <Input
