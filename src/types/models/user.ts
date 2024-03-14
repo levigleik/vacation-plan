@@ -1,4 +1,4 @@
-import { DefaultApiProps } from '@/types/index'
+import { DefaultApiProps } from '@/types'
 
 export interface UserApiProps extends DefaultApiProps {
   name: string
