@@ -1,4 +1,4 @@
-import { UserApiProps } from '@/types/user'
+import { UserApiProps } from '@/types/models/user'
 
 export type FormUserProps = UserApiProps & {
   passwordConfirmation?: string

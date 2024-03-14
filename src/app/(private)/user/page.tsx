@@ -18,7 +18,7 @@ import { FaPencilAlt, FaTrash } from 'react-icons/fa'
 import { ColumnProps } from 'components/table/types'
 import { DeleteData } from '@/types/api'
 import { deleteData, getData, toastErrorsApi } from '@/lib/functions.api'
-import { UserApiProps } from '@/types/user'
+import { UserApiProps } from '@/types/models/user'
 import { toast } from 'react-toastify'
 import { columnsUsers } from './constants'
 

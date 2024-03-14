@@ -1,21 +1,13 @@
 'use client'
 
 import { getData, postData, putData, toastErrorsApi } from '@/lib/functions.api'
-import {
-  Button,
-  Chip,
-  Input,
-  Select,
-  SelectItem,
-  Skeleton,
-  Switch,
-} from '@nextui-org/react'
+import { Button, Input, Skeleton, Switch } from '@nextui-org/react'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import { UserApiProps } from '@/types/user'
+import { UserApiProps } from '@/types/models/user'
 import { PostData, PutData } from '@/types/api'
 import { Row } from 'components/layout/grid'
 import { FormUserProps } from './types'
