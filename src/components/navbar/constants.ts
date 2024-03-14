@@ -5,11 +5,6 @@ export const menuItems = [
     icon: 'home',
   },
   {
-    name: 'Groups',
-    path: '/group',
-    icon: 'group',
-  },
-  {
     name: 'Users',
     path: '/user',
     icon: 'user',
