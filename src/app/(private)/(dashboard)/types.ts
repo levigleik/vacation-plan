@@ -1,12 +1,17 @@
 import { VacationApiProps } from '@/types/models/vaction'
+import { DateVacationApiProps } from '@/types/models/dateVacation'
 
 export interface DashboardHookProps {
   modalOpen: boolean
   setModalOpen: (modal: boolean) => void
-  dateField?: Record<number, Date[]>
-  setDateField: (dateField: Record<number, Date[]>) => void
+  dateField?: Record<number, DateCalendarProps[]>
+  setDateField: (dateField: Record<number, DateCalendarProps[]>) => void
+  daySelected?: Date
+  setDaySelected: (day: Date) => void
   month?: number
   setMonth: (month: number) => void
+  dayEditId: number
+  setDayEditId: (id: number) => void
 }
 
 export interface CalendarDashboardProps {
@@ -15,4 +20,14 @@ export interface CalendarDashboardProps {
 
 export type FormVacationProps = VacationApiProps & {
   userIds: string[]
+  dates: string[]
+}
+
+export type DateCalendarProps = {
+  id: number
+  date: Date
+}
+
+export type VacationWithDatesApiProps = Omit<VacationApiProps, 'dates'> & {
+  dates: DateVacationApiProps[]
 }

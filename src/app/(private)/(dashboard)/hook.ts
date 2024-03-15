@@ -20,5 +20,8 @@ export const useDashboardHook = create<DashboardHookProps>()((set, get) => ({
   setModalOpen: (modalOpen) => set({ modalOpen }),
   setMonth: (month) => set({ month }),
   // dateField: fakeData,
+  dayEditId: 0,
+  setDayEditId: (dayEditId) => set({ dayEditId }),
+  setDaySelected: (daySelected) => set({ daySelected }),
   setDateField: (dateField) => set({ dateField }),
 }))
