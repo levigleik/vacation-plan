@@ -4,8 +4,7 @@ import { DefaultApiProps } from '@/types'
 export interface VacationApiProps extends DefaultApiProps {
   title: string
   description: string
-  startDate: string
-  endDate: string
+  dates: string[]
   location: string
   users: UserApiProps[]
   reason: string

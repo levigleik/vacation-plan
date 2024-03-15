@@ -25,13 +25,21 @@ model User {
 }
 
 model Vacation {
-  id          Int      @id @default(autoincrement())
-  startDate   DateTime
-  endDate     DateTime
+  id          Int            @id @default(autoincrement())
+  dates       DateVacation[]
   users       User[]
   title       String
-  description String
-  location    String
-  createdAt   DateTime @default(now())
-  updateAt    DateTime @updatedAt()
+  description String?
+  location    String?
+  createdAt   DateTime       @default(now())
+  updateAt    DateTime       @updatedAt()
+}
+
+model DateVacation {
+  id         Int      @id @default(autoincrement())
+  date       DateTime @unique
+  vacation   Vacation @relation(fields: [vacationId], references: [id])
+  vacationId Int
+  createdAt  DateTime @default(now())
+  updateAt   DateTime @updatedAt()
 }
