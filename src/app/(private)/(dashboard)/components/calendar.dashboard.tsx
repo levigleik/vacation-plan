@@ -7,8 +7,6 @@ import { useEffect } from 'react'
 import { startOfDay } from 'date-fns'
 import { DayClickEventHandler } from 'react-day-picker'
 import { setDatesOnCalendar } from '@/app/(private)/(dashboard)/functions'
-import { enUS } from 'date-fns/locale/en-US'
-
 // const bookedDays = [new Date(2024, 5, 10), new Date(2024, 5, 9)]
 // const bookedStyle = { border: '2px solid currentColor' }
 
@@ -53,7 +51,6 @@ export const CalendarDashboard = ({ month }: DashboardProps) => {
       }
       mode="multiple"
       month={new Date(2024, month, 0)}
-      locale={enUS}
       selected={
         dateField
           ? Object.values(dateField)
