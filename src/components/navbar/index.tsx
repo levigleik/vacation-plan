@@ -140,22 +140,6 @@ const NavbarComp: React.FC = () => {
                 variant="flat"
               >
                 <DropdownItem
-                  key="emailProfile"
-                  className="h-14 cursor-auto gap-2 [&>span]:font-semibold"
-                >
-                  {profile?.email}
-                </DropdownItem>
-                <DropdownItem
-                  as={Link}
-                  textValue={'Meu perfil'}
-                  key="profile"
-                  startContent={<FaUser />}
-                  href={`/user/${profile?.id}`}
-                  className="text-default-foreground"
-                >
-                  Meu perfil
-                </DropdownItem>
-                <DropdownItem
                   key="theme"
                   onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
                   startContent={theme === 'dark' ? <FaMoon /> : <FaSun />}
