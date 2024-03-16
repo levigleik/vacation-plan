@@ -78,7 +78,7 @@ export default function User() {
             content="Delete"
             placement="bottom-end"
             className="text-white"
-            color="primary"
+            color="danger"
           >
             <Button
               isIconOnly
