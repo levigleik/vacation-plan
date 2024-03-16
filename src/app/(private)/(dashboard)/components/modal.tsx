@@ -60,13 +60,14 @@ export const ModalDashboard = () => {
 
   const allDaysInMonth = useMemo(() => {
     const daysInMonth = getDaysInMonth(new Date(2024, (month ?? 0) - 1))
-    return Array.from({ length: daysInMonth }, (_, i) => {
+    const days = Array.from({ length: daysInMonth }, (_, i) => {
       const date = new Date(2024, (month ?? 0) - 1, i + 1)
       return {
-        id: date.toISOString(),
-        label: date.toISOString(),
+        id: format(date, 'dd'),
+        label: format(date, 'dd'),
       }
     })
+    return days
   }, [month])
 
   const { mutateAsync: mutatePost, isPending: loadingPost } = useMutation({
@@ -86,7 +87,7 @@ export const ModalDashboard = () => {
     mutationFn: () =>
       getData<VacationWithDatesApiProps[]>({
         url: '/vacation',
-        query: 'include.dates=true',
+        query: 'include.dates=true&&include.users=true',
       }),
   })
   const { data: dataGetVacationById, isLoading: loadingGetVacationById } =
@@ -140,7 +141,9 @@ export const ModalDashboard = () => {
     const parseData = {
       ...data,
       userIds: data.userIds.map((a) => parseInt(a, 10)),
-      // dates: data.dates.map((a) => new Date(a).toISOString()),
+      dates: data.dates.map((date) =>
+        new Date(2024, (month ?? 0) - 1, Number(date)).toISOString(),
+      ),
     }
     if (!dayEditId) {
       mutatePost({
@@ -172,7 +175,7 @@ export const ModalDashboard = () => {
 
   useEffect(() => {
     if (daySelected) {
-      setValue('dates', [daySelected.toISOString()])
+      setValue('dates', [format(daySelected, 'dd')])
     }
   }, [daySelected, setValue])
 
@@ -184,8 +187,10 @@ export const ModalDashboard = () => {
     if (dataGetVacationById) {
       const values = {
         title: dataGetVacationById.title,
-        dates: dataGetVacationById.dates.map((a) => a.date),
-        userIds: dataGetVacationById.users.map((a) => a.id.toString()),
+        dates: dataGetVacationById.dates.map((a) =>
+          format(new Date(a.date), 'dd'),
+        ),
+        userIds: dataGetVacationById.users.map((a) => String(a.id)),
         location: dataGetVacationById.location,
         description: dataGetVacationById.description,
       }
@@ -243,10 +248,14 @@ export const ModalDashboard = () => {
             <ModalHeader className="mt-4 flex items-center justify-between gap-1">
               {!dayEditId && (
                 <span>
-                  Plans for {format(daySelected ?? new Date(), 'MMMM')}{' '}
+                  Plans for {format(daySelected ?? new Date(), 'MMMM')}
                 </span>
               )}
-              {!!dayEditId && <span>Edit plans</span>}
+              {!!dayEditId && (
+                <span>
+                  Edit plans in {format(daySelected ?? new Date(), 'MMMM')}
+                </span>
+              )}
               <Button
                 radius="full"
                 variant="light"
@@ -319,12 +328,7 @@ export const ModalDashboard = () => {
                           return (
                             <div className="flex flex-wrap gap-2">
                               {items.map((item) => (
-                                <Chip key={item.key}>
-                                  {format(
-                                    new Date(item.data?.label ?? ''),
-                                    'dd',
-                                  )}
-                                </Chip>
+                                <Chip key={item.key}>{item.data?.label}</Chip>
                               ))}
                             </div>
                           )
@@ -337,9 +341,7 @@ export const ModalDashboard = () => {
                             textValue={String(item.label)}
                           >
                             <div className="flex flex-col gap-2">
-                              <span className="font-bold">
-                                {format(new Date(item.label ?? ''), 'dd')}
-                              </span>
+                              <span className="font-bold">{item?.label}</span>
                             </div>
                           </SelectItem>
                         )}
@@ -438,7 +440,20 @@ export const ModalDashboard = () => {
                             textValue={String(item.name)}
                           >
                             <div className="flex flex-col gap-2">
-                              <span className="font-bold">{item.name}</span>
+                              <User
+                                name={item?.name || 'Nome não informado'}
+                                avatarProps={{
+                                  name: item?.name || '',
+                                  showFallback: true,
+                                  className: 'mr-2 cursor-pointer',
+                                  src: item?.photo,
+                                }}
+                                classNames={{
+                                  description: 'cursor-pointer',
+                                  name: 'cursor-pointer',
+                                  base: 'flex justify-start',
+                                }}
+                              />
                             </div>
                           </SelectItem>
                         )}
@@ -490,44 +505,51 @@ export const ModalDashboard = () => {
               </form>
             </ModalBody>
             <ModalFooter className="flex w-full justify-between">
-              <Popover placement="bottom" showArrow={true}>
-                <PopoverTrigger>
-                  <Button color="danger" variant="light">
-                    Delete
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent>
-                  <div className="px-1 py-2">
-                    <div className="text-small font-bold">
-                      Are you sure to delete?
+              {
+                <Popover placement="bottom" showArrow={true}>
+                  <PopoverTrigger>
+                    <Button
+                      color="danger"
+                      variant="light"
+                      isDisabled={!dayEditId}
+                    >
+                      Delete
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    <div className="px-1 py-2">
+                      <div className="text-small font-bold">
+                        Are you sure to delete?
+                      </div>
+                      <div className="flex justify-end gap-2 pt-2">
+                        <Button
+                          color="danger"
+                          variant="light"
+                          onPress={() => {
+                            handleDelete()
+                          }}
+                        >
+                          Yes
+                        </Button>
+                        <Button
+                          color="primary"
+                          variant="light"
+                          onPress={() => {
+                            onClose()
+                          }}
+                        >
+                          No
+                        </Button>
+                      </div>
                     </div>
-                    <div className="flex justify-end gap-2 pt-2">
-                      <Button
-                        color="danger"
-                        variant="light"
-                        onPress={() => {
-                          handleDelete()
-                        }}
-                      >
-                        Yes
-                      </Button>
-                      <Button
-                        color="primary"
-                        variant="light"
-                        onPress={() => {
-                          onClose()
-                        }}
-                      >
-                        No
-                      </Button>
-                    </div>
-                  </div>
-                </PopoverContent>
-              </Popover>
+                  </PopoverContent>
+                </Popover>
+              }
               <Button
                 color="primary"
                 type="submit"
                 form="formVacation"
+                className="self-end"
                 // onPress={() => {
                 //   onClose()
                 // }}

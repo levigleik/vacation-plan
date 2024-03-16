@@ -16,7 +16,7 @@ export interface DashboardHookProps {
   setDayEditId: (id: number) => void
 }
 
-export interface CalendarDashboardProps {
+export interface DashboardProps {
   month: number
 }
 

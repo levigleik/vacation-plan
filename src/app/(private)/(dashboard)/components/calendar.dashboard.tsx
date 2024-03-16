@@ -2,18 +2,17 @@
 
 import { Calendar } from 'components/calendar'
 import { useDashboardHook } from '@/app/(private)/(dashboard)/hook'
-import {
-  CalendarDashboardProps,
-  VacationWithDatesApiProps,
-} from '@/app/(private)/(dashboard)/types'
+import { DashboardProps } from '@/app/(private)/(dashboard)/types'
 import { useEffect } from 'react'
-import { useQuery } from '@tanstack/react-query'
-import { getData } from '@/lib/functions.api'
 import { startOfDay } from 'date-fns'
 import { DayClickEventHandler } from 'react-day-picker'
 import { setDatesOnCalendar } from '@/app/(private)/(dashboard)/functions'
+import { enUS } from 'date-fns/locale/en-US'
 
-export const CalendarDashboard = ({ month }: CalendarDashboardProps) => {
+// const bookedDays = [new Date(2024, 5, 10), new Date(2024, 5, 9)]
+// const bookedStyle = { border: '2px solid currentColor' }
+
+export const CalendarDashboard = ({ month }: DashboardProps) => {
   const {
     dateField,
     setDateField,
@@ -28,10 +27,8 @@ export const CalendarDashboard = ({ month }: CalendarDashboardProps) => {
     if (dataGetVacation) {
       const dateFieldTemp = setDatesOnCalendar(dataGetVacation)
       setDateField(dateFieldTemp)
-      console.log(dateFieldTemp, 'parsedDateField(dateFieldTemp)')
     }
   }, [dataGetVacation, setDateField])
-  // console.log(parsedDateField(dateField), 'parsedDateField(dateField)')
 
   const handleDayClick: DayClickEventHandler = (day) => {
     setDaySelected(startOfDay(day))
@@ -56,13 +53,16 @@ export const CalendarDashboard = ({ month }: CalendarDashboardProps) => {
       }
       mode="multiple"
       month={new Date(2024, month, 0)}
+      locale={enUS}
       selected={
         dateField
           ? Object.values(dateField)
-              .map((value) => value.map((date) => date.date))
+              .map((value) => value.map(({ date }) => date))
               .flat()
           : []
       }
+      // modifiers={{ booked: bookedDays }}
+      // modifiersStyles={{ booked: bookedStyle }}
       onDayClick={handleDayClick}
       components={{
         Caption: () => null,
