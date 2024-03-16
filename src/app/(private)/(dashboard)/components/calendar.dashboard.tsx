@@ -6,15 +6,12 @@ import {
   CalendarDashboardProps,
   VacationWithDatesApiProps,
 } from '@/app/(private)/(dashboard)/types'
-import { useCallback, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { getData } from '@/lib/functions.api'
 import { startOfDay } from 'date-fns'
 import { DayClickEventHandler } from 'react-day-picker'
-import {
-  parsedDateField,
-  setDatesOnCalendar,
-} from '@/app/(private)/(dashboard)/functions'
+import { setDatesOnCalendar } from '@/app/(private)/(dashboard)/functions'
 
 export const CalendarDashboard = ({ month }: CalendarDashboardProps) => {
   const {
@@ -24,45 +21,32 @@ export const CalendarDashboard = ({ month }: CalendarDashboardProps) => {
     setDaySelected,
     setMonth,
     setDayEditId,
+    dataGetVacation,
   } = useDashboardHook()
-
-  const { data: dataGetVacation, isLoading: loadingGetVacation } = useQuery({
-    queryKey: ['vacation-get'],
-    queryFn: ({ signal }) =>
-      getData<VacationWithDatesApiProps[]>({
-        url: '/vacation',
-        query: 'include.dates=true',
-        signal,
-      }),
-  })
 
   useEffect(() => {
     if (dataGetVacation) {
       const dateFieldTemp = setDatesOnCalendar(dataGetVacation)
-      console.log('****dateFieldTemp', dateFieldTemp)
       setDateField(dateFieldTemp)
+      console.log(dateFieldTemp, 'parsedDateField(dateFieldTemp)')
     }
   }, [dataGetVacation, setDateField])
+  // console.log(parsedDateField(dateField), 'parsedDateField(dateField)')
 
   const handleDayClick: DayClickEventHandler = (day) => {
     setDaySelected(startOfDay(day))
     setMonth(month)
-    if (dataGetVacation) {
-      const dayEditId = dataGetVacation.find((vacation) =>
-        vacation.dates.find(
-          (dateVacation) =>
-            startOfDay(dateVacation.date).getTime() ===
-            startOfDay(day).getTime(),
-        ),
-      )?.id
-      if (dayEditId) setDayEditId(dayEditId)
-    }
+    const dayEditId = dataGetVacation?.find((vacation) =>
+      vacation.dates.find(
+        (dateVacation) =>
+          startOfDay(dateVacation.date).getTime() === startOfDay(day).getTime(),
+      ),
+    )?.id
+    setDayEditId(dayEditId ?? 0)
+    console.log(dataGetVacation, 'dataGetVacation')
+    console.log(dayEditId, 'dayEditId')
     setModalOpen(true)
   }
-
-  useEffect(() => {
-    console.log('setDeafett', dateField)
-  }, [dateField])
 
   return (
     <Calendar
@@ -72,7 +56,13 @@ export const CalendarDashboard = ({ month }: CalendarDashboardProps) => {
       }
       mode="multiple"
       month={new Date(2024, month, 0)}
-      selected={dateField ? parsedDateField(dateField)?.[month - 1] : []}
+      selected={
+        dateField
+          ? Object.values(dateField)
+              .map((value) => value.map((date) => date.date))
+              .flat()
+          : []
+      }
       onDayClick={handleDayClick}
       components={{
         Caption: () => null,

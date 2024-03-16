@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server'
 import { getQuery } from '@/lib/query'
 import { FormVacationProps } from '@/app/(private)/(dashboard)/types'
 import { CreateVacationDTO } from '@/app/api/vacation/dto/createVacation'
+import { dateVacationService } from '@/app/api/dateVacation/service'
 
 export async function GET(req: Request) {
   const query = getQuery(req)
@@ -30,7 +31,7 @@ export async function POST(req: Request) {
         { status: 400 },
       )
 
-    const datesDB = (await vacationService.allDatesInDB()).map(({ date }) =>
+    const datesDB = (await dateVacationService.find({})).map(({ date }) =>
       date.toISOString(),
     )
 
@@ -42,7 +43,6 @@ export async function POST(req: Request) {
     })
     return NextResponse.json(newVacation, { status: 201 })
   } catch (e) {
-    console.log(e)
     return NextResponse.json(JSON.stringify(e), { status: 400 })
   }
 }

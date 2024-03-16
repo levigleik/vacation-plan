@@ -43,11 +43,19 @@ export async function PUT(req: Request, context: ContextApiProps) {
         { status: 400 },
       )
     }
+    if (!body.dates)
+      return NextResponse.json(
+        { message: 'Dates are required' },
+        { status: 400 },
+      )
 
     const updatedVacation = await vacationService.update({
       where: { id },
       data: {
         title: body.title,
+        users: {
+          connect: body.userIds.map((id: number) => ({ id })),
+        },
         description: body.description,
         location: body.location,
       },
@@ -55,7 +63,6 @@ export async function PUT(req: Request, context: ContextApiProps) {
 
     return NextResponse.json(updatedVacation, { status: 201 })
   } catch (error) {
-    console.log(error)
     return NextResponse.json({ message: 'Internal error' }, { status: 400 })
   }
 }

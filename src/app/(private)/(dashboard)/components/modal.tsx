@@ -9,6 +9,9 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
   Select,
   SelectItem,
   Skeleton,
@@ -19,27 +22,30 @@ import { useDashboardHook } from '@/app/(private)/(dashboard)/hook'
 import { format, getDaysInMonth } from 'date-fns'
 import { Controller, useForm } from 'react-hook-form'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { getData, postData, toastErrorsApi } from '@/lib/functions.api'
+import {
+  deleteData,
+  getData,
+  postData,
+  putData,
+  toastErrorsApi,
+} from '@/lib/functions.api'
 import { UserApiProps } from '@/types/models/user'
 import {
   FormVacationProps,
   VacationWithDatesApiProps,
 } from '@/app/(private)/(dashboard)/types'
 import { FaTimes } from 'react-icons/fa'
-import { PostData } from '@/types/api'
+import { DeleteData, PostData, PutData } from '@/types/api'
 import { VacationApiProps } from '@/types/models/vaction'
 import { toast } from 'react-toastify'
-import {
-  parsedDateField,
-  setDatesOnCalendar,
-} from '@/app/(private)/(dashboard)/functions'
+import { setDatesOnCalendar } from '@/app/(private)/(dashboard)/functions'
 import { useEffect, useMemo } from 'react'
 
 export const ModalDashboard = () => {
   const {
     modalOpen,
     setModalOpen,
-    dateField,
+    setDataGetVacation,
     month,
     setDateField,
     daySelected,
@@ -47,7 +53,7 @@ export const ModalDashboard = () => {
     setDayEditId,
   } = useDashboardHook()
 
-  const { handleSubmit, setValue, control, reset, getValues } = useForm<
+  const { handleSubmit, setValue, control, reset } = useForm<
     FormVacationProps,
     'vacation'
   >()
@@ -67,6 +73,12 @@ export const ModalDashboard = () => {
     mutationFn: async (val: PostData<VacationApiProps>) =>
       postData<VacationApiProps, VacationApiProps>(val),
     mutationKey: ['vacation-post'],
+  })
+
+  const { mutateAsync: mutatePut, isPending: loadingPut } = useMutation({
+    mutationFn: (val: PutData<VacationApiProps>) =>
+      putData<VacationApiProps, VacationApiProps>(val),
+    mutationKey: ['vacation-put'],
   })
 
   const { isPending: loadingGetVacation, mutateAsync } = useMutation({
@@ -90,6 +102,11 @@ export const ModalDashboard = () => {
       enabled: !!dayEditId && dayEditId > 0,
     })
 
+  const { mutateAsync: mutateDelete, isPending: loadingDelete } = useMutation({
+    mutationFn: async (val: DeleteData) => deleteData<VacationApiProps>(val),
+    mutationKey: ['vacation-delete'],
+  })
+
   const { data: dataGetUser, isLoading: loadingGetUser } = useQuery({
     queryKey: ['user-get'],
     queryFn: ({ signal }) =>
@@ -99,34 +116,57 @@ export const ModalDashboard = () => {
       }),
   })
 
+  const handleClose = (fromMutate?: boolean) => {
+    setModalOpen(false)
+    if (dayEditId !== 0 || fromMutate)
+      mutateAsync().then((dataGetVacation) => {
+        if (dataGetVacation) {
+          const datesTemp = setDatesOnCalendar(dataGetVacation)
+          setDateField(datesTemp)
+          setDataGetVacation(dataGetVacation)
+        }
+        reset()
+        setDayEditId(0)
+      })
+  }
+
+  useEffect(() => {
+    mutateAsync().then((dataGetVacation) => {
+      setDataGetVacation(dataGetVacation)
+    })
+  }, [mutateAsync, setDataGetVacation])
+
   const onSubmit = (data: FormVacationProps) => {
-    try {
-      const parseData = {
-        ...data,
-        userIds: data.userIds.map((a) => parseInt(a, 10)),
-        // dates: data.dates.map((a) => new Date(a).toISOString()),
-      }
-      console.log(data.dates)
+    const parseData = {
+      ...data,
+      userIds: data.userIds.map((a) => parseInt(a, 10)),
+      // dates: data.dates.map((a) => new Date(a).toISOString()),
+    }
+    if (!dayEditId) {
       mutatePost({
         url: '/vacation',
         data: parseData,
       })
         .then(() => {
           toast.success('Plans registered successfully')
-          setModalOpen(false)
-          mutateAsync().then((dataGetVacation) => {
-            if (dataGetVacation) {
-              const datesTemp = setDatesOnCalendar(dataGetVacation)
-              setDateField(datesTemp)
-            }
-            reset()
-          })
+          handleClose(true)
         })
         .catch((error: any) => {
           toastErrorsApi(error)
         })
-    } catch (error) {
-      console.log(error)
+    } else {
+      mutatePut({
+        url: '/vacation',
+        data: parseData,
+        id: dayEditId,
+      })
+        .then(() => {
+          toast.success('Plans updated successfully')
+          handleClose()
+        })
+        .catch((error: any) => {
+          toastErrorsApi(error)
+        })
     }
   }
 
@@ -137,26 +177,53 @@ export const ModalDashboard = () => {
   }, [daySelected, setValue])
 
   useEffect(() => {
+    console.log(dayEditId)
+  }, [dayEditId])
+
+  useEffect(() => {
     if (dataGetVacationById) {
-      setValue('title', dataGetVacationById.title)
-      setValue(
-        'userIds',
-        dataGetVacationById.users?.map((a) => String(a.id)),
-      )
-      setValue(
-        'dates',
-        dataGetVacationById.dates?.map((a) => a.date),
-      )
-      setValue('location', dataGetVacationById.location)
-      setValue('description', dataGetVacationById.description)
+      const values = {
+        title: dataGetVacationById.title,
+        dates: dataGetVacationById.dates.map((a) => a.date),
+        userIds: dataGetVacationById.users.map((a) => a.id.toString()),
+        location: dataGetVacationById.location,
+        description: dataGetVacationById.description,
+      }
+      setValue('title', values.title)
+      setValue('dates', values.dates)
+      setValue('userIds', values.userIds)
+      setValue('location', values.location)
+      setValue('description', values.description)
     }
   }, [dataGetVacationById, setValue])
+
+  // useEffect(() => {
+  //   return () => {
+  //     reset()
+  //   }
+  // }, [reset])
 
   const loading =
     loadingPost ||
     loadingGetUser ||
     loadingGetVacationById ||
-    loadingGetVacation
+    loadingGetVacation ||
+    loadingPut ||
+    loadingDelete
+
+  const handleDelete = () => {
+    mutateDelete({
+      url: `/vacation`,
+      id: dayEditId,
+    })
+      .then(() => {
+        toast.success('Plans deleted successfully')
+        handleClose()
+      })
+      .catch((error: any) => {
+        toastErrorsApi(error)
+      })
+  }
 
   return (
     <Modal
@@ -168,16 +235,18 @@ export const ModalDashboard = () => {
       size="5xl"
       onOpenChange={setModalOpen}
       hideCloseButton
-      onClose={() => {
-        reset()
-        setDayEditId(0)
-      }}
+      onClose={handleClose}
     >
       <ModalContent>
         {(onClose) => (
           <>
             <ModalHeader className="mt-4 flex items-center justify-between gap-1">
-              Plans for {format(daySelected ?? new Date(), 'MMMM')}
+              {!dayEditId && (
+                <span>
+                  Plans for {format(daySelected ?? new Date(), 'MMMM')}{' '}
+                </span>
+              )}
+              {!!dayEditId && <span>Edit plans</span>}
               <Button
                 radius="full"
                 variant="light"
@@ -243,6 +312,7 @@ export const ModalDashboard = () => {
                         name={field.name}
                         isLoading={loading}
                         items={allDaysInMonth ?? []}
+                        isDisabled={!!dayEditId}
                         selectionMode="multiple"
                         isMultiline={(allDaysInMonth?.length ?? 0) > 0}
                         renderValue={(items) => {
@@ -419,10 +489,41 @@ export const ModalDashboard = () => {
                 />
               </form>
             </ModalBody>
-            <ModalFooter>
-              <Button color="danger" variant="light" onPress={onClose}>
-                No
-              </Button>
+            <ModalFooter className="flex w-full justify-between">
+              <Popover placement="bottom" showArrow={true}>
+                <PopoverTrigger>
+                  <Button color="danger" variant="light">
+                    Delete
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent>
+                  <div className="px-1 py-2">
+                    <div className="text-small font-bold">
+                      Are you sure to delete?
+                    </div>
+                    <div className="flex justify-end gap-2 pt-2">
+                      <Button
+                        color="danger"
+                        variant="light"
+                        onPress={() => {
+                          handleDelete()
+                        }}
+                      >
+                        Yes
+                      </Button>
+                      <Button
+                        color="primary"
+                        variant="light"
+                        onPress={() => {
+                          onClose()
+                        }}
+                      >
+                        No
+                      </Button>
+                    </div>
+                  </div>
+                </PopoverContent>
+              </Popover>
               <Button
                 color="primary"
                 type="submit"
@@ -431,7 +532,7 @@ export const ModalDashboard = () => {
                 //   onClose()
                 // }}
               >
-                Yes
+                {!!dayEditId ? 'Update' : 'Save'}
               </Button>
             </ModalFooter>
           </>

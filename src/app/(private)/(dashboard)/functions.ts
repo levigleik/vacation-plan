@@ -11,56 +11,19 @@ export const setDatesOnCalendar = (datesApi?: VacationWithDatesApiProps[]) => {
     dates: vacation.dates.map((date) => startOfDay(date.date)),
   }))
 
-  console.log(datesParsed)
-  const datesReturn = datesParsed.reduce(
-    (acc, date) => {
-      const month = date.dates[0]?.getMonth() + 1
-      if (!acc[month]) acc[month] = []
-      else {
-        date.dates.forEach((d) => {
-          acc[month].push({ id: date.id, date: d })
-        })
-      }
+  // console.log(datesParsed, 'datesParsed')
+
+  return datesParsed.reduce(
+    (acc, item) => {
+      item.dates.forEach((date) => {
+        const month = date.getMonth()
+        if (!acc[month]) {
+          acc[month] = []
+        }
+        acc[month].push({ id: item.id, date })
+      })
       return acc
     },
     {} as Record<number, DateCalendarProps[]>,
   )
-  // put it into an object with the month as key
-  console.log('datesReturn--', datesReturn)
-  return datesReturn
 }
-export const parsedDateField = (
-  dateField?: Record<number, DateCalendarProps[]>,
-) => {
-  if (!dateField) return {}
-  // make the dates flat
-  const dates = Object.values(dateField)
-    .map((a) => a.map((b) => b.date).flat())
-    .flat()
-
-  console.log('parsedDateField--', dateField)
-  // put it into an object with the month as key
-  return dates.reduce(
-    (acc, date) => {
-      const month = date.getMonth()
-      if (!acc[month]) acc[month] = []
-      else {
-        acc[month].push(date)
-      }
-      return acc
-    },
-    {} as Record<number, Date[]>,
-  )
-}
-
-// export const getIdByDay = (
-//   day: Date,
-//   datesApi: VacationWithDatesApiProps[],
-// ) => {
-//   const date = startOfDay(day)
-//   return datesApi.find((vacation) =>
-//     vacation.dates.find((dateVacation) => {
-//       return startOfDay(dateVacation.date).getTime() === date.getTime()
-//     }),
-//   )?.id
-// }
