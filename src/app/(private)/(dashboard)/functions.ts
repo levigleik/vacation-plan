@@ -2,13 +2,12 @@ import {
   DateCalendarProps,
   VacationWithDatesApiProps,
 } from '@/app/(private)/(dashboard)/types'
-import { startOfDay } from 'date-fns'
 
 export const setDatesOnCalendar = (datesApi?: VacationWithDatesApiProps[]) => {
   if (!datesApi) return {}
   const datesParsed = datesApi.map((vacation) => ({
     id: vacation.id,
-    dates: vacation.dates.map((date) => startOfDay(date.date)),
+    dates: vacation.dates.map((date) => new Date(date.date)),
   }))
 
   // console.log(datesParsed, 'datesParsed')
