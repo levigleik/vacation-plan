@@ -6,6 +6,8 @@ export interface DashboardHookProps {
   setModalOpen: (modal: boolean) => void
   dateField?: Record<number, DateCalendarProps[]>
   setDateField: (dateField: Record<number, DateCalendarProps[]>) => void
+  dataGetVacation?: VacationWithDatesApiProps[]
+  setDataGetVacation: (data: VacationWithDatesApiProps[]) => void
   daySelected?: Date
   setDaySelected: (day: Date) => void
   month?: number

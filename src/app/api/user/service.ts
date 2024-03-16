@@ -7,10 +7,6 @@ async function findOne(args: Prisma.UserFindUniqueArgs): Promise<User | null> {
   return prisma.user.findUnique(args)
 }
 
-async function findFirst(args: Prisma.UserFindFirstArgs): Promise<User | null> {
-  return prisma.user.findFirst(args)
-}
-
 async function find(args: Prisma.UserFindManyArgs): Promise<User[]> {
   return prisma.user.findMany(args)
 }
@@ -41,7 +37,6 @@ export const deleteOne = async (id: number) => {
 
 export const userService = {
   findOne,
-  findFirst,
   comparePassword,
   hashPassword,
   find,

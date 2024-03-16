@@ -69,7 +69,6 @@ export async function PUT(req: Request, context: ContextApiProps) {
 
     return NextResponse.json(updatedUser, { status: 201 })
   } catch (error) {
-    console.log(error)
     return NextResponse.json({ message: 'Internal error' }, { status: 400 })
   }
 }

@@ -271,7 +271,7 @@ const UserEdit = () => {
         className="w-fit"
         isDisabled={loading}
       >
-        Save
+        Submit
       </Button>
     </form>
   )
