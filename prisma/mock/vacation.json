@@ -1,0 +1,159 @@
+[
+  {
+    "title": "Summer Beach Retreat",
+    "description": "Enjoy a relaxing time by the seaside with friends and family.",
+    "userIds": [1, 5, 2],
+    "dates": [
+      "2024-01-15T05:00:00.000Z",
+      "2024-01-16T05:00:00.000Z",
+      "2024-01-17T05:00:00.000Z"
+    ],
+    "location": "Malibu, California"
+  },
+  {
+    "title": "Hiking Adventure in the Andes",
+    "description": "Embark on a challenging yet rewarding trek in the Andes mountains.",
+    "userIds": [2, 4, 6],
+    "dates": ["2024-01-05T05:00:00.000Z", "2024-01-06T05:00:00.000Z"],
+    "location": "Cusco, Peru"
+  },
+  {
+    "title": "Ski Trip in Aspen",
+    "description": "Experience the thrill of skiing in the beautiful slopes of Aspen.",
+    "userIds": [2, 4, 7],
+    "dates": [
+      "2024-02-10T05:00:00.000Z",
+      "2024-02-11T05:00:00.000Z",
+      "2024-02-12T05:00:00.000Z"
+    ],
+    "location": "Aspen, Colorado"
+  },
+  {
+    "title": "Weekend Getaway to Miami",
+    "description": "Enjoy the vibrant nightlife and sunny beaches of Miami.",
+    "userIds": [3, 6, 9],
+    "dates": [
+      "2024-02-17T05:00:00.000Z",
+      "2024-02-18T05:00:00.000Z",
+      "2024-02-19T05:00:00.000Z"
+    ],
+    "location": "Miami, Florida"
+  },
+  {
+    "title": "Sightseeing Tour in Paris",
+    "description": "Explore the iconic landmarks and romantic charm of Paris.",
+    "userIds": [1, 5, 8],
+    "dates": [
+      "2024-02-24T05:00:00.000Z",
+      "2024-02-25T05:00:00.000Z",
+      "2024-02-26T05:00:00.000Z"
+    ],
+    "location": "Paris, France"
+  },
+  {
+    "title": "Spring Break in Cancun",
+    "description": "Party and relax on the stunning beaches of Cancun.",
+    "userIds": [2, 4, 7],
+    "dates": ["2024-03-05T05:00:00.000Z", "2024-03-06T05:00:00.000Z"],
+    "location": "Cancun, Mexico"
+  },
+  {
+    "title": "Exploring Machu Picchu",
+    "description": "Embark on an adventurous journey to the ancient ruins of Machu Picchu.",
+    "userIds": [3, 6, 9],
+    "dates": ["2024-03-14T05:00:00.000Z"],
+    "location": "Machu Picchu, Peru"
+  },
+  {
+    "title": "Springtime in Tokyo",
+    "description": "Experience the cherry blossoms and vibrant culture of Tokyo.",
+    "userIds": [1, 5, 8],
+    "dates": ["2024-03-19T05:00:00.000Z"],
+    "location": "Tokyo, Japan"
+  },
+
+  {
+    "title": "Ski Trip in the Alps",
+    "description": "Experience the thrill of skiing in the majestic Alps mountains.",
+    "userIds": [5, 8],
+    "dates": [
+      "2024-12-20T05:00:00.000Z",
+      "2024-12-21T05:00:00.000Z",
+      "2024-12-22T05:00:00.000Z",
+      "2024-12-23T05:00:00.000Z"
+    ],
+    "location": "Chamonix, France"
+  },
+  {
+    "title": "Wildlife Safari in Kenya",
+    "description": "Witness the beauty of African wildlife in their natural habitat.",
+    "userIds": [6, 7],
+    "dates": [
+      "2024-11-01T05:00:00.000Z",
+      "2024-11-02T05:00:00.000Z",
+      "2024-11-03T05:00:00.000Z",
+      "2024-11-04T05:00:00.000Z"
+    ],
+    "location": "Maasai Mara, Kenya"
+  },
+  {
+    "title": "Yoga and Meditation Retreat in Bali",
+    "description": "Rejuvenate your mind, body, and soul in the tranquil setting of Bali.",
+    "userIds": [3, 7, 9],
+    "dates": [
+      "2024-08-20T05:00:00.000Z",
+      "2024-08-21T05:00:00.000Z",
+      "2024-08-22T05:00:00.000Z",
+      "2024-08-23T05:00:00.000Z"
+    ],
+    "location": "Ubud, Bali"
+  },
+  {
+    "title": "Culinary Tour of Paris",
+    "description": "Indulge in the finest French cuisine and wine in the heart of Paris.",
+    "userIds": [5, 8],
+    "dates": [
+      "2024-10-15T05:00:00.000Z",
+      "2024-10-16T05:00:00.000Z",
+      "2024-10-17T05:00:00.000Z",
+      "2024-10-18T05:00:00.000Z"
+    ],
+    "location": "Paris, France"
+  },
+  {
+    "title": "Island Hopping in Greece",
+    "description": "Explore the stunning Greek islands and soak up the Mediterranean sun.",
+    "userIds": [2, 4],
+    "dates": [
+      "2024-07-01T05:00:00.000Z",
+      "2024-07-02T05:00:00.000Z",
+      "2024-07-03T05:00:00.000Z",
+      "2024-07-04T05:00:00.000Z"
+    ],
+    "location": "Santorini, Greece"
+  },
+  {
+    "title": "Adventure in the Amazon Rainforest",
+    "description": "Embark on an unforgettable journey through the Amazon rainforest.",
+    "userIds": [5, 9],
+    "dates": [
+      "2024-09-25T05:00:00.000Z",
+      "2024-09-26T05:00:00.000Z",
+      "2024-09-27T05:00:00.000Z",
+      "2024-09-28T05:00:00.000Z"
+    ],
+    "location": "Manaus, Brazil"
+  },
+  {
+    "title": "Cycling Tour of Tuscany",
+    "description": "Pedal through the picturesque countryside of Tuscany and savor the local wine.",
+    "userIds": [3, 8],
+    "dates": [
+      "2024-05-10T05:00:00.000Z",
+      "2024-05-11T05:00:00.000Z",
+      "2024-05-12T05:00:00.000Z",
+      "2024-05-13T05:00:00.000Z"
+    ],
+    "location": "Florence, Italy"
+  }
+]
