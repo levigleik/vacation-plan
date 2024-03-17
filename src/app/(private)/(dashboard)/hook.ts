@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { DashboardHookProps } from '@/app/(private)/(dashboard)/types'
 
-export const useDashboardHook = create<DashboardHookProps>()((set, get) => ({
+export const useDashboardHook = create<DashboardHookProps>()((set) => ({
   modalVacationOpen: false,
   modalFilterOpen: false,
   filtered: false,
