@@ -89,8 +89,8 @@ const styles = StyleSheet.create({
 export const PrintSummaryDashboard = ({
   vacation,
 }: PrintSummaryDashboardProps) => {
-  const userPart1 = vacation.users?.slice(0, vacation.users.length / 2)
-  const userPart2 = vacation.users?.slice(vacation.users.length / 2)
+  const userPart1 = vacation.users?.slice(vacation.users.length / 2)
+  const userPart2 = vacation.users?.slice(0, vacation.users.length / 2)
   return (
     <Document>
       <Page style={styles.page}>
