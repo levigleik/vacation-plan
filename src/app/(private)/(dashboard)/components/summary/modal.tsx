@@ -177,10 +177,7 @@ export const ModalFilterDashboard = () => {
                                   >
                                     {item.data?.photo && (
                                       <User
-                                        name={
-                                          item.data?.name ||
-                                          'Nome não informado'
-                                        }
+                                        name={item.data?.name || 'No name'}
                                         avatarProps={{
                                           name: item.data?.name || '',
                                           showFallback: true,
@@ -214,7 +211,7 @@ export const ModalFilterDashboard = () => {
                           >
                             <div className="flex flex-col gap-2">
                               <User
-                                name={item?.name || 'Nome não informado'}
+                                name={item?.name || 'No name'}
                                 avatarProps={{
                                   name: item?.name || '',
                                   showFallback: true,
