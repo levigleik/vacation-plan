@@ -7,5 +7,4 @@ export interface VacationApiProps extends DefaultApiProps {
   dates: string[]
   location: string
   users: UserApiProps[]
-  reason: string
 }
