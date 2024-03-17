@@ -53,8 +53,9 @@ export const ModalVacationDashboard = () => {
     setModalVacationOpen,
     dayEditId,
     setDayEditId,
-    daySelected,
+    daysSelected,
     month,
+    setDaysSelected,
   } = useDashboardMonthHook()
 
   const { handleSubmit, setValue, control, reset } = useForm<
@@ -134,9 +135,11 @@ export const ModalVacationDashboard = () => {
           setLoadingGetVacation(false)
           reset()
           setDayEditId(0)
+          setDaysSelected([])
         })
         .catch(() => {
           setLoadingGetVacation(false)
+          setDaysSelected([])
         })
     }
   }
@@ -184,14 +187,17 @@ export const ModalVacationDashboard = () => {
   }
 
   useEffect(() => {
-    if (daySelected) {
-      setValue('dates', [format(daySelected, 'dd')])
+    if (daysSelected) {
+      setValue(
+        'dates',
+        daysSelected.map((a) => format(a, 'dd')),
+      )
     }
-  }, [daySelected, setValue])
+  }, [daysSelected, setValue])
 
   useEffect(() => {
-    console.log(dayEditId)
-  }, [dayEditId])
+    console.log('allDaysInMonth', allDaysInMonth)
+  }, [allDaysInMonth])
 
   useEffect(() => {
     if (dataGetVacationById) {
@@ -259,12 +265,13 @@ export const ModalVacationDashboard = () => {
             <ModalHeader className="mt-4 flex items-center justify-between gap-1">
               {!dayEditId && (
                 <span>
-                  Plans for {format(daySelected ?? new Date(), 'MMMM')}
+                  Plans for {format(daysSelected?.[0] ?? new Date(), 'MMMM')}
                 </span>
               )}
               {!!dayEditId && (
                 <span>
-                  Edit plans in {format(daySelected ?? new Date(), 'MMMM')}
+                  Edit plans in{' '}
+                  {format(daysSelected?.[0] ?? new Date(), 'MMMM')}
                 </span>
               )}
               <Button

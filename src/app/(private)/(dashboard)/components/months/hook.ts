@@ -8,6 +8,6 @@ export const useDashboardMonthHook = create<DashboardMonthHookProps>()(
     setModalVacationOpen: (modalOpen) => set({ modalVacationOpen: modalOpen }),
     setMonth: (month) => set({ month }),
     setDayEditId: (dayEditId) => set({ dayEditId }),
-    setDaySelected: (daySelected) => set({ daySelected }),
+    setDaysSelected: (daysSelected) => set({ daysSelected }),
   }),
 )
