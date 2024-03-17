@@ -34,24 +34,28 @@ import {
   FormVacationProps,
   VacationWithDatesApiProps,
 } from '@/app/(private)/(dashboard)/types'
-import { FaTimes } from 'react-icons/fa'
+import { FaFilePdf, FaTimes } from 'react-icons/fa'
 import { DeleteData, PostData, PutData } from '@/types/api'
 import { VacationApiProps } from '@/types/models/vaction'
 import { toast } from 'react-toastify'
 import { setDatesOnCalendar } from '@/app/(private)/(dashboard)/functions'
 import { useEffect, useMemo } from 'react'
+import { useDashboardMonthHook } from '@/app/(private)/(dashboard)/components/months/hook'
+import { PrintSummaryDashboard } from '@/app/(private)/(dashboard)/components/summary/print'
+import { PDFDownloadLink } from '@react-pdf/renderer'
 
-export const ModalDashboard = () => {
+export const ModalVacationDashboard = () => {
+  const { setDataGetVacation, setDateField, setLoadingGetVacation } =
+    useDashboardHook()
+
   const {
-    modalOpen,
-    setModalOpen,
-    setDataGetVacation,
-    month,
-    setDateField,
-    daySelected,
+    modalVacationOpen,
+    setModalVacationOpen,
     dayEditId,
     setDayEditId,
-  } = useDashboardHook()
+    daySelected,
+    month,
+  } = useDashboardMonthHook()
 
   const { handleSubmit, setValue, control, reset } = useForm<
     FormVacationProps,
@@ -60,14 +64,13 @@ export const ModalDashboard = () => {
 
   const allDaysInMonth = useMemo(() => {
     const daysInMonth = getDaysInMonth(new Date(2024, (month ?? 0) - 1))
-    const days = Array.from({ length: daysInMonth }, (_, i) => {
+    return Array.from({ length: daysInMonth }, (_, i) => {
       const date = new Date(2024, (month ?? 0) - 1, i + 1)
       return {
         id: format(date, 'dd'),
         label: format(date, 'dd'),
       }
     })
-    return days
   }, [month])
 
   const { mutateAsync: mutatePost, isPending: loadingPost } = useMutation({
@@ -118,17 +121,24 @@ export const ModalDashboard = () => {
   })
 
   const handleClose = (fromMutate?: boolean) => {
-    setModalOpen(false)
-    if (dayEditId !== 0 || fromMutate)
-      mutateAsync().then((dataGetVacation) => {
-        if (dataGetVacation) {
-          const datesTemp = setDatesOnCalendar(dataGetVacation)
-          setDateField(datesTemp)
-          setDataGetVacation(dataGetVacation)
-        }
-        reset()
-        setDayEditId(0)
-      })
+    setModalVacationOpen(false)
+    if (dayEditId !== 0 || fromMutate) {
+      setLoadingGetVacation(true)
+      mutateAsync()
+        .then((dataGetVacation) => {
+          if (dataGetVacation) {
+            const datesTemp = setDatesOnCalendar(dataGetVacation)
+            setDateField(datesTemp)
+            setDataGetVacation(dataGetVacation)
+          }
+          setLoadingGetVacation(false)
+          reset()
+          setDayEditId(0)
+        })
+        .catch(() => {
+          setLoadingGetVacation(false)
+        })
+    }
   }
 
   useEffect(() => {
@@ -232,13 +242,13 @@ export const ModalDashboard = () => {
 
   return (
     <Modal
-      isOpen={modalOpen}
+      isOpen={modalVacationOpen}
       backdrop="opaque"
       classNames={{
         backdrop: 'blur-md',
       }}
       size="5xl"
-      onOpenChange={setModalOpen}
+      onOpenChange={setModalVacationOpen}
       hideCloseButton
       onClose={handleClose}
     >
@@ -264,6 +274,29 @@ export const ModalDashboard = () => {
               >
                 <FaTimes />
               </Button>
+              {!!dataGetVacationById && dayEditId !== 0 && (
+                <PDFDownloadLink
+                  document={
+                    <PrintSummaryDashboard vacation={dataGetVacationById} />
+                  }
+                  fileName={`${dataGetVacationById.title}.pdf`}
+                >
+                  {({ blob, url, loading, error }) => (
+                    <Skeleton className="rounded-full" isLoaded={!loading}>
+                      <Button
+                        isIconOnly
+                        title="Print"
+                        variant="light"
+                        color="danger"
+                        radius="full"
+                        disabled={loading}
+                      >
+                        <FaFilePdf size={20} />
+                      </Button>
+                    </Skeleton>
+                  )}
+                </PDFDownloadLink>
+              )}
             </ModalHeader>
             <ModalBody>
               <form

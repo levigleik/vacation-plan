@@ -1,25 +1,21 @@
 'use client'
 
-import { Calendar } from 'components/calendar'
+import { Calendar as CalendarUI } from 'components/calendar'
 import { useDashboardHook } from '@/app/(private)/(dashboard)/hook'
 import { DashboardProps } from '@/app/(private)/(dashboard)/types'
 import { useEffect } from 'react'
 import { startOfDay } from 'date-fns'
 import { DayClickEventHandler } from 'react-day-picker'
 import { setDatesOnCalendar } from '@/app/(private)/(dashboard)/functions'
+import { useDashboardMonthHook } from '@/app/(private)/(dashboard)/components/months/hook'
 // const bookedDays = [new Date(2024, 5, 10), new Date(2024, 5, 9)]
 // const bookedStyle = { border: '2px solid currentColor' }
 
-export const CalendarDashboard = ({ month }: DashboardProps) => {
-  const {
-    dateField,
-    setDateField,
-    setModalOpen,
-    setDaySelected,
-    setMonth,
-    setDayEditId,
-    dataGetVacation,
-  } = useDashboardHook()
+export const Calendar = ({ month }: DashboardProps) => {
+  const { dateField, setDateField, dataGetVacation } = useDashboardHook()
+
+  const { setModalVacationOpen, setDaySelected, setMonth, setDayEditId } =
+    useDashboardMonthHook()
 
   useEffect(() => {
     if (dataGetVacation) {
@@ -40,11 +36,11 @@ export const CalendarDashboard = ({ month }: DashboardProps) => {
     setDayEditId(dayEditId ?? 0)
     console.log(dataGetVacation, 'dataGetVacation')
     console.log(dayEditId, 'dayEditId')
-    setModalOpen(true)
+    setModalVacationOpen(true)
   }
 
   return (
-    <Calendar
+    <CalendarUI
       disabled={
         // all days outside this month
         (date) => date.getMonth() !== month - 1
