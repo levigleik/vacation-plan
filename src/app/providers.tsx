@@ -12,9 +12,9 @@ import { queryClientConfig } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 import { Button, NextUIProvider } from '@nextui-org/react'
 import { ThemeProvider as NextThemesProvider } from 'next-themes'
+import 'react-image-crop/dist/ReactCrop.css'
 
 let persister: any
-
 export function Providers({ children }: { children: React.ReactNode }) {
   const navigate = useRouter()
   const [isClient, setIsClient] = useState(false)
