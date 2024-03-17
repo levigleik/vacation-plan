@@ -107,7 +107,6 @@ const Login = () => {
               <Button
                 variant="bordered"
                 type="button"
-                className="text-white"
                 onClick={() => {
                   router.push('/register')
                 }}
@@ -117,7 +116,6 @@ const Login = () => {
               <Button
                 // variant="bordered"
                 type="submit"
-                className="text-white"
                 disabled={isPending}
               >
                 Login

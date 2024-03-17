@@ -231,7 +231,6 @@ const Register = () => {
               <Button
                 variant="bordered"
                 type="button"
-                className="text-white"
                 disabled={isPending}
                 onClick={() => {
                   router.push('/login')
@@ -242,7 +241,6 @@ const Register = () => {
               <Button
                 // variant="bordered"
                 type="submit"
-                className="text-white"
                 disabled={isPending}
               >
                 Register
