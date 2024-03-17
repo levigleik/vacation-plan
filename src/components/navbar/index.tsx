@@ -19,19 +19,20 @@ import {
 } from '@nextui-org/react'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { FaHome, FaMoon, FaSignOutAlt, FaSun, FaUser } from 'react-icons/fa'
 import { menuItems } from './constants'
 import { fisrtAndSecondLetterName, formatName } from './functions'
 import { useAuthState } from '@/hooks/auth'
+import { capitalize } from '@nextui-org/shared-utils'
 
 const NavbarComp: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const pathname = usePathname()
   const { logout, profile } = useAuthState()
+  const router = useRouter()
 
-  const [hoverProfile, setHoverProfile] = useState(false)
   const { theme, setTheme } = useTheme()
 
   return (
@@ -43,7 +44,7 @@ const NavbarComp: React.FC = () => {
           item: [
             '[&>.nav-link]:data-[active=true]:text-main-white',
             '[&>.nav-link]:data-[active=true]:underline [&>.nav-link]:data-[active=true]:underline-offset-8',
-            '[&>.nav-link]:hover:text-main-white [&>.nav-link]:transtion-all [&>.nav-link]:duration-300 [&>.nav-link]:ease-in-out',
+            '[&>.nav-link]:hover:text-main-white [&>.nav-link]:transition-all [&>.nav-link]:duration-300 [&>.nav-link]:ease-in-out',
             '[&>.nav-link]:hover:underline [&>.nav-link]:hover:underline-offset-8',
             'flex flex-col ',
           ],
@@ -52,7 +53,7 @@ const NavbarComp: React.FC = () => {
       >
         <NavbarContent>
           <NavbarMenuToggle
-            aria-label={isMenuOpen ? 'Fechar' : 'Abrir'}
+            aria-label={isMenuOpen ? 'Close' : 'Open'}
             className="md:hidden"
           />
           <NavbarBrand className="text-2xl light:text-gray-800 dark:text-white">
@@ -95,22 +96,15 @@ const NavbarComp: React.FC = () => {
         </NavbarContent>
         <NavbarContent justify="end">
           <NavbarItem>
-            <Dropdown
-              placement="bottom-end"
-              isOpen={hoverProfile}
-              onOpenChange={(open) => setHoverProfile(open)}
-              className="w-lg"
-            >
-              <DropdownTrigger
-              // onMouseOver={() => setHoverProfile(true)}
-              // onMouseLeave={() => setHoverProfile(false)}
-              >
+            <Dropdown placement="bottom-end" className="w-lg">
+              <DropdownTrigger>
                 <User
-                  name={formatName(profile?.name || '') || 'Nome não informado'}
+                  name={formatName(profile?.name || '') || 'No name'}
                   avatarProps={{
                     name: fisrtAndSecondLetterName(profile?.name || ''),
                     showFallback: true,
                     className: 'mr-2 cursor-pointer',
+                    src: profile?.photo,
                   }}
                   classNames={{
                     description:
@@ -119,28 +113,33 @@ const NavbarComp: React.FC = () => {
                   }}
                 />
               </DropdownTrigger>
-              <DropdownMenu
-                // onMouseOver={() => setHoverProfile(true)}
-                // onMouseLeave={() => setHoverProfile(false)}
-                aria-label="Perfil"
-                variant="flat"
-              >
+              <DropdownMenu aria-label="Perfil" variant="flat">
+                <DropdownItem
+                  onClick={() => {
+                    router.push(`/user/${profile?.id}`)
+                  }}
+                  key="logout"
+                  startContent={<FaUser />}
+                  textValue={'My profile'}
+                >
+                  My profile
+                </DropdownItem>
                 <DropdownItem
                   key="theme"
                   onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
                   startContent={theme === 'dark' ? <FaMoon /> : <FaSun />}
-                  textValue={`Tema: ${theme === 'dark' ? 'escuro' : 'claro'}`}
+                  textValue={`Theme: ${capitalize(theme ?? 'light')}`}
                 >
-                  Tema: {theme === 'dark' ? 'escuro' : 'claro'}
+                  Theme: {capitalize(theme ?? 'light')}
                 </DropdownItem>
                 <DropdownItem
                   onClick={() => logout()}
                   key="logout"
                   color="danger"
                   startContent={<FaSignOutAlt className="text-danger" />}
-                  textValue={'Sair'}
+                  textValue={'Log-out'}
                 >
-                  Sair
+                  Log-out
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
