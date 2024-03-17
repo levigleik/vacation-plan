@@ -251,8 +251,9 @@ export const ModalVacationDashboard = () => {
       onOpenChange={setModalVacationOpen}
       hideCloseButton
       onClose={handleClose}
+      scrollBehavior="inside"
     >
-      <ModalContent>
+      <ModalContent className="max-h-[95dvh]">
         {(onClose) => (
           <>
             <ModalHeader className="mt-4 flex items-center justify-between gap-1">
