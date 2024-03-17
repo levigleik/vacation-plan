@@ -3,11 +3,12 @@
 import { Calendar as CalendarUI } from 'components/calendar'
 import { useDashboardHook } from '@/app/(private)/(dashboard)/hook'
 import { DashboardProps } from '@/app/(private)/(dashboard)/types'
-import { useEffect, useMemo } from 'react'
+import { CSSProperties, useEffect, useMemo } from 'react'
 import { isSameDay, isSameMonth, startOfDay } from 'date-fns'
 import { DayClickEventHandler } from 'react-day-picker'
 import { setDatesOnCalendar } from '@/app/(private)/(dashboard)/functions'
 import { useDashboardMonthHook } from '@/app/(private)/(dashboard)/components/months/hook'
+import { createColorDateMap } from '@/app/(private)/(dashboard)/components/months/utils'
 // const bookedDays = [new Date(2024, 5, 10), new Date(2024, 5, 9)]
 // const bookedStyle = { border: '2px solid currentColor' }
 
@@ -28,10 +29,6 @@ export const Calendar = ({ month }: DashboardProps) => {
       setDateField(dateFieldTemp)
     }
   }, [dataGetVacation, setDateField])
-
-  useEffect(() => {
-    console.log('daysSelected', daysSelected)
-  }, [daysSelected])
 
   const handleDayClick: DayClickEventHandler = (day) => {
     // Only find the matching vacation if daysSelected is empty
@@ -74,6 +71,8 @@ export const Calendar = ({ month }: DashboardProps) => {
     [dateField],
   )
 
+  const colorDateMap = createColorDateMap(dataGetVacation ?? [])
+
   return (
     <CalendarUI
       disabled={(date) => {
@@ -91,8 +90,14 @@ export const Calendar = ({ month }: DashboardProps) => {
       mode="multiple"
       month={new Date(2024, month, 0)}
       selected={[...daysApi, ...(daysSelected ?? [])]}
-      // modifiers={{ booked: bookedDays }}
-      // modifiersStyles={{ booked: bookedStyle }}
+      modifiers={colorDateMap}
+      modifiersStyles={Object.keys(colorDateMap).reduce(
+        (styles, color) => {
+          styles[color] = { backgroundColor: color }
+          return styles
+        },
+        {} as Record<string, CSSProperties>,
+      )}
       onDayClick={handleDayClick}
       components={{
         Caption: () => null,

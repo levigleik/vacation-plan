@@ -196,10 +196,6 @@ export const ModalVacationDashboard = () => {
   }, [daysSelected, setValue])
 
   useEffect(() => {
-    console.log('allDaysInMonth', allDaysInMonth)
-  }, [allDaysInMonth])
-
-  useEffect(() => {
     if (dataGetVacationById) {
       const values = {
         title: dataGetVacationById.title,

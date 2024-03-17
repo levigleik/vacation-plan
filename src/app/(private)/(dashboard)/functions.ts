@@ -10,8 +10,6 @@ export const setDatesOnCalendar = (datesApi?: VacationWithDatesApiProps[]) => {
     dates: vacation.dates.map((date) => new Date(date.date)),
   }))
 
-  // console.log(datesParsed, 'datesParsed')
-
   return datesParsed.reduce(
     (acc, item) => {
       item.dates.forEach((date) => {
