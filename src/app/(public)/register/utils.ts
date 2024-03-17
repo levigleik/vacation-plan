@@ -89,8 +89,7 @@ export async function onDownloadCropClick({
   const blob = await offscreen.convertToBlob({
     type: 'image/png',
   })
-  const file = new File([blob], 'image.png', {
+  return new File([blob], 'image.png', {
     type: 'image/png',
   })
-  return file
 }
