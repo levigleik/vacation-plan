@@ -17,9 +17,6 @@ export const metadata: Metadata = {
     default: APP_DESCRIPTION,
     template: APP_TITLE_TEMPLATE,
   },
-  icons: {
-    apple: '/assets/images/logo.png',
-  },
   description: APP_DESCRIPTION,
 }
 
