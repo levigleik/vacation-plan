@@ -1,17 +1,13 @@
 'use client'
-
-import { months } from '@/app/(private)/(dashboard)/constants'
-import { CardSummary } from '@/app/(private)/(dashboard)/components/summary/card'
 import { PrintSummaryDashboardProps } from '@/app/(private)/(dashboard)/components/summary/types'
 import {
   Document,
-  Page,
-  View,
-  Text,
-  StyleSheet,
   Image,
+  Page,
+  StyleSheet,
+  Text,
+  View,
 } from '@react-pdf/renderer'
-import logo from '@/assets/images/logo.png'
 import { format } from 'date-fns'
 import { UserApiProps } from '@/types/models/user'
 
@@ -89,14 +85,24 @@ const styles = StyleSheet.create({
 export const PrintSummaryDashboard = ({
   vacation,
 }: PrintSummaryDashboardProps) => {
+  if (!vacation?.dates?.length) {
+    return (
+      <Document>
+        <Page style={styles.page}>
+          <Text>No dates found</Text>
+        </Page>
+      </Document>
+    )
+  }
   const userPart1 = vacation.users?.slice(vacation.users.length / 2)
   const userPart2 = vacation.users?.slice(0, vacation.users.length / 2)
+
   return (
     <Document>
       <Page style={styles.page}>
         <View style={styles.sectionMonth}>
           <Text style={styles.textMonth}>
-            {format(vacation.dates[0]?.date, 'MMMM')}
+            {format(vacation.dates?.[0]?.date, 'MMMM')}
           </Text>
           <Text>2024</Text>
         </View>

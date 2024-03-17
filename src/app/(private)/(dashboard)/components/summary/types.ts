@@ -13,5 +13,5 @@ export interface DashboardSummaryHookProps {
 }
 
 export interface PrintSummaryDashboardProps {
-  vacation: VacationWithDatesApiProps
+  vacation?: VacationWithDatesApiProps
 }

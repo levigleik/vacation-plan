@@ -42,7 +42,7 @@ import { setDatesOnCalendar } from '@/app/(private)/(dashboard)/functions'
 import { useEffect, useMemo } from 'react'
 import { useDashboardMonthHook } from '@/app/(private)/(dashboard)/components/months/hook'
 import { PrintSummaryDashboard } from '@/app/(private)/(dashboard)/components/summary/print'
-import { PDFDownloadLink } from '@react-pdf/renderer'
+import { PDFDownloadLink, usePDF } from '@react-pdf/renderer'
 
 export const ModalVacationDashboard = () => {
   const { setDataGetVacation, setDateField, setLoadingGetVacation } =
@@ -62,6 +62,10 @@ export const ModalVacationDashboard = () => {
     FormVacationProps,
     'vacation'
   >()
+
+  const [instance, updateInstance] = usePDF({
+    document: <PrintSummaryDashboard vacation={[] as any} />,
+  })
 
   const allDaysInMonth = useMemo(() => {
     const daysInMonth = getDaysInMonth(new Date(2024, (month ?? 0) - 1))
@@ -214,12 +218,6 @@ export const ModalVacationDashboard = () => {
     }
   }, [dataGetVacationById, setValue])
 
-  // useEffect(() => {
-  //   return () => {
-  //     reset()
-  //   }
-  // }, [reset])
-
   const loading =
     loadingPost ||
     loadingGetUser ||
@@ -270,37 +268,39 @@ export const ModalVacationDashboard = () => {
                   {format(daysSelected?.[0] ?? new Date(), 'MMMM')}
                 </span>
               )}
-              <Button
-                radius="full"
-                variant="light"
-                isIconOnly
-                onPress={onClose}
-              >
-                <FaTimes />
-              </Button>
-              {!!dataGetVacationById && dayEditId !== 0 && (
-                <PDFDownloadLink
-                  document={
-                    <PrintSummaryDashboard vacation={dataGetVacationById} />
-                  }
-                  fileName={`${dataGetVacationById.title}.pdf`}
+              <div className="flex gap-4">
+                {!!dataGetVacationById && dayEditId !== 0 && (
+                  <PDFDownloadLink
+                    document={
+                      <PrintSummaryDashboard vacation={dataGetVacationById} />
+                    }
+                    fileName={`${dataGetVacationById.title}.pdf`}
+                  >
+                    {({ loading }) => (
+                      <Skeleton className="rounded-full" isLoaded={!loading}>
+                        <Button
+                          isIconOnly
+                          title="Print"
+                          variant="light"
+                          color="danger"
+                          radius="full"
+                          disabled={loading}
+                        >
+                          <FaFilePdf size={20} />
+                        </Button>
+                      </Skeleton>
+                    )}
+                  </PDFDownloadLink>
+                )}
+                <Button
+                  radius="full"
+                  variant="light"
+                  isIconOnly
+                  onPress={onClose}
                 >
-                  {({ blob, url, loading, error }) => (
-                    <Skeleton className="rounded-full" isLoaded={!loading}>
-                      <Button
-                        isIconOnly
-                        title="Print"
-                        variant="light"
-                        color="danger"
-                        radius="full"
-                        disabled={loading}
-                      >
-                        <FaFilePdf size={20} />
-                      </Button>
-                    </Skeleton>
-                  )}
-                </PDFDownloadLink>
-              )}
+                  <FaTimes />
+                </Button>
+              </div>
             </ModalHeader>
             <ModalBody>
               <form
