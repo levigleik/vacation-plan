@@ -24,8 +24,6 @@ import { convertToBase64 } from '@/lib/utils'
 import { FaUpload } from 'react-icons/fa'
 import { ModalCropImage } from '@/app/(public)/register/modal'
 import { useRegisterHook } from '@/app/(public)/register/hooks'
-import { ReactCrop } from 'react-image-crop'
-import { FaPencil } from 'react-icons/fa6'
 
 const Loading = () => {
   return (

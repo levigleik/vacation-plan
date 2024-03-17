@@ -1,9 +1,4 @@
-import { VacationApiProps } from '@/types/models/vaction'
-import { DateVacationApiProps } from '@/types/models/dateVacation'
-import {
-  DateCalendarProps,
-  VacationWithDatesApiProps,
-} from '@/app/(private)/(dashboard)/types'
+import { VacationWithDatesApiProps } from '@/app/(private)/(dashboard)/types'
 
 export interface DashboardSummaryHookProps {
   modalFilterOpen: boolean

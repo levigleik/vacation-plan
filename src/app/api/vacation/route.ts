@@ -1,7 +1,6 @@
 import { vacationService } from '@/app/api/vacation/service'
 import { NextResponse } from 'next/server'
 import { getQuery } from '@/lib/query'
-import { FormVacationProps } from '@/app/(private)/(dashboard)/types'
 import { CreateVacationDTO } from '@/app/api/vacation/dto/createVacation'
 import { dateVacationService } from '@/app/api/dateVacation/service'
 

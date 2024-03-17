@@ -2,7 +2,6 @@ import { vacationService } from '@/app/api/vacation/service'
 import { NextResponse } from 'next/server'
 import { getQuery } from '@/lib/query'
 import { ContextApiProps } from '@/types/api'
-import bcrypt from 'bcrypt'
 
 export async function GET(req: Request, context: ContextApiProps) {
   const id = Number(context.params?.id)

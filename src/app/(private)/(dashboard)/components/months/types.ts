@@ -1,6 +1,3 @@
-import { VacationApiProps } from '@/types/models/vaction'
-import { DateVacationApiProps } from '@/types/models/dateVacation'
-
 export interface DashboardMonthHookProps {
   modalVacationOpen: boolean
   setModalVacationOpen: (modal: boolean) => void

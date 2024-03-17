@@ -1,5 +1,5 @@
 import { prisma } from '@/app/api/prisma/prisma.config'
-import { DateVacation, Prisma, Vacation } from '@prisma/client'
+import { DateVacation, Prisma } from '@prisma/client'
 
 async function find(
   args: Prisma.DateVacationFindManyArgs,

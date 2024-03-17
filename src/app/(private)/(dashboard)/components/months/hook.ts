@@ -1,6 +1,6 @@
 import { create } from 'zustand'
-import { DashboardHookProps } from '@/app/(private)/(dashboard)/types'
 import { DashboardMonthHookProps } from '@/app/(private)/(dashboard)/components/months/types'
+
 export const useDashboardMonthHook = create<DashboardMonthHookProps>()(
   (set, get) => ({
     modalVacationOpen: false,

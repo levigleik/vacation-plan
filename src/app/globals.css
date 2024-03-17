@@ -2,18 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-
 body {
-    @apply bg-gray-300;
+  @apply bg-gray-300;
 }
 
 * {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 *::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 /*input:-webkit-autofill,*/
@@ -23,4 +22,3 @@ body {
 /*    transition: background-color 5000s ease-in-out 0s;*/
 /*    -webkit-text-fill-color: #fff !important;*/
 /*}*/
-
