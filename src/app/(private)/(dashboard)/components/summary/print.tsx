@@ -91,7 +91,6 @@ export const PrintSummaryDashboard = ({
 }: PrintSummaryDashboardProps) => {
   const userPart1 = vacation.users?.slice(0, vacation.users.length / 2)
   const userPart2 = vacation.users?.slice(vacation.users.length / 2)
-  console.log('GEROU', vacation.id)
   return (
     <Document>
       <Page style={styles.page}>
@@ -115,26 +114,41 @@ export const PrintSummaryDashboard = ({
                 .join(', ')}
             </Text>
             <View style={styles.sectionParticipants}>
-              <View style={styles.participantsPair}>
-                {userPart1?.map((user: UserApiProps) => (
-                  // eslint-disable-next-line jsx-a11y/alt-text
-                  <View key={user.id} style={styles.participants}>
-                    {/* eslint-disable-next-line jsx-a11y/alt-text */}
-                    <Image style={styles.image} src={user.photo} />
-                    <Text>{user.name}</Text>
+              {vacation.users?.length === 1 ? (
+                <View style={styles.participantsPair}>
+                  {vacation.users?.map((user: UserApiProps) => (
+                    // eslint-disable-next-line jsx-a11y/alt-text
+                    <View key={user.id} style={styles.participants}>
+                      {/* eslint-disable-next-line jsx-a11y/alt-text */}
+                      <Image style={styles.image} src={user.photo} />
+                      <Text>{user.name}</Text>
+                    </View>
+                  ))}
+                </View>
+              ) : (
+                <>
+                  <View style={styles.participantsPair}>
+                    {userPart1?.map((user: UserApiProps) => (
+                      // eslint-disable-next-line jsx-a11y/alt-text
+                      <View key={user.id} style={styles.participants}>
+                        {/* eslint-disable-next-line jsx-a11y/alt-text */}
+                        <Image style={styles.image} src={user.photo} />
+                        <Text>{user.name}</Text>
+                      </View>
+                    ))}
                   </View>
-                ))}
-              </View>
-              <View style={styles.participantsPair}>
-                {userPart2?.map((user: UserApiProps) => (
-                  // eslint-disable-next-line jsx-a11y/alt-text
-                  <View key={user.id} style={styles.participants}>
-                    {/* eslint-disable-next-line jsx-a11y/alt-text */}
-                    <Image style={styles.image} src={user.photo} />
-                    <Text>{user.name}</Text>
+                  <View style={styles.participantsPair}>
+                    {userPart2?.map((user: UserApiProps) => (
+                      // eslint-disable-next-line jsx-a11y/alt-text
+                      <View key={user.id} style={styles.participants}>
+                        {/* eslint-disable-next-line jsx-a11y/alt-text */}
+                        <Image style={styles.image} src={user.photo} />
+                        <Text>{user.name}</Text>
+                      </View>
+                    ))}
                   </View>
-                ))}
-              </View>
+                </>
+              )}
             </View>
           </View>
         </View>
