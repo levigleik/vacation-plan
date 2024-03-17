@@ -19,6 +19,13 @@ import { FormRegisterProps } from './types'
 import { validateEmail, validatePassword } from '@/lib/validations'
 import Image from 'next/image'
 import logo from '@/assets/images/logo.png'
+import { useEffect, useState } from 'react'
+import { convertToBase64 } from '@/lib/utils'
+import { FaUpload } from 'react-icons/fa'
+import { ModalCropImage } from '@/app/(public)/register/modal'
+import { useRegisterHook } from '@/app/(public)/register/hooks'
+import { ReactCrop } from 'react-image-crop'
+import { FaPencil } from 'react-icons/fa6'
 
 const Loading = () => {
   return (
@@ -32,6 +39,12 @@ const Register = () => {
   const { control, handleSubmit, watch } = useForm<FormRegisterProps>()
 
   const { setProfile, setSigned } = useAuthState()
+
+  const { setModalOpen, setImage, image } = useRegisterHook()
+
+  const [tempImage, setTempImage] = useState<File>()
+
+  const [imageBase64, setImageBase64] = useState<string>()
 
   const { get } = useSearchParams()
 
@@ -47,10 +60,17 @@ const Register = () => {
     mutationKey: ['login'],
   })
 
-  const onSubmit = (form: FormRegisterProps) => {
+  const onSubmit = async (form: FormRegisterProps) => {
+    const photoBase64 = image
+      ? ((await convertToBase64(image)) as string)
+      : undefined
     mutateAsync({
       url: 'user',
-      data: { ...form, passwordConfirmation: undefined },
+      data: {
+        ...form,
+        passwordConfirmation: undefined,
+        photo: photoBase64 ? photoBase64 : '',
+      },
     })
       .then(async (data) => {
         Cookie.set('signed', 'true', cookiesSettings)
@@ -66,11 +86,19 @@ const Register = () => {
       })
   }
 
+  useEffect(() => {
+    if (image) {
+      convertToBase64(image).then((base64) => {
+        setImageBase64(base64 as string)
+      })
+    }
+  }, [image])
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-main to-main-white">
       {isPending && <Loading />}
       {!isPending && (
-        <div className="rounded-md bg-content1 p-10 shadow-sm shadow-main-200 brightness-90 md:w-[500px] md:p-16 md:pt-8">
+        <div className=" overflow-auto rounded-md bg-content1 p-10 shadow-sm shadow-main-200 brightness-90 md:w-[500px] md:p-16 md:pt-8">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-6 flex items-center justify-center">
               <Image alt="logo" src={logo} width={200} height={200} />
@@ -117,6 +145,47 @@ const Register = () => {
                   />
                 )}
               />
+              <Input
+                type="text"
+                variant="bordered"
+                label="Photo"
+                disabled
+                endContent={
+                  <label className="flex h-full w-fit cursor-pointer flex-col justify-center rounded-md bg-default-100 px-3 py-2">
+                    <input
+                      type="file"
+                      className="hidden"
+                      accept="image/*"
+                      multiple
+                      onChange={(e) => {
+                        if (e.target.files) {
+                          setImage(e.target.files[0])
+                          setTempImage(e.target.files[0])
+                          setModalOpen(true)
+                        }
+                      }}
+                    />
+                    <FaUpload className="text-xl" />
+                  </label>
+                }
+              />
+              {imageBase64 && (
+                <div className="flex w-full justify-center">
+                  <Image
+                    src={imageBase64}
+                    alt={'image-croppped'}
+                    width={100}
+                    height={100}
+                    title="Edit"
+                    onClick={() => {
+                      if (tempImage) setImage(tempImage)
+                      setModalOpen(true)
+                    }}
+                    className="cursor-pointer rounded-full"
+                  />
+                </div>
+              )}
+
               <Controller
                 name="password"
                 control={control}
@@ -160,11 +229,21 @@ const Register = () => {
                 )}
               />
             </div>
-            <div className="flex justify-center">
+            <div className="flex justify-between">
+              <Button
+                variant="bordered"
+                type="button"
+                className="text-white"
+                disabled={isPending}
+                onClick={() => {
+                  router.push('/login')
+                }}
+              >
+                Back to Login
+              </Button>
               <Button
                 // variant="bordered"
                 type="submit"
-                color="primary"
                 className="text-white"
                 disabled={isPending}
               >
@@ -174,6 +253,7 @@ const Register = () => {
           </form>
         </div>
       )}
+      <ModalCropImage />
     </div>
   )
 }

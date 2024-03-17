@@ -12,9 +12,17 @@ import { PostData, PutData } from '@/types/api'
 import { Row } from '@/components/layout/grid'
 import { FormUserProps } from './types'
 import { validatePassword } from '@/lib/validations'
+import Image from 'next/image'
+import { useRegisterHook } from '@/app/(public)/register/hooks'
+import { convertBase64ToFile, convertToBase64 } from '@/lib/utils'
+import { FaUpload } from 'react-icons/fa'
+import { ModalCropImage } from '@/app/(public)/register/modal'
+import { useAuthState } from '@/hooks/auth'
 
 const UserEdit = () => {
   const { id } = useParams<{ id: string | 'new' }>()
+  const { setModalOpen, setImage, image } = useRegisterHook()
+  const { setProfile } = useAuthState()
 
   const { data: dataGetUser, isLoading: loadingGet } = useQuery({
     queryFn: ({ signal }) =>
@@ -48,14 +56,22 @@ const UserEdit = () => {
 
   const [changePassword, setChangePassword] = useState(false)
 
-  const onSubmit = (data: FormUserProps) => {
+  const [tempImage, setTempImage] = useState<File>()
+  const [imageBase64, setImageBase64] = useState<string>()
+
+  const onSubmit = async (data: FormUserProps) => {
+    const photoBase64 = image
+      ? ((await convertToBase64(image)) as string)
+      : undefined
     const parseData = {
       ...data,
+      photo: photoBase64,
+      passwordConfirmation: undefined,
     }
     if (id === 'new')
       mutatePost({
         url: '/user',
-        data: parseData,
+        data: parseData as any,
       })
         .then(() => {
           toast.success('User registered successfully')
@@ -69,14 +85,17 @@ const UserEdit = () => {
       mutatePut({
         url: '/user',
         data: {
-          ...parseData,
+          ...(parseData as any),
           password:
             changePassword && data.newPassword ? data.newPassword : undefined,
         },
         id: parseInt(id, 10),
       })
-        .then(() => {
+        .then((dataUser) => {
           toast.success('User updated successfully')
+          if (dataUser.email === data.email) {
+            setProfile({ ...dataUser, password: undefined })
+          }
         })
         .catch((err) => {
           toastErrorsApi(err)
@@ -89,8 +108,20 @@ const UserEdit = () => {
     if (dataGetUser && id !== 'new') {
       setValue('name', dataGetUser.name)
       setValue('email', dataGetUser.email)
+      setValue('photo', dataGetUser.photo)
+      convertBase64ToFile(dataGetUser.photo).then((file) => {
+        setImage(file)
+      })
     }
-  }, [dataGetUser, id, setValue])
+  }, [dataGetUser, id, setImage, setValue])
+
+  useEffect(() => {
+    if (image) {
+      convertToBase64(image).then((base64) => {
+        setImageBase64(base64 as string)
+      })
+    }
+  }, [image])
 
   return (
     <form
@@ -118,7 +149,6 @@ const UserEdit = () => {
                 errorMessage={error?.message}
                 disabled={loading}
               />
-              \
             </Skeleton>
           )}
         />
@@ -152,6 +182,48 @@ const UserEdit = () => {
           )}
         />
       </Row>
+      <Row>
+        <Input
+          type="text"
+          variant="bordered"
+          label="Photo"
+          disabled
+          endContent={
+            <label className="flex h-full w-fit cursor-pointer flex-col justify-center rounded-md bg-default-100 px-3 py-2">
+              <input
+                type="file"
+                className="hidden"
+                accept="image/*"
+                multiple
+                onChange={(e) => {
+                  if (e.target.files) {
+                    setImage(e.target.files[0])
+                    setTempImage(e.target.files[0])
+                    setModalOpen(true)
+                  }
+                }}
+              />
+              <FaUpload className="text-xl" />
+            </label>
+          }
+        />
+      </Row>
+      {imageBase64 && (
+        <div className="flex">
+          <Image
+            src={imageBase64}
+            alt={'image-croppped'}
+            width={100}
+            height={100}
+            title="Edit"
+            onClick={() => {
+              if (tempImage) setImage(tempImage)
+              setModalOpen(true)
+            }}
+            className="cursor-pointer rounded-full"
+          />
+        </div>
+      )}
       {id !== 'new' && (
         <>
           <Switch
@@ -215,7 +287,7 @@ const UserEdit = () => {
           )}
         </>
       )}
-      {!id && (
+      {id === 'new' && (
         <Row>
           <Controller
             name="password"
@@ -274,6 +346,7 @@ const UserEdit = () => {
       >
         Submit
       </Button>
+      <ModalCropImage />
     </form>
   )
 }

@@ -1,6 +1,5 @@
 'use client'
 import Cookie from 'js-cookie'
-import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Controller, useForm } from 'react-hook-form'
 import { useMutation } from '@tanstack/react-query'
@@ -10,8 +9,7 @@ import { UserApiProps } from '@/types/models/user'
 import { cookiesSettings } from '@/lib/constants'
 import { useAuthState } from '@/hooks/auth'
 import { AxiosError } from 'axios'
-import { Button, Input, Skeleton } from '@nextui-org/react'
-import { inputStyleLogin } from '@/app/(public)/constants.styles'
+import { Button, Input } from '@nextui-org/react'
 import { FormLoginProps } from './types'
 import Loading from 'components/loading'
 import Image from 'next/image'
@@ -43,7 +41,7 @@ const Login = () => {
         Cookie.set('signed', 'true', cookiesSettings)
 
         setSigned(true)
-        setProfile(data)
+        setProfile({ ...data, password: undefined })
         if (redirect) router.push(redirect)
         else router.push('/')
       })
@@ -105,16 +103,21 @@ const Login = () => {
                 )}
               />
             </div>
-            <div className="mb-8">
-              <Link className="text-sm italic  underline" href="/register">
-                Cadastrar-se
-              </Link>
-            </div>
-            <div className="flex justify-center">
+            <div className="flex justify-between">
+              <Button
+                variant="bordered"
+                type="button"
+                className="text-white"
+                onClick={() => {
+                  router.push('/register')
+                }}
+              >
+                Register
+              </Button>
               <Button
                 // variant="bordered"
                 type="submit"
-                className="loginAnim"
+                className="text-white"
                 disabled={isPending}
               >
                 Login
