@@ -9,27 +9,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-      },
       colors: {
         main: '#0a4052',
         'main-200': '#0A4D5C',
         'main-300': '#1480A3',
         'main-white': '#b6f2f2',
         'main-green': '#038c65',
-      },
-      backgroundSize: {
-        'size-200': '200% 200%',
-      },
-      keyframes: {
-        rotate: {
-          '100%': {
-            transform: 'rotate(1turn)',
-          },
-        },
       },
     },
     screens: {
@@ -49,7 +34,7 @@ const config: Config = {
       '6xl': '2560px',
     },
   },
-  darkMode: 'class',
+  darkMode: 'media',
   plugins: [
     nextui({
       prefix: 'nextui',

@@ -3,7 +3,6 @@
 // import Loading from '@/components/loading'
 import Cookie from 'js-cookie'
 // import { jwtDecode } from 'jwt-decode'
-import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Controller, useForm } from 'react-hook-form'
 import { Button, Input } from '@nextui-org/react'
@@ -15,10 +14,11 @@ import { UserApiProps } from '@/types/models/user'
 import { cookiesSettings } from '@/lib/constants'
 import { useAuthState } from '@/hooks/auth'
 import { AxiosError } from 'axios'
-import { inputStyleLogin } from '@/app/(public)/constants.styles'
 import { toast } from 'react-toastify'
 import { FormRegisterProps } from './types'
 import { validateEmail, validatePassword } from '@/lib/validations'
+import Image from 'next/image'
+import logo from '@/assets/images/logo.png'
 
 const Loading = () => {
   return (
@@ -70,11 +70,11 @@ const Register = () => {
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-main to-main-white">
       {isPending && <Loading />}
       {!isPending && (
-        <div className="rounded-md bg-main-200 p-10 shadow-sm shadow-main-200 brightness-90 md:w-[500px] md:p-16 md:pt-8">
+        <div className="rounded-md bg-content1 p-10 shadow-sm shadow-main-200 brightness-90 md:w-[500px] md:p-16 md:pt-8">
           <form onSubmit={handleSubmit(onSubmit)}>
-            {/*<div className="mb-6 flex items-center justify-center">*/}
-            {/*  <Image alt="logo" src={logo} width={200} height={200} />*/}
-            {/*</div>*/}
+            <div className="mb-6 flex items-center justify-center">
+              <Image alt="logo" src={logo} width={200} height={200} />
+            </div>
             <h1 className="my-8 text-center text-2xl font-bold">Register</h1>
             <div className="mb-4 flex flex-col gap-4">
               <Controller
@@ -94,7 +94,6 @@ const Register = () => {
                     disabled={isPending}
                     isInvalid={!!error}
                     errorMessage={error?.message}
-                    classNames={inputStyleLogin}
                   />
                 )}
               />
@@ -115,7 +114,6 @@ const Register = () => {
                     disabled={isPending}
                     isInvalid={!!error}
                     errorMessage={error?.message}
-                    classNames={inputStyleLogin}
                   />
                 )}
               />
@@ -135,7 +133,6 @@ const Register = () => {
                     disabled={isPending}
                     isInvalid={!!error}
                     errorMessage={error?.message}
-                    classNames={inputStyleLogin}
                     type="password"
                   />
                 )}
@@ -158,7 +155,6 @@ const Register = () => {
                     disabled={isPending}
                     isInvalid={!!error}
                     errorMessage={error?.message}
-                    classNames={inputStyleLogin}
                     type="password"
                   />
                 )}

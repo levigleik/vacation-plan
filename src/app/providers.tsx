@@ -71,7 +71,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
             })
           }}
         >
-          <NextThemesProvider attribute="class" defaultTheme="dark">
+          <NextThemesProvider attribute="class" defaultTheme="light">
             <ToastContainer
               pauseOnHover={false}
               pauseOnFocusLoss={false}

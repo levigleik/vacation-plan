@@ -1,6 +1,4 @@
 'use client'
-// import logo from '@/assets/images/logo.webp'
-// import Loading from '@/components/loading'
 import Cookie from 'js-cookie'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -12,17 +10,12 @@ import { UserApiProps } from '@/types/models/user'
 import { cookiesSettings } from '@/lib/constants'
 import { useAuthState } from '@/hooks/auth'
 import { AxiosError } from 'axios'
-import { Button, Input } from '@nextui-org/react'
+import { Button, Input, Skeleton } from '@nextui-org/react'
 import { inputStyleLogin } from '@/app/(public)/constants.styles'
 import { FormLoginProps } from './types'
-
-const Loading = () => {
-  return (
-    <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black bg-opacity-50">
-      <div className="border-main-100 h-32 w-32 animate-spin rounded-full border-b-2 border-t-2"></div>
-    </div>
-  )
-}
+import Loading from 'components/loading'
+import Image from 'next/image'
+import logo from '@/assets/images/logo.png'
 
 const Login = () => {
   const { control, handleSubmit } = useForm<FormLoginProps>()
@@ -64,11 +57,11 @@ const Login = () => {
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-main to-main-white">
       {isPending && <Loading />}
       {!isPending && (
-        <div className="rounded-md bg-main-200 p-10 shadow-sm shadow-main-200 brightness-90 md:w-[500px] md:p-16 md:pt-8">
+        <div className="rounded-md bg-content1 p-10 shadow-sm shadow-main-200 brightness-90 md:w-[500px] md:p-16 md:pt-8">
           <form onSubmit={handleSubmit(onSubmit)}>
-            {/*<div className="mb-6 flex items-center justify-center">*/}
-            {/*  <Image alt="logo" src={logo} width={200} height={200} />*/}
-            {/*</div>*/}
+            <div className="mb-6 flex items-center justify-center">
+              <Image alt="logo" src={logo} width={200} height={200} />
+            </div>
             <h1 className="my-8 text-center text-2xl font-bold">Login</h1>
             <div className="mb-4">
               <Controller
@@ -78,15 +71,15 @@ const Login = () => {
                 rules={{ required: 'Field is required' }}
                 render={({ field, fieldState: { error } }) => (
                   <Input
-                    type="email"
+                    type="text"
                     id={field.name}
                     name={field.name}
                     onChange={field.onChange}
                     value={field.value}
                     variant="bordered"
                     label="E-mail"
-                    disabled={isPending}
-                    classNames={inputStyleLogin}
+                    isInvalid={!!error}
+                    errorMessage={error?.message}
                   />
                 )}
               />
@@ -99,26 +92,21 @@ const Login = () => {
                 rules={{ required: 'Field is required' }}
                 render={({ field, fieldState: { error } }) => (
                   <Input
-                    label="Password"
-                    variant="bordered"
+                    type="password"
                     id={field.name}
-                    onChange={field.onChange}
                     name={field.name}
+                    onChange={field.onChange}
                     value={field.value}
-                    disabled={isPending}
+                    variant="bordered"
+                    label="Password"
                     isInvalid={!!error}
                     errorMessage={error?.message}
-                    classNames={inputStyleLogin}
-                    type="password"
                   />
                 )}
               />
             </div>
             <div className="mb-8">
-              <Link
-                className="text-sm italic text-white underline"
-                href="/register"
-              >
+              <Link className="text-sm italic  underline" href="/register">
                 Cadastrar-se
               </Link>
             </div>
@@ -126,7 +114,6 @@ const Login = () => {
               <Button
                 // variant="bordered"
                 type="submit"
-                color="primary"
                 className="loginAnim"
                 disabled={isPending}
               >
