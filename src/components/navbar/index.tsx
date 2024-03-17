@@ -1,6 +1,6 @@
 'use client'
 
-import logo from '@/asstets/images/logo.png'
+import logo from '@/assets/images/logo.png'
 
 import {
   cn,
