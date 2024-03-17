@@ -1,6 +1,6 @@
 'use client'
 // import logo from '@/assets/images/logo.webp'
-// import Loading from 'components/loading'
+// import Loading from '@/components/loading'
 import Cookie from 'js-cookie'
 // import { jwtDecode } from 'jwt-decode'
 import Link from 'next/link'

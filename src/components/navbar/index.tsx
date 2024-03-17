@@ -3,7 +3,6 @@
 import logo from '@/assets/images/logo.png'
 
 import {
-  cn,
   Dropdown,
   DropdownItem,
   DropdownMenu,
@@ -22,22 +21,9 @@ import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
-import {
-  FaBuilding,
-  FaCogs,
-  FaHome,
-  FaMoon,
-  FaSignOutAlt,
-  FaSun,
-  FaUser,
-  FaUserCog,
-  FaUsers,
-  FaUserTie,
-} from 'react-icons/fa'
+import { FaHome, FaMoon, FaSignOutAlt, FaSun, FaUser } from 'react-icons/fa'
 import { menuItems } from './constants'
 import { fisrtAndSecondLetterName, formatName } from './functions'
-import { PiMonitorFill } from 'react-icons/pi'
-import { IoMdPaper } from 'react-icons/io'
 import { useAuthState } from '@/hooks/auth'
 
 const NavbarComp: React.FC = () => {
@@ -89,7 +75,7 @@ const NavbarComp: React.FC = () => {
                   isActive={
                     item.path === '/'
                       ? pathname === '/'
-                      : pathname.includes(item.path)
+                      : pathname?.includes(item.path)
                   }
                 >
                   <Link
@@ -166,7 +152,7 @@ const NavbarComp: React.FC = () => {
               {
                 <NavbarMenuItem
                   key={item.path}
-                  isActive={item.path.includes(pathname)}
+                  isActive={item.path?.includes(pathname)}
                 >
                   <Link
                     color="foreground"

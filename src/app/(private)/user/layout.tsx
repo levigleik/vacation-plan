@@ -1,7 +1,7 @@
 import { cn } from '@nextui-org/react'
-import Header from 'components/layout/header'
-import Loading from 'components/loading'
-import HeaderTable from 'components/table/header'
+import Header from '@/components/layout/header'
+import Loading from '@/components/loading'
+import HeaderTable from '@/components/table/header'
 import { Metadata } from 'next'
 import { Suspense } from 'react'
 

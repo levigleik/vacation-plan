@@ -9,7 +9,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { UserApiProps } from '@/types/models/user'
 import { PostData, PutData } from '@/types/api'
-import { Row } from 'components/layout/grid'
+import { Row } from '@/components/layout/grid'
 import { FormUserProps } from './types'
 import { validatePassword } from '@/lib/validations'
 

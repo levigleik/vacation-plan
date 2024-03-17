@@ -17,7 +17,7 @@ import {
 } from '@nextui-org/react'
 import { useCallback, useMemo, useState } from 'react'
 import { FaArrowDown } from 'react-icons/fa'
-import { ColumnProps, TableProps } from 'components/table/types'
+import { ColumnProps, TableProps } from '@/components/table/types'
 
 const Table = <T extends Record<string, any>>({
   data,

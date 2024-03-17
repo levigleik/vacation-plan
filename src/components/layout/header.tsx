@@ -13,13 +13,14 @@ export default function Header({
   editText,
   listText,
   newText,
-  path,
+  path = '/',
   defaultText,
 }: HeaderProps) {
   const pathname = usePathname()
   const lists = pathname === '/' + path
   const newPath = pathname === `/${path}/new`
-  const editPath = pathname.match(/\/\d+/gm)
+  const editPath = pathname?.match(/\/\d+/gm)
+
   return (
     <div className="my-8 flex w-full items-center justify-between">
       <h2 className="flex-grow text-3xl font-bold tracking-wide">

@@ -1,4 +1,4 @@
-import { ColumnProps } from 'components/table/types'
+import { ColumnProps } from '@/components/table/types'
 import { UserApiProps } from '@/types/models/user'
 
 export const columnsUsers: ColumnProps<UserApiProps>[] = [

@@ -9,7 +9,9 @@
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "seed": "node prisma/seed.js"
+    "serve-storybook": "serve storybook-static",
+    "seed": "node prisma/seed.js",
+    "chromatic": "npx chromatic --project-token=chpt_afb29913dec7a0b"
   },
   "dependencies": {
     "@nextui-org/react": "^2.2.10",

@@ -3,7 +3,7 @@
 import { Button, Tooltip } from '@nextui-org/react'
 import { usePathname, useRouter } from 'next/navigation'
 import { FaArrowLeft, FaPlus } from 'react-icons/fa'
-import { ColumnProps } from 'components/table/types'
+import { ColumnProps } from '@/components/table/types'
 
 interface HeaderTableProps<TData extends Record<string, any>> {
   path: string

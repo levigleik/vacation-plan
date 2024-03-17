@@ -1,6 +1,6 @@
 'use client'
 // import logo from '@/assets/images/logo.webp'
-// import Loading from 'components/loading'
+// import Loading from '@/components/loading'
 import Cookie from 'js-cookie'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'

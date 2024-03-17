@@ -1,9 +1,7 @@
 'use client'
-import { Skeleton } from '@nextui-org/react'
 import { Suspense, useState } from 'react'
 import { FaExclamationTriangle } from 'react-icons/fa'
 import Loading from '@/components/loading'
-import { Sidebar } from '@/components/sidebar'
 import Navbar from '@/components/navbar'
 
 const Layout = ({ children }: { children: React.ReactNode }) => {

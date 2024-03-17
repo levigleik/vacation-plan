@@ -12,6 +12,7 @@ export interface DashboardHookProps {
 
 export interface DashboardProps {
   month: number
+  data?: VacationWithDatesApiProps[]
 }
 
 export type FormVacationProps = VacationApiProps & {

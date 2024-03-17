@@ -40,3 +40,6 @@ next-env.d.ts
 # environment variables
 .env
 .env.production
+
+# storybook
+storybook-static

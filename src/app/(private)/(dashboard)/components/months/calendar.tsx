@@ -1,6 +1,6 @@
 'use client'
 
-import { Calendar as CalendarUI } from 'components/calendar'
+import { Calendar as CalendarUI } from '@/components/calendar'
 import { useDashboardHook } from '@/app/(private)/(dashboard)/hook'
 import { DashboardProps } from '@/app/(private)/(dashboard)/types'
 import { CSSProperties, useEffect, useMemo } from 'react'
@@ -9,8 +9,6 @@ import { DayClickEventHandler } from 'react-day-picker'
 import { setDatesOnCalendar } from '@/app/(private)/(dashboard)/functions'
 import { useDashboardMonthHook } from '@/app/(private)/(dashboard)/components/months/hook'
 import { createColorDateMap } from '@/app/(private)/(dashboard)/components/months/utils'
-// const bookedDays = [new Date(2024, 5, 10), new Date(2024, 5, 9)]
-// const bookedStyle = { border: '2px solid currentColor' }
 
 export const Calendar = ({ month }: DashboardProps) => {
   const { dateField, setDateField, dataGetVacation } = useDashboardHook()
