@@ -4,6 +4,10 @@
 [https://vacation-plan.vercel.app/](https://vacation-plan.vercel.app/)
 ## 💻 Getting Started
 
+Node.js and npm are required to run this project. You can download them [here](https://nodejs.org/en/download/)
+
+Minimun version of Node.js: >=18.0.0
+
 First of all, you must install the dependencies using:
 
 ```bash
