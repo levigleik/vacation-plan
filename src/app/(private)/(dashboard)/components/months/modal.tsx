@@ -45,8 +45,12 @@ import { PrintSummaryDashboard } from '@/app/(private)/(dashboard)/components/su
 import { PDFDownloadLink, usePDF } from '@react-pdf/renderer'
 
 export const ModalVacationDashboard = () => {
-  const { setDataGetVacation, setDateField, setLoadingGetVacation } =
-    useDashboardHook()
+  const {
+    setDataGetVacation,
+    setDateField,
+    setLoadingGetVacation,
+    dataGetVacation,
+  } = useDashboardHook()
 
   const {
     modalVacationOpen,
@@ -361,6 +365,22 @@ export const ModalVacationDashboard = () => {
                         isDisabled={!!dayEditId}
                         selectionMode="multiple"
                         isMultiline={(allDaysInMonth?.length ?? 0) > 0}
+                        disabledKeys={dataGetVacation
+                          ?.filter((a) =>
+                            a.dates.every(
+                              (b) =>
+                                new Date(b.date).getMonth() ===
+                                (month ?? 0) - 1,
+                            ),
+                          )
+                          .reduce((acc, curr) => {
+                            return [
+                              ...acc,
+                              ...curr.dates.map((a) =>
+                                format(new Date(a.date), 'dd'),
+                              ),
+                            ]
+                          }, [] as string[])}
                         renderValue={(items) => {
                           return (
                             <div className="flex flex-wrap gap-2">
