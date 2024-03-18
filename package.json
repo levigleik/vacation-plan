@@ -9,8 +9,9 @@
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "serve-storybook": "serve storybook-static",
+    "serve-storybook": "npx serve storybook-static",
     "seed": "node prisma/seed.js",
+    "prisma-migrate": "npx prisma migrate deploy; npx prisma generate",
     "chromatic": "npx chromatic --project-token=chpt_afb29913dec7a0b"
   },
   "dependencies": {

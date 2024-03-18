@@ -1,36 +1,106 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Vacation Planner
 
-## Getting Started
+<img src="dashboard.png" alt="dashboard">
 
-First, run the development server:
+## 💻 Getting Started
+
+First of all, you must install the dependencies using:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 1) Creating a .env file
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+You must create a ```.env``` file in the root of the project with the following content:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```
+NEXT_PUBLIC_API_URL=http://localhost:3002
+```
 
-## Learn More
+If you want to use Postgresql, you must add the following environment variables:
 
-To learn more about Next.js, take a look at the following resources:
+```
+DATABASE_URL=postgresql://user:password@localhost:5432/vacation-plan
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Remember to change the user and password to your own credentials.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+You can also rename the ```.env.example``` to ```.env``` and change the values to your own credentials.
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### If you want to simplify, you must follow the next step to use SQLite instead of Postgresql:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Go to ```./prisma/schema.prisma``` and remove this:
+
+```
+datasource db {
+  provider = "postgresql"
+  url      = env("NEXT_DATABASE_URL")
+}
+```
+and add this:
+```
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+```
+
+### 2) Now you run the prisma migrations:
+
+```bash
+npm run prisma-migrate
+```
+
+### 3) To use a mocked data for testing you must run:
+
+```
+npm run seed
+```
+
+## 🚀 Running the project
+
+You can start the project using:
+```
+npm run dev
+```
+
+Open [http://localhost:3002](http://localhost:3002) with your browser to it running.
+
+## 🛠️ Testing
+
+If you ran the seed command, you can use the following credentials to login:
+
+```
+email: alice@example.com
+password: password123
+```
+
+If you don't, you can create a new account by clicking on the ```Register``` button.
+
+
+## 📚 Documentation
+
+You can find the documentation [https://vacation-plan-docs.netlify.app/](
+https://vacation-plan-docs.netlify.app/)
+
+<img src="documentation.png" alt="documentation">
+
+You can run the following command to generate the documentation:
+
+```
+npm run build-storybook
+```
+
+And start it by running:
+
+```
+npm run storybook
+```
+
+Now you can open [http://localhost:6006](http://localhost:6006) with your browser to see the documentation.
+
+## 🎉 Deployment
+I've already deployed the project on Vercel, you can check it out [here](
+https://vacation-plan.vercel.app/)
