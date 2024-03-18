@@ -5,5 +5,4 @@ export interface UserApiProps extends DefaultApiProps {
   email: string
   photo: string
   password?: string
-  groupsIds: number[]
 }

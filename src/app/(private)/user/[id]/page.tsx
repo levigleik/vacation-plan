@@ -75,6 +75,8 @@ const UserEdit = () => {
       })
         .then(() => {
           toast.success('User registered successfully')
+          setImage(undefined)
+          setImageBase64(undefined)
           reset()
         })
         .catch((error: any) => {
@@ -96,6 +98,7 @@ const UserEdit = () => {
             setProfile({ ...dataUser, password: undefined })
           }
           setImage(undefined)
+          setImageBase64(undefined)
         })
         .catch((err) => {
           toastErrorsApi(err)
@@ -122,6 +125,13 @@ const UserEdit = () => {
       })
     }
   }, [image])
+
+  useEffect(() => {
+    return () => {
+      setImageBase64(undefined)
+      setImage(undefined)
+    }
+  }, [setImage])
 
   return (
     <form
