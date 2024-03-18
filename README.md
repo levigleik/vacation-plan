@@ -36,12 +36,28 @@ npm run seed
 
 ## 🚀 Running the project
 
-You can start the project using:
+You can start the development mode using:
 ```
 npm run dev
 ```
 
-Open [http://localhost:3002](http://localhost:3002) with your browser to it running.
+Open dev in [http://localhost:3002](http://localhost:3002) with your browser to it running.
+
+
+
+To get more performance, you can build the project using:
+```
+npm run build
+```
+
+And start it by running:
+```
+npm start
+```
+
+Now you can open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+
 
 ## 🛠️ Testing
 
