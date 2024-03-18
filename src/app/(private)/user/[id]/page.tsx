@@ -22,7 +22,7 @@ import { useAuthState } from '@/hooks/auth'
 const UserEdit = () => {
   const { id } = useParams<{ id: string | 'new' }>()
   const { setModalOpen, setImage, image } = useRegisterHook()
-  const { setProfile } = useAuthState()
+  const { setProfile, profile } = useAuthState()
 
   const { data: dataGetUser, isLoading: loadingGet } = useQuery({
     queryFn: ({ signal }) =>
@@ -75,7 +75,6 @@ const UserEdit = () => {
       })
         .then(() => {
           toast.success('User registered successfully')
-
           reset()
         })
         .catch((error: any) => {
@@ -93,9 +92,10 @@ const UserEdit = () => {
       })
         .then((dataUser) => {
           toast.success('User updated successfully')
-          if (dataUser.email === data.email) {
+          if (dataUser.email === profile?.email) {
             setProfile({ ...dataUser, password: undefined })
           }
+          setImage(undefined)
         })
         .catch((err) => {
           toastErrorsApi(err)

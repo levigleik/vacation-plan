@@ -55,13 +55,15 @@ const Register = () => {
   const { mutateAsync, isPending } = useMutation({
     mutationFn: (val: PostData<FormRegisterProps>) =>
       postData<UserApiProps, FormRegisterProps>(val),
-    mutationKey: ['login'],
+    mutationKey: ['register'],
   })
 
   const onSubmit = async (form: FormRegisterProps) => {
     const photoBase64 = image
       ? ((await convertToBase64(image)) as string)
       : undefined
+
+    console.log('form', form)
     mutateAsync({
       url: 'user',
       data: {
@@ -75,6 +77,7 @@ const Register = () => {
         toast.success('User registered successfully, redirecting...')
         setSigned(true)
         setProfile(data)
+        setImage(undefined)
         if (redirect) router.push(redirect)
         else router.push('/')
       })
@@ -91,6 +94,12 @@ const Register = () => {
       })
     }
   }, [image])
+
+  useEffect(() => {
+    return () => {
+      setImage(undefined)
+    }
+  }, [setImage])
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-main to-main-white">

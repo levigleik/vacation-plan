@@ -11,7 +11,7 @@ export interface FormRegisterProps {
 export interface RegisterHookProps {
   modalOpen: boolean
   image?: File
-  setImage: (image: File) => void
+  setImage: (image?: File) => void
   setModalOpen: (open: boolean) => void
 }
 
