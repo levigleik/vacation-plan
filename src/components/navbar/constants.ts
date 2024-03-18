@@ -9,4 +9,4 @@ export const menuItems = [
     path: '/user',
     icon: 'user',
   },
-] as const
+]
