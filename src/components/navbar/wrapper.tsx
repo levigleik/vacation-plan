@@ -79,7 +79,7 @@ const NavbarWrapper = ({
                 }
               >
                 <Link
-                  className="nav-link text-white"
+                  className="nav-link cursor-pointer text-white"
                   color="foreground"
                   // href={item.path}
                   onClick={() => router.push(item.path)}
@@ -155,7 +155,7 @@ const NavbarWrapper = ({
               >
                 <Link
                   color="foreground"
-                  className="nav-link w-full"
+                  className="nav-link w-full cursor-pointer"
                   // href={item.path}
                   size="lg"
                   onClick={() => {
