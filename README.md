@@ -12,16 +12,10 @@ npm install
 
 ### 1) Creating a .env file
 
-You must create a ```.env``` file in the root of the project with the following content:
+To use Postgresql, you must add the following environment variables:
 
 ```
-NEXT_PUBLIC_URL=http://localhost:3002
-```
-
-If you want to use Postgresql, you must add the following environment variables:
-
-```
-DATABASE_URL=postgresql://user:password@localhost:5432/vacation-plan
+NEXT_DATABASE_URL=postgresql://user:password@localhost:5432/vacation-plan
 ```
 
 Remember to change the user and password to your own credentials.
