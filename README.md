@@ -1,7 +1,7 @@
 # Vacation Planner
 
-<img src="dashboard.png" alt="dashboard">
-
+[<img src="dashboard.png" alt="dashboard">](https://vacation-plan.vercel.app/)
+[https://vacation-plan.vercel.app/](https://vacation-plan.vercel.app/)
 ## 💻 Getting Started
 
 First of all, you must install the dependencies using:
