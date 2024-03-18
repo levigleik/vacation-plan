@@ -1,28 +1,78 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import NavbarComp from '../components/navbar'
-import { menuItems } from '../components/navbar/constants'
+import NavbarWrapper from '../components/navbar/wrapper'
+import mockUser from '../../prisma/mock/user.json'
 
 const meta = {
   title: 'Docs/Navbar',
-  component: NavbarComp,
-  parameters: {
-    layout: 'centered',
-  },
+  component: NavbarWrapper,
+
   tags: ['autodocs'],
   argTypes: {
-    menuItems: { control: 'object' },
-    profile: { control: 'object' },
+    menuItems: {
+      control: 'object',
+    },
+    profile: {
+      control: 'object',
+    },
+    logout: {
+      action: 'logout',
+    },
+    setTheme: {
+      action: 'setTheme',
+    },
+    pathname: {
+      control: 'text',
+    },
+    theme: {
+      control: 'select',
+      options: ['dark', 'light'],
+    },
   },
   args: {
-    menuItems: menuItems,
-    profile: {},
+    menuItems: [
+      {
+        name: 'Home',
+        path: '/',
+        icon: 'home',
+      },
+      {
+        name: 'Users',
+        path: '/user',
+        icon: 'user',
+      },
+    ],
+    pathname: '/',
+    theme: 'light',
+    profile: { ...mockUser[0] } as any,
   },
-} as Meta<typeof NavbarComp>
+} as Meta<typeof NavbarWrapper>
 
 export default meta
 
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {},
+  args: {
+    menuItems: [
+      {
+        name: 'Home',
+        path: '/',
+        icon: 'home',
+      },
+      {
+        name: 'Users',
+        path: '/user',
+        icon: 'user',
+      },
+    ],
+    pathname: '/',
+    theme: 'light',
+    profile: { ...mockUser[0] } as any,
+    setTheme: (theme?: 'dark' | 'light') => console.log(theme),
+  },
+  parameters: {
+    nextjs: {
+      appDirectory: true,
+    },
+  },
 }
