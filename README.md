@@ -28,25 +28,6 @@ Remember to change the user and password to your own credentials.
 
 You can also rename the ```.env.example``` to ```.env``` and change the values to your own credentials.
 
-
-### If you want to simplify, you must follow the next step to use SQLite instead of Postgresql:
-
-Go to ```./prisma/schema.prisma``` and remove this:
-
-```
-datasource db {
-  provider = "postgresql"
-  url      = env("NEXT_DATABASE_URL")
-}
-```
-and add this:
-```
-datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
-}
-```
-
 ### 2) Now you run the prisma migrations:
 
 ```bash
