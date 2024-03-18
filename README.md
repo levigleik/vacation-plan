@@ -80,7 +80,7 @@ If you don't, you can create a new account by clicking on the ```Register``` but
 You can find the documentation [https://vacation-plan-docs.netlify.app/](
 https://vacation-plan-docs.netlify.app/)
 
-<img src="documentation.png" alt="documentation">
+[<img src="documentation.png" alt="documentation">](https://vacation-plan-docs.netlify.app/)
 
 You can run the following command to generate the documentation:
 
