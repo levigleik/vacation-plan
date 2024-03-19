@@ -355,6 +355,7 @@ export const ModalVacationDashboard = () => {
                   name="dates"
                   control={control}
                   defaultValue={[]}
+                  rules={{ required: 'Field is required' }}
                   render={({ field, fieldState: { error } }) => (
                     <Skeleton className="rounded-md" isLoaded={!loading}>
                       <Select
@@ -378,6 +379,7 @@ export const ModalVacationDashboard = () => {
                         isLoading={loading}
                         items={allDaysInMonth ?? []}
                         selectionMode="multiple"
+                        isRequired
                         isInvalid={!!error}
                         errorMessage={error?.message}
                         isMultiline={(allDaysInMonth?.length ?? 0) > 0}
