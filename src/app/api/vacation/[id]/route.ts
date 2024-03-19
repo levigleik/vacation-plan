@@ -49,19 +49,13 @@ export async function PUT(req: Request, context: ContextApiProps) {
       )
 
     const updatedVacation = await vacationService.update({
-      where: { id },
-      data: {
-        title: body.title,
-        users: {
-          connect: body.userIds.map((id: number) => ({ id })),
-        },
-        description: body.description,
-        location: body.location,
-      },
+      ...body,
+      id,
     })
 
     return NextResponse.json(updatedVacation, { status: 201 })
   } catch (error) {
+    console.log(error)
     return NextResponse.json({ message: 'Internal error' }, { status: 400 })
   }
 }

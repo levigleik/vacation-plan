@@ -2,6 +2,7 @@ import { prisma } from '@/app/api/prisma/prisma.config'
 import { CreateVacationDTO } from '@/app/api/vacation/dto/createVacation'
 import { Prisma, Vacation } from '@prisma/client'
 import { dateVacationService } from '@/app/api/dateVacation/service'
+import { UpdateVacationDTO } from '@/app/api/vacation/dto/updateVacation'
 
 async function findOne(
   args: Prisma.VacationFindUniqueArgs,
@@ -28,11 +29,25 @@ async function create(data: CreateVacationDTO): Promise<Vacation> {
     },
   })
 }
-async function update({
-  data,
-  ...remaining
-}: Prisma.VacationUpdateArgs): Promise<Vacation> {
-  return prisma.vacation.update({ ...remaining, data })
+async function update(data: UpdateVacationDTO): Promise<Vacation> {
+  return prisma.vacation.update({
+    where: { id: data.id },
+    data: {
+      title: data.title,
+      description: data.description,
+      location: data.location,
+      users: {
+        set: data.userIds.map((id) => ({ id })),
+      },
+      dates: {
+        // delete all dates and create new ones
+        deleteMany: {},
+        createMany: {
+          data: data.dates.map((date) => ({ date })),
+        },
+      },
+    },
+  })
 }
 
 export const deleteOne = async (id: number) => {

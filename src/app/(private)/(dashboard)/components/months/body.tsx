@@ -14,7 +14,7 @@ export const BodyMonthDashboard = () => {
     <div className="mt-5 flex flex-wrap justify-around gap-y-4">
       {months.map((month) => {
         const daysSelectedMonth =
-          daysSelected?.filter((day) => day.getMonth() === month - 1) ?? []
+          daysSelected?.month === month ? daysSelected?.days : undefined
         return (
           <div
             key={month}
@@ -31,7 +31,7 @@ export const BodyMonthDashboard = () => {
                   variant="light"
                   className="w-fit rounded-full"
                   onClick={() => {
-                    setDaysSelected([])
+                    setDaysSelected(undefined)
                   }}
                 >
                   <FaTimes className="text-danger-300" />

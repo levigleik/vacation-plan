@@ -30,7 +30,7 @@ export const Calendar = ({ month }: DashboardProps) => {
 
   const handleDayClick: DayClickEventHandler = (day) => {
     // Only find the matching vacation if daysSelected is empty
-    const matchingVacation = !daysSelected?.length
+    const matchingVacation = !daysSelected?.days?.length
       ? dataGetVacation?.find((vacation) =>
           vacation.dates.some((dateVacation) =>
             isSameDay(dateVacation.date, day),
@@ -44,18 +44,24 @@ export const Calendar = ({ month }: DashboardProps) => {
       setDayEditId(matchingVacation.id ?? 0)
     } else {
       // If no matching vacation is found, update the selected days
-      const isDayAlreadySelected = daysSelected?.some((daySelected) =>
+      const isDayAlreadySelected = daysSelected?.days?.some((daySelected) =>
         isSameDay(daySelected, day),
       )
       if (isDayAlreadySelected) {
         // If the day is already selected, remove it from the selection
-        setDaysSelected(
-          daysSelected?.filter((daySelected) => !isSameDay(daySelected, day)) ??
-            [],
-        )
+        setDaysSelected({
+          month,
+          days:
+            daysSelected?.days?.filter(
+              (daySelected) => !isSameDay(daySelected, day),
+            ) ?? [],
+        })
       } else {
         // If the day is not selected, add it to the selection
-        setDaysSelected([...(daysSelected ?? []), startOfDay(day)])
+        setDaysSelected({
+          month,
+          days: [...(daysSelected?.days ?? []), startOfDay(day)],
+        })
       }
     }
   }
@@ -75,19 +81,19 @@ export const Calendar = ({ month }: DashboardProps) => {
     <CalendarUI
       disabled={(date) => {
         // all days outside this month
-        const outside = date.getMonth() !== month - 1
+        // const outside = date.getMonth() !== month - 1
         // all days in api  only if daysSelected is not empty
         const api = daysApi
           // .filter((dateApi) => month - 1 === dateApi.getMonth())
           .find((day) => isSameDay(day, date))
-        const daysSelectedMonth = daysSelected?.filter((day) =>
+        const daysSelectedMonth = daysSelected?.days?.filter((day) =>
           isSameMonth(day, date),
         )
-        return (!!api && !!daysSelectedMonth?.length) || outside
+        return !!api && !!daysSelectedMonth?.length
       }}
       mode="multiple"
       month={new Date(2024, month, 0)}
-      selected={[...daysApi, ...(daysSelected ?? [])]}
+      selected={[...daysApi, ...(daysSelected?.days ?? [])]}
       modifiers={colorDateMap}
       modifiersStyles={Object.keys(colorDateMap).reduce(
         (styles, color) => {

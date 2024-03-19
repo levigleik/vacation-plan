@@ -42,7 +42,7 @@ import { setDatesOnCalendar } from '@/app/(private)/(dashboard)/functions'
 import { useEffect, useMemo } from 'react'
 import { useDashboardMonthHook } from '@/app/(private)/(dashboard)/components/months/hook'
 import { PrintSummaryDashboard } from '@/app/(private)/(dashboard)/components/summary/print'
-import { PDFDownloadLink, usePDF } from '@react-pdf/renderer'
+import { PDFDownloadLink } from '@react-pdf/renderer'
 
 export const ModalVacationDashboard = () => {
   const {
@@ -66,21 +66,6 @@ export const ModalVacationDashboard = () => {
     FormVacationProps,
     'vacation'
   >()
-
-  const [instance, updateInstance] = usePDF({
-    document: <PrintSummaryDashboard vacation={[] as any} />,
-  })
-
-  const allDaysInMonth = useMemo(() => {
-    const daysInMonth = getDaysInMonth(new Date(2024, (month ?? 0) - 1))
-    return Array.from({ length: daysInMonth }, (_, i) => {
-      const date = new Date(2024, (month ?? 0) - 1, i + 1)
-      return {
-        id: format(date, 'dd'),
-        label: format(date, 'dd'),
-      }
-    })
-  }, [month])
 
   const { mutateAsync: mutatePost, isPending: loadingPost } = useMutation({
     mutationFn: async (val: PostData<VacationApiProps>) =>
@@ -129,6 +114,39 @@ export const ModalVacationDashboard = () => {
       }),
   })
 
+  const allDaysInMonth = useMemo(() => {
+    const daysInMonth = getDaysInMonth(new Date(2024, (month ?? 0) - 1))
+    const daysInMonthParsed = Array.from({ length: daysInMonth }, (_, i) => {
+      const date = new Date(2024, (month ?? 0) - 1, i + 1)
+      return {
+        id: date.toISOString(),
+      }
+    })
+    const daysSelectedParsed =
+      daysSelected?.days?.map((a) => {
+        return {
+          id: a.toISOString(),
+        }
+      }) ?? []
+
+    const daysMerge = [...daysInMonthParsed, ...daysSelectedParsed]
+    if (dataGetVacationById) {
+      const daysVacation = dataGetVacationById.dates.map((a) => {
+        return {
+          id: a.date,
+        }
+      })
+      return Array.from(
+        new Set([...daysMerge, ...daysVacation].map((a) => a.id)),
+      ).map((id) => ({
+        id,
+      }))
+    }
+    return Array.from(new Set(daysMerge.map((a) => a.id))).map((id) => ({
+      id,
+    }))
+  }, [dataGetVacationById, daysSelected, month])
+
   const handleClose = (fromMutate?: boolean) => {
     setModalVacationOpen(false)
     if (dayEditId !== 0 || fromMutate) {
@@ -143,11 +161,11 @@ export const ModalVacationDashboard = () => {
           setLoadingGetVacation(false)
           reset()
           setDayEditId(0)
-          setDaysSelected([])
+          setDaysSelected(undefined)
         })
         .catch(() => {
           setLoadingGetVacation(false)
-          setDaysSelected([])
+          setDaysSelected(undefined)
         })
     }
   }
@@ -162,9 +180,7 @@ export const ModalVacationDashboard = () => {
     const parseData = {
       ...data,
       userIds: data.userIds.map((a) => parseInt(a, 10)),
-      dates: data.dates.map((date) =>
-        new Date(2024, (month ?? 0) - 1, Number(date)).toISOString(),
-      ),
+      dates: data.dates,
     }
     if (!dayEditId) {
       mutatePost({
@@ -198,7 +214,7 @@ export const ModalVacationDashboard = () => {
     if (daysSelected) {
       setValue(
         'dates',
-        daysSelected.map((a) => format(a, 'dd')),
+        daysSelected?.days?.map((a) => a.toISOString()),
       )
     }
   }, [daysSelected, setValue])
@@ -207,9 +223,7 @@ export const ModalVacationDashboard = () => {
     if (dataGetVacationById) {
       const values = {
         title: dataGetVacationById.title,
-        dates: dataGetVacationById.dates.map((a) =>
-          format(new Date(a.date), 'dd'),
-        ),
+        dates: dataGetVacationById.dates.map((a) => a.date),
         userIds: dataGetVacationById.users.map((a) => String(a.id)),
         location: dataGetVacationById.location,
         description: dataGetVacationById.description,
@@ -263,13 +277,14 @@ export const ModalVacationDashboard = () => {
             <ModalHeader className="mt-4 flex items-center justify-between gap-1">
               {!dayEditId && (
                 <span>
-                  Plans for {format(daysSelected?.[0] ?? new Date(), 'MMMM')}
+                  Plans for{' '}
+                  {format(daysSelected?.days?.[0] ?? new Date(), 'MMMM')}
                 </span>
               )}
               {!!dayEditId && (
                 <span>
                   Edit plans in{' '}
-                  {format(daysSelected?.[0] ?? new Date(), 'MMMM')}
+                  {format(daysSelected?.days?.[0] ?? new Date(), 'MMMM')}
                 </span>
               )}
               <div className="flex gap-4">
@@ -362,8 +377,9 @@ export const ModalVacationDashboard = () => {
                         name={field.name}
                         isLoading={loading}
                         items={allDaysInMonth ?? []}
-                        isDisabled={!!dayEditId}
                         selectionMode="multiple"
+                        isInvalid={!!error}
+                        errorMessage={error?.message}
                         isMultiline={(allDaysInMonth?.length ?? 0) > 0}
                         disabledKeys={dataGetVacation
                           ?.filter((a) =>
@@ -385,7 +401,9 @@ export const ModalVacationDashboard = () => {
                           return (
                             <div className="flex flex-wrap gap-2">
                               {items.map((item) => (
-                                <Chip key={item.key}>{item.data?.label}</Chip>
+                                <Chip key={item.key}>
+                                  {format(item.data?.id ?? new Date(), 'dd')}
+                                </Chip>
                               ))}
                             </div>
                           )
@@ -393,12 +411,14 @@ export const ModalVacationDashboard = () => {
                       >
                         {(item) => (
                           <SelectItem
-                            key={item.label}
+                            key={item.id}
                             className="capitalize"
-                            textValue={String(item.label)}
+                            textValue={String(item.id)}
                           >
                             <div className="flex flex-col gap-2">
-                              <span className="font-bold">{item?.label}</span>
+                              <span className="font-bold">
+                                {format(item.id, 'dd')}
+                              </span>
                             </div>
                           </SelectItem>
                         )}
