@@ -2,6 +2,13 @@ import { Meta, type StoryObj } from '@storybook/react'
 import { Calendar } from '@/app/(private)/(dashboard)/components/months/calendar'
 import mockVacation from '../../prisma/mock/vacation.json'
 
+const mockData = mockVacation.map((vacation) => ({
+  ...vacation,
+  dates: vacation.dates.map((date) => ({
+    date: new Date(date),
+  })),
+}))
+
 const meta = {
   title: 'Docs/Calendar',
   component: Calendar,
@@ -21,8 +28,9 @@ const meta = {
     data: { control: 'object' },
   },
   args: {
-    month: 3,
-    data: mockVacation as any,
+    month: 1,
+    theme: 'light',
+    data: mockData as any,
   },
 } as Meta<typeof Calendar>
 
@@ -32,7 +40,8 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    month: 3,
-    data: mockVacation as any,
+    month: 1,
+    theme: 'dark',
+    data: mockData as any,
   },
 }

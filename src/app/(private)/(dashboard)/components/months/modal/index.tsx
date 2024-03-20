@@ -19,7 +19,7 @@ import {
   User,
 } from '@nextui-org/react'
 import { useDashboardHook } from '@/app/(private)/(dashboard)/hook'
-import { format, getDaysInMonth } from 'date-fns'
+import { format } from 'date-fns'
 import { Controller, useForm } from 'react-hook-form'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import {
@@ -34,15 +34,16 @@ import {
   FormVacationProps,
   VacationWithDatesApiProps,
 } from '@/app/(private)/(dashboard)/types'
-import { FaFilePdf, FaTimes } from 'react-icons/fa'
+import { FaTimes } from 'react-icons/fa'
 import { DeleteData, PostData, PutData } from '@/types/api'
 import { VacationApiProps } from '@/types/models/vaction'
 import { toast } from 'react-toastify'
 import { setDatesOnCalendar } from '@/app/(private)/(dashboard)/functions'
-import { useEffect, useMemo } from 'react'
+import { useEffect } from 'react'
 import { useDashboardMonthHook } from '@/app/(private)/(dashboard)/components/months/hook'
-import { PrintSummaryDashboard } from '@/app/(private)/(dashboard)/components/summary/print'
-import { PDFDownloadLink } from '@react-pdf/renderer'
+import { useMonth } from '@/app/(private)/(dashboard)/components/months/modal/hooks/useMonth'
+import { HeaderModalDashboardMonth } from '@/app/(private)/(dashboard)/components/months/modal/header'
+import { PrintModalDashboard } from '@/app/(private)/(dashboard)/components/months/modal/print'
 
 export const ModalVacationDashboard = () => {
   const {
@@ -62,10 +63,21 @@ export const ModalVacationDashboard = () => {
     setDaysSelected,
   } = useDashboardMonthHook()
 
+  const { loadingMonth, allDaysInMonth, dataGetVacationById } = useMonth()
+
   const { handleSubmit, setValue, control, reset } = useForm<
     FormVacationProps,
     'vacation'
   >()
+
+  const { isPending: loadingGetVacation, mutateAsync } = useMutation({
+    mutationKey: ['vacation-get'],
+    mutationFn: () =>
+      getData<VacationWithDatesApiProps[]>({
+        url: '/vacation',
+        query: 'include.dates=true&&include.users=true',
+      }),
+  })
 
   const { mutateAsync: mutatePost, isPending: loadingPost } = useMutation({
     mutationFn: async (val: PostData<VacationApiProps>) =>
@@ -78,27 +90,6 @@ export const ModalVacationDashboard = () => {
       putData<VacationApiProps, VacationApiProps>(val),
     mutationKey: ['vacation-put'],
   })
-
-  const { isPending: loadingGetVacation, mutateAsync } = useMutation({
-    mutationKey: ['vacation-get'],
-    mutationFn: () =>
-      getData<VacationWithDatesApiProps[]>({
-        url: '/vacation',
-        query: 'include.dates=true&&include.users=true',
-      }),
-  })
-  const { data: dataGetVacationById, isLoading: loadingGetVacationById } =
-    useQuery({
-      queryFn: ({ signal }) =>
-        getData<VacationWithDatesApiProps>({
-          url: 'vacation',
-          id: dayEditId,
-          signal,
-          query: 'include.users=true&&include.dates=true',
-        }),
-      queryKey: ['vacation-by-id-get', dayEditId],
-      enabled: !!dayEditId && dayEditId > 0,
-    })
 
   const { mutateAsync: mutateDelete, isPending: loadingDelete } = useMutation({
     mutationFn: async (val: DeleteData) => deleteData<VacationApiProps>(val),
@@ -113,39 +104,6 @@ export const ModalVacationDashboard = () => {
         signal,
       }),
   })
-
-  const allDaysInMonth = useMemo(() => {
-    const daysInMonth = getDaysInMonth(new Date(2024, (month ?? 0) - 1))
-    const daysInMonthParsed = Array.from({ length: daysInMonth }, (_, i) => {
-      const date = new Date(2024, (month ?? 0) - 1, i + 1)
-      return {
-        id: date.toISOString(),
-      }
-    })
-    const daysSelectedParsed =
-      daysSelected?.days?.map((a) => {
-        return {
-          id: a.toISOString(),
-        }
-      }) ?? []
-
-    const daysMerge = [...daysInMonthParsed, ...daysSelectedParsed]
-    if (dataGetVacationById) {
-      const daysVacation = dataGetVacationById.dates.map((a) => {
-        return {
-          id: a.date,
-        }
-      })
-      return Array.from(
-        new Set([...daysMerge, ...daysVacation].map((a) => a.id)),
-      ).map((id) => ({
-        id,
-      }))
-    }
-    return Array.from(new Set(daysMerge.map((a) => a.id))).map((id) => ({
-      id,
-    }))
-  }, [dataGetVacationById, daysSelected, month])
 
   const handleClose = (fromMutate?: boolean) => {
     setModalVacationOpen(false)
@@ -169,12 +127,6 @@ export const ModalVacationDashboard = () => {
         })
     }
   }
-
-  useEffect(() => {
-    mutateAsync().then((dataGetVacation) => {
-      setDataGetVacation(dataGetVacation)
-    })
-  }, [mutateAsync, setDataGetVacation])
 
   const onSubmit = (data: FormVacationProps) => {
     const parseData = {
@@ -239,10 +191,10 @@ export const ModalVacationDashboard = () => {
   const loading =
     loadingPost ||
     loadingGetUser ||
-    loadingGetVacationById ||
-    loadingGetVacation ||
+    loadingMonth ||
     loadingPut ||
-    loadingDelete
+    loadingDelete ||
+    loadingGetVacation
 
   const handleDelete = () => {
     mutateDelete({
@@ -275,41 +227,15 @@ export const ModalVacationDashboard = () => {
         {(onClose) => (
           <>
             <ModalHeader className="mt-4 flex items-center justify-between gap-1">
-              {!dayEditId && (
-                <span>
-                  Plans for{' '}
-                  {format(daysSelected?.days?.[0] ?? new Date(), 'MMMM')}
-                </span>
-              )}
-              {!!dayEditId && (
-                <span>
-                  Edit plans in{' '}
-                  {format(daysSelected?.days?.[0] ?? new Date(), 'MMMM')}
-                </span>
-              )}
+              <HeaderModalDashboardMonth
+                dayEditId={dayEditId}
+                daysSelected={daysSelected?.days?.[0]}
+              />
               <div className="flex gap-4">
                 {!!dataGetVacationById && dayEditId !== 0 && (
-                  <PDFDownloadLink
-                    document={
-                      <PrintSummaryDashboard vacation={dataGetVacationById} />
-                    }
-                    fileName={`${dataGetVacationById.title}.pdf`}
-                  >
-                    {({ loading }) => (
-                      <Skeleton className="rounded-full" isLoaded={!loading}>
-                        <Button
-                          isIconOnly
-                          title="Print"
-                          variant="light"
-                          color="danger"
-                          radius="full"
-                          disabled={loading}
-                        >
-                          <FaFilePdf size={20} />
-                        </Button>
-                      </Skeleton>
-                    )}
-                  </PDFDownloadLink>
+                  <PrintModalDashboard
+                    dataGetVacationById={dataGetVacationById}
+                  />
                 )}
                 <Button
                   radius="full"
@@ -581,46 +507,44 @@ export const ModalVacationDashboard = () => {
               </form>
             </ModalBody>
             <ModalFooter className="flex w-full justify-between">
-              {
-                <Popover placement="bottom" showArrow={true}>
-                  <PopoverTrigger>
-                    <Button
-                      color="danger"
-                      variant="light"
-                      isDisabled={!dayEditId}
-                    >
-                      Delete
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent>
-                    <div className="px-1 py-2">
-                      <div className="text-small font-bold">
-                        Are you sure to delete?
-                      </div>
-                      <div className="flex justify-end gap-2 pt-2">
-                        <Button
-                          color="danger"
-                          variant="light"
-                          onPress={() => {
-                            handleDelete()
-                          }}
-                        >
-                          Yes
-                        </Button>
-                        <Button
-                          color="primary"
-                          variant="light"
-                          onPress={() => {
-                            onClose()
-                          }}
-                        >
-                          No
-                        </Button>
-                      </div>
+              <Popover placement="bottom" showArrow={true}>
+                <PopoverTrigger>
+                  <Button
+                    color="danger"
+                    variant="light"
+                    isDisabled={!dayEditId}
+                  >
+                    Delete
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent>
+                  <div className="px-1 py-2">
+                    <div className="text-small font-bold">
+                      Are you sure to delete?
                     </div>
-                  </PopoverContent>
-                </Popover>
-              }
+                    <div className="flex justify-end gap-2 pt-2">
+                      <Button
+                        color="danger"
+                        variant="light"
+                        onPress={() => {
+                          handleDelete()
+                        }}
+                      >
+                        Yes
+                      </Button>
+                      <Button
+                        color="primary"
+                        variant="light"
+                        onPress={() => {
+                          onClose()
+                        }}
+                      >
+                        No
+                      </Button>
+                    </div>
+                  </div>
+                </PopoverContent>
+              </Popover>
               <Button
                 color="primary"
                 type="submit"
