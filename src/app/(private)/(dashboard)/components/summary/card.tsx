@@ -8,33 +8,13 @@ import {
   Skeleton,
 } from '@nextui-org/react'
 import { format } from 'date-fns'
-import {
-  DashboardProps,
-  VacationWithDatesApiProps,
-} from '@/app/(private)/(dashboard)/types'
-import { useDashboardHook } from '@/app/(private)/(dashboard)/hook'
+import { DashboardProps } from '@/app/(private)/(dashboard)/types'
 import { AvatarGroup } from '@nextui-org/avatar'
-import { useEffect, useState } from 'react'
-import mockUsers from '../../../../../../prisma/mock/user.json'
 
-export const CardSummary = ({ month, data }: DashboardProps) => {
-  const { dataGetVacation, loadingGetVacation } = useDashboardHook()
-
-  const [dataMock, setDataMock] = useState<VacationWithDatesApiProps[]>([])
-
-  const dataByMonth = dataGetVacation?.filter((vacation) =>
+export const CardSummary = ({ month, data, loading }: DashboardProps) => {
+  const dataByMonth = data?.filter((vacation) =>
     vacation.dates.some(({ date }) => new Date(date).getMonth() === month - 1),
   )
-
-  useEffect(() => {
-    if (data) {
-      const tempData = data?.map((a) => ({
-        ...a,
-        users: mockUsers,
-      })) as any
-      setDataMock(tempData)
-    }
-  }, [data])
 
   return (
     <Card className="w-full">
@@ -47,17 +27,14 @@ export const CardSummary = ({ month, data }: DashboardProps) => {
       </CardHeader>
       <Divider />
       <CardBody className="max-h-[400px]">
-        <Skeleton
-          className="overflow-auto rounded-md"
-          isLoaded={!loadingGetVacation}
-        >
+        <Skeleton className="overflow-auto rounded-md" isLoaded={!loading}>
           <div className="flex flex-col gap-3">
-            {!dataByMonth?.length && !dataMock?.length && (
+            {!dataByMonth?.length && (
               <div className="mb-4 flex flex-col gap-3 rounded-md bg-default-100 p-4">
                 <span className="text-md">No vacations</span>
               </div>
             )}
-            {(dataByMonth || dataMock)?.map((vacation) => (
+            {dataByMonth?.map((vacation) => (
               <div
                 key={vacation.id}
                 className="mb-4 flex flex-col gap-3 rounded-md bg-default-100 p-4"

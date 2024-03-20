@@ -13,6 +13,9 @@ export interface DashboardHookProps {
 export interface DashboardProps {
   month: number
   data?: VacationWithDatesApiProps[]
+  loading?: boolean
+  theme?: 'light' | 'dark'
+  daysSelected?: { month: number; days: Date[] }
 }
 
 export type FormVacationProps = VacationApiProps & {

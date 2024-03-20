@@ -1,6 +1,19 @@
 import { Meta, type StoryObj } from '@storybook/react'
 import { CardSummary } from '@/app/(private)/(dashboard)/components/summary/card'
 import mockVacation from '../../prisma/mock/vacation.json'
+import mockUsers from '../../prisma/mock/user.json'
+
+const mockData = mockVacation.map((vacation) => ({
+  ...vacation,
+  dates: vacation.dates.map((date) => ({
+    date: new Date(date),
+  })),
+  users: mockUsers.filter(
+    (user) =>
+      // pick 3 random users
+      Math.random() < 0.3,
+  ),
+}))
 
 const meta = {
   title: 'Docs/CardSummary',
@@ -21,8 +34,9 @@ const meta = {
     data: { control: 'object' },
   },
   args: {
-    month: 3,
-    data: mockVacation as any,
+    month: 1,
+    theme: 'light',
+    data: mockData as any,
   },
 } as Meta<typeof CardSummary>
 
@@ -32,7 +46,8 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    month: 3,
-    data: mockVacation as any,
+    theme: 'light',
+    month: 1,
+    data: mockData as any,
   },
 }
