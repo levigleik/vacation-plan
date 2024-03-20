@@ -68,34 +68,30 @@ const NavbarWrapper = ({
       </NavbarContent>
       <NavbarContent className="hidden gap-4 md:flex" justify="center">
         {menuItems.map((item) => (
-          <>
-            {
-              <NavbarItem
-                key={item.path}
-                isActive={
-                  item.path === '/'
-                    ? pathname === '/'
-                    : pathname?.includes(item.path)
-                }
-              >
-                <Link
-                  className="nav-link cursor-pointer text-white"
-                  color="foreground"
-                  // href={item.path}
-                  onClick={() => router.push(item.path)}
-                  title={item.name}
-                >
-                  {item.icon === 'home' && <FaHome className="mr-2" />}
-                  {item.icon === 'user' && <FaUser className="mr-2" />}
-                  <span className="hidden mdlg:flex">{item.name}</span>
-                </Link>
-              </NavbarItem>
+          <NavbarItem
+            key={item.path}
+            isActive={
+              item.path === '/'
+                ? pathname === '/'
+                : pathname?.includes(item.path)
             }
-          </>
+          >
+            <Link
+              className="nav-link cursor-pointer text-white"
+              color="foreground"
+              // href={item.path}
+              onClick={() => router.push(item.path)}
+              title={item.name}
+            >
+              {item.icon === 'home' && <FaHome className="mr-2" />}
+              {item.icon === 'user' && <FaUser className="mr-2" />}
+              <span className="hidden mdlg:flex">{item.name}</span>
+            </Link>
+          </NavbarItem>
         ))}
       </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem>
+        <NavbarItem key="profile">
           <Dropdown placement="bottom-end" className="w-lg">
             <DropdownTrigger>
               <User
@@ -118,7 +114,7 @@ const NavbarWrapper = ({
                 onClick={() => {
                   router.push(`/user/${profile?.id}`)
                 }}
-                key="logout"
+                key="profile"
                 startContent={<FaUser />}
                 textValue={'My profile'}
               >
@@ -147,29 +143,25 @@ const NavbarWrapper = ({
       </NavbarContent>
       <NavbarMenu className={'pt-8'}>
         {menuItems.map((item) => (
-          <>
-            {
-              <NavbarMenuItem
-                key={item.path}
-                isActive={item.path?.includes(pathname)}
-              >
-                <Link
-                  color="foreground"
-                  className="nav-link w-full cursor-pointer"
-                  // href={item.path}
-                  size="lg"
-                  onClick={() => {
-                    router.push(item.path)
-                    setIsMenuOpen(false)
-                  }}
-                >
-                  {item.icon === 'home' && <FaHome className="mr-2" />}
-                  {item.icon === 'user' && <FaUser className="mr-2" />}
-                  {item.name}
-                </Link>
-              </NavbarMenuItem>
-            }
-          </>
+          <NavbarMenuItem
+            key={item.path}
+            isActive={item.path?.includes(pathname)}
+          >
+            <Link
+              color="foreground"
+              className="nav-link w-full cursor-pointer"
+              // href={item.path}
+              size="lg"
+              onClick={() => {
+                router.push(item.path)
+                setIsMenuOpen(false)
+              }}
+            >
+              {item.icon === 'home' && <FaHome className="mr-2" />}
+              {item.icon === 'user' && <FaUser className="mr-2" />}
+              {item.name}
+            </Link>
+          </NavbarMenuItem>
         ))}
       </NavbarMenu>
     </Navbar>
