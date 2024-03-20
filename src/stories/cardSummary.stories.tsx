@@ -8,11 +8,7 @@ const mockData = mockVacation.map((vacation) => ({
   dates: vacation.dates.map((date) => ({
     date: new Date(date),
   })),
-  users: mockUsers.filter(
-    (user) =>
-      // pick 3 random users
-      Math.random() < 0.3,
-  ),
+  users: mockUsers.filter(() => Math.random() < 0.3),
 }))
 
 const meta = {
