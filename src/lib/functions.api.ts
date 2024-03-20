@@ -13,7 +13,6 @@ export const getData = async <TReturn>(val: GetData) => {
 export const postData = async <TReturn, TForm>(val: PostData<TForm>) => {
   const { url, data: dataForm } = val
 
-  console.log(api.defaults.baseURL)
   const { data } = await api.post<TReturn>(url, dataForm)
   return data
 }

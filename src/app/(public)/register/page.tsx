@@ -63,7 +63,6 @@ const Register = () => {
       ? ((await convertToBase64(image)) as string)
       : undefined
 
-    console.log('form', form)
     mutateAsync({
       url: 'user',
       data: {
