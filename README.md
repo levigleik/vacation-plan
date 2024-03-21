@@ -99,3 +99,11 @@ Now you can open [http://localhost:6006](http://localhost:6006) with your browse
 ## 🎉 Deployment
 I've already deployed the project on Vercel, you can check it out [here](
 https://vacation-plan.vercel.app/)
+
+Watch this video to see the project in action:
+
+[<img src="dashboard.png" alt="video">](
+https://www.youtube.com/watch?v=q7zL-xDCuak)
+
+[https://www.youtube.com/watch?v=q7zL-xDCuak](
+https://www.youtube.com/watch?v=q7zL-xDCuak)
