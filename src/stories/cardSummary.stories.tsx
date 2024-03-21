@@ -27,7 +27,7 @@ const meta = {
       },
       description: 'The month to display, 1 = January, 2 = February, etc.',
     },
-    data: { control: 'object' },
+    data: { control: 'object', description: 'The data of the card' },
   },
   args: {
     month: 1,

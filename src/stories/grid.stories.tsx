@@ -9,19 +9,12 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {
-    className: {
-      control: {
-        type: 'text',
-        min: 1,
-        max: 12,
-      },
-      description: 'classnames to be added to the component',
-    },
-    children: { control: 'children' },
+    children: { type: 'string', description: 'The content of the row' },
+    className: { type: 'string', description: 'The class name of the row' },
   },
   args: {
+    children: 'Row content',
     className: '',
-    children: null,
   },
 } as Meta<typeof Row>
 

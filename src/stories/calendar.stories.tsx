@@ -26,11 +26,15 @@ const meta = {
       description: 'The month to display, 1 = January, 2 = February, etc.',
     },
     data: { control: 'object' },
+    theme: {
+      description: 'The theme of the calendar',
+    },
   },
   args: {
     month: 1,
     theme: 'light',
-    data: mockData as any,
+    data: mockData.slice(0, 4) as any,
+    daysSelected: { month: 1, days: ['2024-01-15T05:00:00.000Z' as any] },
   },
 } as Meta<typeof Calendar>
 
@@ -42,6 +46,6 @@ export const Default: Story = {
   args: {
     month: 1,
     theme: 'dark',
-    data: mockData as any,
+    data: mockData.slice(0, 4) as any,
   },
 }

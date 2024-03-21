@@ -11,10 +11,13 @@ const meta = {
   tags: ['autodocs'],
 
   argTypes: {
-    data: { control: 'object' },
-    columns: { control: 'object' },
-    showColumnsFilter: { control: 'boolean' },
-    rowsPagination: { control: 'array' },
+    data: { control: 'object', description: 'The data of the table' },
+    columns: { control: 'object', description: 'The columns of the table' },
+    showColumnsFilter: {
+      control: 'boolean',
+      description: 'Show the columns filter',
+    },
+    rowsPagination: { control: 'array', description: 'The rows pagination' },
     loading: { control: 'boolean' },
   },
   args: {

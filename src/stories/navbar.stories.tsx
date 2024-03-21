@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import NavbarWrapper from '../components/navbar/wrapper'
 import mockUser from '../../prisma/mock/user.json'
+import { NavbarProps } from '@/components/navbar/types'
 
 const meta = {
   title: 'Docs/Navbar',
@@ -10,24 +11,31 @@ const meta = {
   argTypes: {
     menuItems: {
       control: 'object',
+      description: 'The menu items of the navbar',
     },
     profile: {
       control: 'object',
+      description: 'The profile of the user in far right of the navbar',
     },
     logout: {
       action: 'logout',
+      description: 'The action to logout',
     },
     setTheme: {
       action: 'setTheme',
+      description:
+        'The action to set the theme (dark or light) of the entire app',
     },
     pathname: {
       control: 'text',
+      description: 'The the current pathname of the page',
     },
     theme: {
       control: 'select',
       options: ['dark', 'light'],
+      description: 'The theme of the entire app',
     },
-  },
+  } as Record<keyof NavbarProps, any>,
   args: {
     menuItems: [
       {
