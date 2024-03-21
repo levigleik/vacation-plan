@@ -12,7 +12,7 @@ const mockData = mockVacation.map((vacation) => ({
 }))
 
 const meta = {
-  title: 'Docs/CardSummary',
+  title: 'Docs/Summary',
   component: CardSummary,
   parameters: {
     layout: 'centered',

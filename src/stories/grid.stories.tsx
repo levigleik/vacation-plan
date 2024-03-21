@@ -9,8 +9,14 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {
-    children: { type: 'string', description: 'The content of the row' },
-    className: { type: 'string', description: 'The class name of the row' },
+    children: {
+      control: { type: 'string' },
+      description: 'The content of the row',
+    },
+    className: {
+      control: { type: 'string' },
+      description: 'The class name of the row',
+    },
   },
   args: {
     children: 'Row content',

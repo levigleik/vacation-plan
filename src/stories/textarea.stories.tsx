@@ -1,9 +1,9 @@
 import { Meta, type StoryObj } from '@storybook/react'
-import { Input, InputProps } from '@nextui-org/react'
+import { Textarea, TextAreaProps } from '@nextui-org/react'
 
 const meta = {
-  title: 'Docs/Input',
-  component: Input,
+  title: 'Docs/Textarea',
+  component: Textarea,
   parameters: {
     layout: 'centered',
   },
@@ -25,14 +25,14 @@ const meta = {
         'success',
         'error',
         'warning',
-      ] as InputProps['color'][],
+      ] as TextAreaProps['color'][],
       description: 'The color of the input',
     },
     radius: {
       control: {
         type: 'select',
       },
-      options: ['full', 'sm', 'md', 'lg', 'none'] as InputProps['radius'][],
+      options: ['full', 'sm', 'md', 'lg', 'none'] as TextAreaProps['radius'][],
       description: 'The radius of the input',
     },
     size: {
@@ -50,13 +50,6 @@ const meta = {
       type: 'string',
       description: 'The placeholder of the input',
     },
-    type: {
-      control: {
-        type: 'select',
-      },
-      options: ['text', 'password', 'email', 'number'] as InputProps['type'][],
-      description: 'The type of the input',
-    },
     label: {
       type: 'string',
       description: 'The label of the input',
@@ -70,7 +63,7 @@ const meta = {
         'faded',
         'flat',
         'underlined',
-      ] as InputProps['variant'][],
+      ] as TextAreaProps['variant'][],
       description: 'The variant of the input',
     },
     labelPlacement: {
@@ -81,7 +74,7 @@ const meta = {
         'inside',
         'outside',
         'outside-left',
-      ] as InputProps['labelPlacement'][],
+      ] as TextAreaProps['labelPlacement'][],
       description: 'The placement of the label',
     },
     errorMessage: {
@@ -106,18 +99,17 @@ const meta = {
     radius: 'md',
     className: '',
     size: 'sm',
-    value: '',
+    value: 'Some text',
     variant: 'bordered',
     label: 'Label',
     labelPlacement: 'inside',
-    type: 'text',
     placeholder: '',
     errorMessage: '',
     isRequired: false,
     isDisabled: false,
     isInvalid: false,
   },
-} as Meta<typeof Input>
+} as Meta<typeof Textarea>
 
 export default meta
 
@@ -125,6 +117,6 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    labelPlacement: 'inside',
+    labelPlacement: 'outside',
   },
 }

@@ -1,14 +1,35 @@
 import { Meta, type StoryObj } from '@storybook/react'
 import { Button, ButtonProps } from '@nextui-org/react'
+import { FaArrowLeft, FaFilePdf, FaPlus, FaTimes } from 'react-icons/fa'
+
+const icons = {
+  Plus: <FaPlus />,
+  Pdf: <FaFilePdf />,
+  ArrowLeft: <FaArrowLeft />,
+  Close: <FaTimes />,
+}
 
 const meta = {
-  title: 'Docs/Button/Button',
+  title: 'Docs/Button/Icon',
   component: Button,
   parameters: {
     layout: 'centered',
   },
   tags: ['autodocs'],
   argTypes: {
+    children: {
+      options: Object.keys(icons),
+      mapping: icons,
+      control: {
+        type: 'select',
+        labels: {
+          Plus: 'Plus',
+          Pdf: 'Pdf',
+          ArrowLeft: 'ArrowLeft',
+          Close: 'Close',
+        },
+      },
+    },
     className: {
       type: 'string',
       description:
@@ -42,10 +63,6 @@ const meta = {
       },
       description: 'The size of the button',
     },
-    children: {
-      type: 'string',
-      description: 'The content of the button',
-    },
     variant: {
       control: {
         type: 'select',
@@ -61,14 +78,20 @@ const meta = {
       ] as ButtonProps['variant'][],
       description: 'The variant of the button',
     },
+
+    isIconOnly: {
+      control: false,
+      defaultValue: true,
+    },
   },
   args: {
+    children: 'Plus',
     color: 'default',
-    radius: 'md',
+    variant: 'shadow',
+    radius: 'full',
     className: '',
     size: 'sm',
-    variant: 'shadow',
-    children: 'Button',
+    isIconOnly: true,
   },
 } as Meta<typeof Button>
 

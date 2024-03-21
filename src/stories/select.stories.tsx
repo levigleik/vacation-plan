@@ -1,9 +1,10 @@
 import { Meta, type StoryObj } from '@storybook/react'
-import { Input, InputProps } from '@nextui-org/react'
+import { SelectProps } from '@nextui-org/react'
+import { SelectComp } from '@/components/select'
 
 const meta = {
-  title: 'Docs/Input',
-  component: Input,
+  title: 'Docs/Select',
+  component: SelectComp,
   parameters: {
     layout: 'centered',
   },
@@ -25,14 +26,14 @@ const meta = {
         'success',
         'error',
         'warning',
-      ] as InputProps['color'][],
+      ] as SelectProps['color'][],
       description: 'The color of the input',
     },
     radius: {
       control: {
         type: 'select',
       },
-      options: ['full', 'sm', 'md', 'lg', 'none'] as InputProps['radius'][],
+      options: ['full', 'sm', 'md', 'lg', 'none'] as SelectProps['radius'][],
       description: 'The radius of the input',
     },
     size: {
@@ -42,20 +43,17 @@ const meta = {
       },
       description: 'The size of the input',
     },
-    value: {
+    // value: {
+    //   type: 'string',
+    //   description: 'The value of the input',
+    // },
+    selectedKeys: {
       type: 'string',
-      description: 'The value of the input',
+      description: 'The selected keys of the input',
     },
     placeholder: {
       type: 'string',
       description: 'The placeholder of the input',
-    },
-    type: {
-      control: {
-        type: 'select',
-      },
-      options: ['text', 'password', 'email', 'number'] as InputProps['type'][],
-      description: 'The type of the input',
     },
     label: {
       type: 'string',
@@ -70,8 +68,15 @@ const meta = {
         'faded',
         'flat',
         'underlined',
-      ] as InputProps['variant'][],
+      ] as SelectProps['variant'][],
       description: 'The variant of the input',
+    },
+    classNames: {
+      control: {
+        type: 'object',
+      },
+
+      description: 'The class names of the input',
     },
     labelPlacement: {
       control: {
@@ -81,8 +86,15 @@ const meta = {
         'inside',
         'outside',
         'outside-left',
-      ] as InputProps['labelPlacement'][],
+      ] as SelectProps['labelPlacement'][],
       description: 'The placement of the label',
+    },
+    items: {
+      control: {
+        type: 'select',
+      },
+      options: [] as SelectProps['items'],
+      description: 'The items of the input',
     },
     errorMessage: {
       type: 'string',
@@ -106,25 +118,32 @@ const meta = {
     radius: 'md',
     className: '',
     size: 'sm',
-    value: '',
+    // // value: '',
     variant: 'bordered',
     label: 'Label',
     labelPlacement: 'inside',
-    type: 'text',
     placeholder: '',
     errorMessage: '',
     isRequired: false,
     isDisabled: false,
     isInvalid: false,
+    items: [
+      { label: 'Item 1', value: 'item1' },
+      { label: 'Item 2', value: 'item2' },
+      { label: 'Item 3', value: 'item3' },
+    ],
+    classNames: {
+      value: 'text-foreground',
+      label: 'overflow-visible',
+      base: 'w-[450px]',
+    } as SelectProps['classNames'],
   },
-} as Meta<typeof Input>
+} as Meta<typeof SelectComp>
 
 export default meta
 
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {
-    labelPlacement: 'inside',
-  },
+  args: {},
 }
