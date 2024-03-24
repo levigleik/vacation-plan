@@ -102,11 +102,11 @@ const meta = {
     },
   },
   args: {
+    value: '',
     color: 'default',
     radius: 'md',
     className: '',
     size: 'sm',
-    value: '',
     variant: 'bordered',
     label: 'Label',
     labelPlacement: 'inside',

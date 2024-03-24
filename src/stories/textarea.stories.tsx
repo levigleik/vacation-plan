@@ -95,11 +95,11 @@ const meta = {
     },
   },
   args: {
+    value: 'Some text',
     color: 'default',
     radius: 'md',
     className: '',
     size: 'sm',
-    value: 'Some text',
     variant: 'bordered',
     label: 'Label',
     labelPlacement: 'inside',
