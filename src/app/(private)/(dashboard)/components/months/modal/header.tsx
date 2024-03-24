@@ -16,9 +16,7 @@ export const HeaderModalDashboardMonth = ({
       {!dayEditId && (
         <span>Plans for {format(daysSelected ?? new Date(), 'MMMM')}</span>
       )}
-      {!!dayEditId && (
-        <span>Edit plans in {format(daysSelected ?? new Date(), 'MMMM')}</span>
-      )}
+      {!!dayEditId && <span>Edit plan</span>}
     </>
   )
 }
