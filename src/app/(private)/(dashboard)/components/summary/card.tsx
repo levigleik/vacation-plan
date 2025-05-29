@@ -6,10 +6,10 @@ import {
   CardHeader,
   Divider,
   Skeleton,
-} from '@nextui-org/react'
+} from "@heroui/react"
 import { format } from 'date-fns'
 import { DashboardProps } from '@/app/(private)/(dashboard)/types'
-import { AvatarGroup } from '@nextui-org/avatar'
+import { AvatarGroup } from "@heroui/avatar"
 
 export const CardSummary = ({ month, data, loading }: DashboardProps) => {
   const dataByMonth = data?.filter((vacation) =>

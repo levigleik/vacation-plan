@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Skeleton } from '@nextui-org/react'
+import { Button, Skeleton } from "@heroui/react"
 import { FaFilePdf } from 'react-icons/fa'
 import { PrintSummaryDashboard } from '@/app/(private)/(dashboard)/components/summary/print'
 import { PDFDownloadLink } from '@react-pdf/renderer'

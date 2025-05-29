@@ -9,7 +9,7 @@ import { UserApiProps } from '@/types/models/user'
 import { cookiesSettings } from '@/lib/constants'
 import { useAuthState } from '@/hooks/auth'
 import { AxiosError } from 'axios'
-import { Button, Input } from '@nextui-org/react'
+import { Button, Input } from "@heroui/react"
 import { FormLoginProps } from './types'
 import Loading from 'components/loading'
 import Image from 'next/image'

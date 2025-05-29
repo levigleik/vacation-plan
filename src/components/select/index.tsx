@@ -1,4 +1,4 @@
-import { Select, SelectItem, SelectProps } from '@nextui-org/react'
+import { Select, SelectItem, SelectProps } from "@heroui/react"
 
 // interface SelectCompProps extends SelectProps{
 //   data: any

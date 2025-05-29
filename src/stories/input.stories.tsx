@@ -1,5 +1,5 @@
 import { Meta, type StoryObj } from '@storybook/react'
-import { Input, InputProps } from '@nextui-org/react'
+import { Input, InputProps } from "@heroui/react"
 
 const meta = {
   title: 'Docs/Input',

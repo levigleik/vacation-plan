@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@nextui-org/react'
+import { Button } from "@heroui/react"
 import { FaFilter } from 'react-icons/fa'
 import { useDashboardSummaryHook } from '@/app/(private)/(dashboard)/components/summary/hook'
 

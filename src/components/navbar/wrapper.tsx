@@ -16,12 +16,12 @@ import {
   NavbarMenuItem,
   NavbarMenuToggle,
   User,
-} from '@nextui-org/react'
+} from "@heroui/react"
 import Image from 'next/image'
 import { useState } from 'react'
 import { FaHome, FaMoon, FaSignOutAlt, FaSun, FaUser } from 'react-icons/fa'
 import { fisrtAndSecondLetterName, formatName } from './functions'
-import { capitalize } from '@nextui-org/shared-utils'
+import { capitalize } from "@heroui/shared-utils"
 import { NavbarProps } from 'components/navbar/types'
 import { useRouter } from 'next/navigation'
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Tooltip } from '@nextui-org/react'
+import { Button, Tooltip } from "@heroui/react"
 import { usePathname, useRouter } from 'next/navigation'
 import { FaArrowLeft, FaPlus } from 'react-icons/fa'
 import { ColumnProps } from '@/components/table/types'

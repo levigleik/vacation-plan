@@ -2,7 +2,7 @@
 import { FilterButtonDashboard } from '@/app/(private)/(dashboard)/components/summary/filter'
 import { useDashboardHook } from '@/app/(private)/(dashboard)/hook'
 import { FaTimes } from 'react-icons/fa'
-import { Button } from '@nextui-org/react'
+import { Button } from "@heroui/react"
 import { useMutation } from '@tanstack/react-query'
 import { getData } from '@/lib/functions.api'
 import { VacationWithDatesApiProps } from '@/app/(private)/(dashboard)/types'

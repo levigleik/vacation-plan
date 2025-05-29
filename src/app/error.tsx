@@ -1,5 +1,5 @@
 'use client'
-import { Button } from '@nextui-org/react'
+import { Button } from "@heroui/react"
 import { FaExclamationTriangle } from 'react-icons/fa'
 
 export default function Error() {

@@ -14,7 +14,7 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
-} from '@nextui-org/react'
+} from "@heroui/react"
 import { useCallback, useMemo, useState } from 'react'
 import { FaArrowDown } from 'react-icons/fa'
 import { ColumnProps, TableProps } from '@/components/table/types'

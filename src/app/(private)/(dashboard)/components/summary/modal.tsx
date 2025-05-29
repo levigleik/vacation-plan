@@ -12,7 +12,7 @@ import {
   SelectItem,
   Skeleton,
   User,
-} from '@nextui-org/react'
+} from "@heroui/react"
 import { useDashboardHook } from '@/app/(private)/(dashboard)/hook'
 import { Controller, useForm } from 'react-hook-form'
 import { useMutation, useQuery } from '@tanstack/react-query'

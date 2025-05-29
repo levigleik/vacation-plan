@@ -1,5 +1,5 @@
 import { Meta, type StoryObj } from '@storybook/react'
-import { SelectProps } from '@nextui-org/react'
+import { SelectProps } from "@heroui/react"
 import { SelectComp } from '@/components/select'
 
 const meta = {

@@ -1,5 +1,5 @@
 import { Meta, type StoryObj } from '@storybook/react'
-import { Card, CardProps } from '@nextui-org/react'
+import { Card, CardProps } from "@heroui/react"
 
 const meta = {
   title: 'Docs/Card',

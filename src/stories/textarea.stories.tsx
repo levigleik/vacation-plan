@@ -1,5 +1,5 @@
 import { Meta, type StoryObj } from '@storybook/react'
-import { Textarea, TextAreaProps } from '@nextui-org/react'
+import { Textarea, TextAreaProps } from "@heroui/react"
 
 const meta = {
   title: 'Docs/Textarea',

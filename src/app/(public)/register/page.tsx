@@ -5,7 +5,7 @@ import Cookie from 'js-cookie'
 // import { jwtDecode } from 'jwt-decode'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Controller, useForm } from 'react-hook-form'
-import { Button, Input } from '@nextui-org/react'
+import { Button, Input } from "@heroui/react"
 
 import { useMutation } from '@tanstack/react-query'
 import { PostData } from '@/types/api'

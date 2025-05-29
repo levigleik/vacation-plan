@@ -1,7 +1,7 @@
 'use client'
 
 import { getData, postData, putData, toastErrorsApi } from '@/lib/functions.api'
-import { Button, Input, Skeleton, Switch } from '@nextui-org/react'
+import { Button, Input, Skeleton, Switch } from "@heroui/react"
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -358,7 +358,7 @@ const UserEdit = () => {
       </Button>
       <ModalCropImage />
     </form>
-  )
+  );
 }
 
 export default UserEdit

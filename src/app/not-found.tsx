@@ -1,4 +1,4 @@
-import { Link } from '@nextui-org/react'
+import { Link } from "@heroui/react"
 import { FaExclamationTriangle } from 'react-icons/fa'
 
 export default function NotFound() {

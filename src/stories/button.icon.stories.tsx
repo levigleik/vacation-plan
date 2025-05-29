@@ -1,5 +1,5 @@
 import { Meta, type StoryObj } from '@storybook/react'
-import { Button, ButtonProps } from '@nextui-org/react'
+import { Button, ButtonProps } from "@heroui/react"
 import { FaArrowLeft, FaFilePdf, FaPlus, FaTimes } from 'react-icons/fa'
 
 const icons = {

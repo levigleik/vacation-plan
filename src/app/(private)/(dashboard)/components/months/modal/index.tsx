@@ -17,7 +17,7 @@ import {
   Skeleton,
   Textarea,
   User,
-} from '@nextui-org/react'
+} from "@heroui/react"
 import { useDashboardHook } from '@/app/(private)/(dashboard)/hook'
 import { format } from 'date-fns'
 import { Controller, useForm } from 'react-hook-form'

@@ -7,7 +7,7 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-} from '@nextui-org/react'
+} from "@heroui/react"
 import Image from 'next/image'
 import { useRegisterHook } from '@/app/(public)/register/hooks'
 import { convertToBase64 } from '@/lib/utils'

@@ -10,7 +10,7 @@ import {
   ModalHeader,
   Tooltip,
   useDisclosure,
-} from '@nextui-org/react'
+} from "@heroui/react"
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'

@@ -10,7 +10,7 @@ import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client
 import { useEffect, useState } from 'react'
 import { queryClientConfig } from '@/lib/constants'
 import { cn } from '@/lib/utils'
-import { Button, NextUIProvider } from '@nextui-org/react'
+import { Button, HeroUIProvider } from "@heroui/react"
 import { ThemeProvider as NextThemesProvider } from 'next-themes'
 import 'react-image-crop/dist/ReactCrop.css'
 
@@ -46,7 +46,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       onReset={reset}
       fallbackRender={({ resetErrorBoundary }: any) => (
         // <Layout>
-        <div className="flex h-screen flex-col items-center justify-center">
+        (<div className="flex h-screen flex-col items-center justify-center">
           <h1 className="text-2xl font-bold">Ocorreu um erro</h1>
           <Button
             className="mt-4"
@@ -56,11 +56,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
           >
             Tentar novamente
           </Button>
-        </div>
+        </div>)
         // </Layout>
       )}
     >
-      <NextUIProvider navigate={navigate.push}>
+      <HeroUIProvider navigate={navigate.push}>
         <PersistQueryClientProvider
           client={queryClient}
           persistOptions={{ persister }}
@@ -93,7 +93,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
             {children}
           </NextThemesProvider>
         </PersistQueryClientProvider>
-      </NextUIProvider>
+      </HeroUIProvider>
     </ErrorBoundary>
-  )
+  );
 }

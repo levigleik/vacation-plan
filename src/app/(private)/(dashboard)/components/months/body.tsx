@@ -2,7 +2,7 @@
 import { months } from '@/app/(private)/(dashboard)/constants'
 import { format } from 'date-fns'
 import { Calendar } from '@/app/(private)/(dashboard)/components/months/calendar'
-import { Button } from '@nextui-org/react'
+import { Button } from "@heroui/react"
 import { FaCheck, FaTimes } from 'react-icons/fa'
 import { useDashboardMonthHook } from '@/app/(private)/(dashboard)/components/months/hook'
 

@@ -4,7 +4,7 @@ import * as React from 'react'
 import { DayPicker } from 'react-day-picker'
 
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi'
-import { cn } from '@nextui-org/react'
+import { cn } from "@heroui/react"
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>
 
