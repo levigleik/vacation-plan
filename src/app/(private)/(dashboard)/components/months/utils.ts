@@ -40,7 +40,7 @@ export function createColorDateMap(
 
   vacations.forEach((vacation) => {
     const color = colors[vacation.id % colors.length] // Use the id to select a color
-    colorDateMap[color] = vacation.dates.map(
+    colorDateMap[color] = vacation.dates?.map(
       (dateVacation) => new Date(dateVacation.date),
     )
   })

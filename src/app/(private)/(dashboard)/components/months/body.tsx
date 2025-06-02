@@ -30,7 +30,7 @@ export const BodyMonthDashboard = () => {
                   isIconOnly
                   variant="light"
                   className="w-fit rounded-full"
-                  onClick={() => {
+                  onPress={() => {
                     setDaysSelected(undefined)
                   }}
                 >
@@ -40,7 +40,7 @@ export const BodyMonthDashboard = () => {
                   isIconOnly
                   variant="light"
                   className="w-fit rounded-full"
-                  onClick={() => {
+                  onPress={() => {
                     // setMonth(month)
                     setModalVacationOpen(true)
                   }}

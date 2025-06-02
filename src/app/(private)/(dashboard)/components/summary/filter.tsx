@@ -12,7 +12,7 @@ export const FilterButtonDashboard = () => {
       isIconOnly
       variant="light"
       className="w-fit rounded-full"
-      onClick={() => {
+      onPress={() => {
         setModalFilterOpen(true)
       }}
     >

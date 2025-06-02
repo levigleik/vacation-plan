@@ -32,7 +32,7 @@ export const HeaderSummaryDashboard = () => {
             variant="light"
             className="w-fit rounded-full"
             color="danger"
-            onClick={() => {
+            onPress={() => {
               setLoadingGetVacation(true)
               mutateAsync()
                 .then((data) => {

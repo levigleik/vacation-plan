@@ -10,25 +10,27 @@ import { cookiesSettings } from '@/lib/constants'
 import { useAuthState } from '@/hooks/auth'
 import { AxiosError } from 'axios'
 import { Button, Input } from "@heroui/react"
-import { FormLoginProps } from './types'
+import { FormLoginProps, LoginResponseProps } from './types'
 import Loading from 'components/loading'
 import Image from 'next/image'
 import logo from '@/assets/images/logo.png'
+import { TokenProps } from '@/types/auth'
+import { jwtDecode } from 'jwt-decode'
 
 const Login = () => {
   const { control, handleSubmit } = useForm<FormLoginProps>()
 
   const { setProfile, setSigned } = useAuthState()
 
-  const { get } = useSearchParams()
+  const searchParams = useSearchParams()
 
-  const redirect = decodeURIComponent(get('redirect') || '')
+  const redirect = decodeURIComponent(searchParams.get('redirect') ?? '')
 
   const router = useRouter()
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: (val: PostData<FormLoginProps>) =>
-      postData<UserApiProps, FormLoginProps>(val),
+      postData<LoginResponseProps, FormLoginProps>(val),
     mutationKey: ['login'],
   })
 
@@ -39,9 +41,10 @@ const Login = () => {
     })
       .then(async (data) => {
         Cookie.set('signed', 'true', cookiesSettings)
-
+        Cookie.set('idToken', data.idToken, cookiesSettings)
+        Cookie.set('refreshToken', data.refreshToken, cookiesSettings)
         setSigned(true)
-        setProfile({ ...data, password: undefined })
+        setProfile({ ...data.user, password: undefined })
         if (redirect) router.push(redirect)
         else router.push('/')
       })
@@ -107,7 +110,7 @@ const Login = () => {
               <Button
                 variant="bordered"
                 type="button"
-                onClick={() => {
+                onPress={() => {
                   router.push('/register')
                 }}
               >

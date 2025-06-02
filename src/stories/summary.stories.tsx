@@ -5,7 +5,7 @@ import mockUsers from '../../prisma/mock/user.json'
 
 const mockData = mockVacation.map((vacation) => ({
   ...vacation,
-  dates: vacation.dates.map((date) => ({
+  dates: vacation.dates?.map((date) => ({
     date: new Date(date),
   })),
   users: mockUsers.filter(() => Math.random() < 0.3),

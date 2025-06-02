@@ -19,6 +19,8 @@ export const useAuthState = create<AuthStoreProps>()(
             signed: false,
           }))
           Cookie.remove('signed')
+          Cookie.remove('idToken')
+          Cookie.remove('refreshToken')
           window.location.reload()
         },
       }),

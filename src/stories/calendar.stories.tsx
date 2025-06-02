@@ -4,7 +4,7 @@ import mockVacation from '../../prisma/mock/vacation.json'
 
 const mockData = mockVacation.map((vacation) => ({
   ...vacation,
-  dates: vacation.dates.map((date) => ({
+  dates: vacation.dates?.map((date) => ({
     date: new Date(date),
   })),
 }))

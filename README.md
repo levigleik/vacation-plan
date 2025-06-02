@@ -1,109 +1,107 @@
-  # Vacation Planner
+# Vacation Planner
 
-  [<img src="dashboard.png" alt="dashboard">](https://vacation-plan.vercel.app/)
-  [https://vacation-plan.vercel.app/](https://vacation-plan.vercel.app/)
-  ## 💻 Getting Started
+[<img src="dashboard.png" alt="dashboard">](https://vacation-plan.vercel.app/)
+[https://vacation-plan.vercel.app/](https://vacation-plan.vercel.app/)
 
-  Node.js and npm are required to run this project. You can download them [here](https://nodejs.org/en/download/)
+## 🛠️ Tech Stack
 
-  Minimun version of Node.js: >=18.0.0
+- [Next.js](https://nextjs.org/) - React framework for production
+- [Bun](https://bun.sh/) - Fast all-in-one JavaScript runtime & package manager
+- [Zustand](https://github.com/pmndrs/zustand) - State management
+- [React Query](https://tanstack.com/query/latest) - Data fetching and caching
+- [Zod](https://zod.dev/) - TypeScript-first schema validation
+- [Framer Motion](https://www.framer.com/motion/) - Animation library
+- [Biome](https://biomejs.dev/) - Linting and formatting
+- [Storybook](https://storybook.js.org/) - UI component documentation
+- [PostgreSQL](https://www.postgresql.org/) - Database
 
-  First of all, you must install the dependencies using:
+## 💻 Getting Started
 
-  ```bash
-  npm install
-  ```
+Bun is required to run this project. You can install it by running:
 
-  ### 1) Creating a .env file
+```bash
+curl -fsSL https://bun.sh/install | bash
+```
 
-  To use Postgresql, you must add the following environment variables:
+Minimum requirements:
+- Bun >= 1.0.0
+- Node.js >= 18.0.0
 
-  ```
-  NEXT_DATABASE_URL=postgresql://user:password@localhost:5432/vacation-plan
-  ```
+First, install the dependencies:
 
-  Remember to change the user and password to your own credentials.
+```bash
+bun install
+```
 
-  You can also rename the ```.env.example``` to ```.env``` and change the values to your own credentials.
+### 1) Creating a .env file
 
-  ### 2) Now you run the prisma migrations:
+To use PostgreSQL, you must add the following environment variables:
 
-  ```bash
-  npm run prisma-migrate
-  ```
+```
+NEXT_DATABASE_URL=postgresql://user:password@localhost:5432/vacation-plan
+```
 
-  ### 3) To use a mocked data for testing you must run:
+Remember to change the user and password to your own credentials.
 
-  ```
-  npm run seed
-  ```
+You can also rename the `.env.example` to `.env` and change the values.
 
-  ## 🚀 Running the project
+### 2) Run the database migrations:
 
-  You can start the development mode using:
-  ```
-  npm run dev
-  ```
+```bash
+bun run prisma-migrate
+```
 
-  Open dev in [http://localhost:3002](http://localhost:3002) with your browser to it running.
+### 3) Seed the database (optional):
 
+```bash
+bun run seed
+```
 
+## 🚀 Running the project
 
-  To get more performance, you can build the project using:
-  ```
-  npm run build
-  ```
+Start the development server:
+```bash
+bun dev
+```
 
-  And start it by running:
-  ```
-  npm start
-  ```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-  Now you can open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+For production:
+```bash
+bun run build
+bun start
+```
 
+## 🧪 Testing
 
+If you ran the seed command, use these credentials:
 
-  ## 🛠️ Testing
+```
+email: alice@example.com
+password: password123
+```
 
-  If you ran the seed command, you can use the following credentials to login:
+Or create a new account through the Register page.
 
-  ```
-  email: alice@example.com
-  password: password123
-  ```
+## 📚 Documentation
 
-  If you don't, you can create a new account by clicking on the ```Register``` button.
+Our components are documented with Storybook. View the documentation at [https://vacation-plan-docs.netlify.app/](https://vacation-plan-docs.netlify.app/)
 
+[<img src="documentation.png" alt="documentation">](https://vacation-plan-docs.netlify.app/)
 
-  ## 📚 Documentation
+Run Storybook locally:
 
-  You can find the documentation [https://vacation-plan-docs.netlify.app/](
-  https://vacation-plan-docs.netlify.app/)
+```bash
+bun run storybook
+```
 
-  [<img src="documentation.png" alt="documentation">](https://vacation-plan-docs.netlify.app/)
+Visit [http://localhost:6006](http://localhost:6006) to view the documentation.
 
-  You can run the following command to generate the documentation:
+## 🎉 Deployment
 
-  ```
-  npm run build-storybook
-  ```
+Check out the live project at [https://vacation-plan.vercel.app/](https://vacation-plan.vercel.app/)
 
-  And start it by running:
+Watch the demo:
 
-  ```
-  npm run storybook
-  ```
-
-  Now you can open [http://localhost:6006](http://localhost:6006) with your browser to see the documentation.
-
-  ## 🎉 Deployment
-  I've already deployed the project on Vercel, you can check it out [here](
-  https://vacation-plan.vercel.app/)
-
-  Watch this video to see the project in action:
-
-  [<img src="dashboard.png" alt="video">](
-  https://www.youtube.com/watch?v=q7zL-xDCuak)
-
-  [https://www.youtube.com/watch?v=q7zL-xDCuak](
-  https://www.youtube.com/watch?v=q7zL-xDCuak)
+[<img src="dashboard.png" alt="video">](https://www.youtube.com/watch?v=q7zL-xDCuak)
+[https://www.youtube.com/watch?v=q7zL-xDCuak](https://www.youtube.com/watch?v=q7zL-xDCuak)

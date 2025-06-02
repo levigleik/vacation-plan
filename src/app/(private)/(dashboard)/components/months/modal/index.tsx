@@ -75,7 +75,7 @@ export const ModalVacationDashboard = () => {
     mutationFn: () =>
       getData<VacationWithDatesApiProps[]>({
         url: '/vacation',
-        query: 'include.dates=true&&include.users=true',
+        query: 'include.users=true',
       }),
   })
 
@@ -175,7 +175,7 @@ export const ModalVacationDashboard = () => {
     if (dataGetVacationById) {
       const values = {
         title: dataGetVacationById.title,
-        dates: dataGetVacationById.dates.map((a) => a.date),
+        dates: dataGetVacationById.dates?.map((a) => a.date),
         userIds: dataGetVacationById.users.map((a) => String(a.id)),
         location: dataGetVacationById.location,
         description: dataGetVacationById.description,
@@ -311,7 +311,7 @@ export const ModalVacationDashboard = () => {
                         isMultiline={(allDaysInMonth?.length ?? 0) > 0}
                         disabledKeys={dataGetVacation
                           ?.filter((a) =>
-                            a.dates.every(
+                            a.dates?.every(
                               (b) =>
                                 new Date(b.date).getMonth() ===
                                 (month ?? 0) - 1,
@@ -320,7 +320,7 @@ export const ModalVacationDashboard = () => {
                           .reduce((acc, curr) => {
                             return [
                               ...acc,
-                              ...curr.dates.map((a) =>
+                              ...curr.dates?.map((a) =>
                                 format(new Date(a.date), 'dd'),
                               ),
                             ]

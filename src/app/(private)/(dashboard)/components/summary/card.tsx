@@ -13,7 +13,7 @@ import { AvatarGroup } from "@heroui/avatar"
 
 export const CardSummary = ({ month, data, loading }: DashboardProps) => {
   const dataByMonth = data?.filter((vacation) =>
-    vacation.dates.some(({ date }) => new Date(date).getMonth() === month - 1),
+    vacation.dates?.some(({ date }) => new Date(date).getMonth() === month - 1),
   )
 
   return (

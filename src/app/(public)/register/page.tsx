@@ -44,9 +44,9 @@ const Register = () => {
 
   const [imageBase64, setImageBase64] = useState<string>()
 
-  const { get } = useSearchParams()
+  const searchParams = useSearchParams()
 
-  const redirect = decodeURIComponent(get('redirect') || '')
+  const redirect = decodeURIComponent(searchParams.get('redirect') ?? '')
 
   const router = useRouter()
 

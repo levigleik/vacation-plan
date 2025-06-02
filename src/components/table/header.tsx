@@ -37,7 +37,7 @@ const HeaderTable = <TData extends Record<string, any>>({
                 isIconOnly
                 color="default"
                 className="rounded-full text-white"
-                onClick={() => router.push(`/${path}/new`)}
+                onPress={() => router.push(`/${path}/new`)}
               >
                 <FaPlus size={20} className="text-white" />
               </Button>
@@ -54,7 +54,7 @@ const HeaderTable = <TData extends Record<string, any>>({
             <Button
               color="primary"
               isIconOnly
-              onClick={() => router.push(`/${path}`)}
+              onPress={() => router.push(`/${path}`)}
               className="rounded-full text-white"
             >
               <FaArrowLeft size={20} className="text-white" />

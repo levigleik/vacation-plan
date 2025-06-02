@@ -9,7 +9,7 @@ export default function ErrorComponent() {
 			<FaExclamationTriangle size={50} className="mb-4 text-2xl" />
 			<h1 className="text-2xl font-bold">Something went wrong</h1>
 			<Button
-				onClick={() => window.location.reload()}
+				onPress={() => window.location.reload()}
 				color="primary"
 				className={"mt-8"}
 			>

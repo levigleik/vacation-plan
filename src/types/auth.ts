@@ -7,3 +7,9 @@ export interface AuthStoreProps {
   setSigned: (signed: boolean) => void
   logout: () => void
 }
+
+export interface TokenProps {
+  exp: number
+  iat: number
+  sessionId: number
+}

@@ -69,7 +69,7 @@ export default function User() {
               isIconOnly
               color="primary"
               className="rounded-full text-white"
-              onClick={() => router.push(`user/${item.id}`)}
+              onPress={() => router.push(`user/${item.id}`)}
             >
               <FaPencilAlt size={20} className="text-white" />
             </Button>
@@ -84,7 +84,7 @@ export default function User() {
               isIconOnly
               color="danger"
               className="rounded-full"
-              onClick={() => {
+              onPress={() => {
                 setItemDelete(item.id)
                 onOpen()
               }}

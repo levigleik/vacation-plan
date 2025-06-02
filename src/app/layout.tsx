@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from 'next'
-import { Montserrat } from 'next/font/google'
+import { Poppins } from 'next/font/google'
 import 'react-toastify/dist/ReactToastify.css'
 import { Providers } from './providers'
 
 import './globals.css'
 
-const font = Montserrat({ weight: '400', subsets: ['latin'] })
+const font = Poppins({ weight: '400', subsets: ['latin'] })
 
 const APP_NAME = 'Vacation Planner'
 const APP_TITLE_TEMPLATE = 'Vacation Planner | %s'

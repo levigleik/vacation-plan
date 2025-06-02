@@ -20,17 +20,7 @@ import {
 
 export const ModalCropImage = () => {
   const { modalOpen, setImage, image, setModalOpen } = useRegisterHook()
-  const handleClose = async () => {
-    setModalOpen(false)
-    if (image && completedCrop) {
-      const imageBase64 = await onDownloadCropClick({
-        imgRef,
-        previewCanvasRef,
-        completedCrop,
-      })
-      if (imageBase64) setImage(imageBase64)
-    }
-  }
+  
 
   const [crop, setCrop] = useState<Crop>({
     unit: '%',
@@ -44,6 +34,18 @@ export const ModalCropImage = () => {
 
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)
   const imgRef = useRef<HTMLImageElement>(null)
+
+  const handleClose = async () => {
+    setModalOpen(false)
+    if (image && completedCrop) {
+      const imageBase64 = await onDownloadCropClick({
+        imgRef,
+        previewCanvasRef,
+        completedCrop,
+      })
+      if (imageBase64) setImage(imageBase64)
+    }
+  }
 
   useEffect(() => {
     if (image) {
@@ -136,7 +138,7 @@ export const ModalCropImage = () => {
                 type="submit"
                 form="formVacation"
                 className="self-end"
-                onClick={handleClose}
+                onPress={handleClose}
               >
                 Crop
               </Button>

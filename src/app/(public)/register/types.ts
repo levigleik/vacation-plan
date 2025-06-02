@@ -16,7 +16,7 @@ export interface RegisterHookProps {
 }
 
 export interface DownloadCropClickProps {
-  imgRef: React.RefObject<HTMLImageElement>
-  previewCanvasRef: React.RefObject<HTMLCanvasElement>
+  imgRef: React.RefObject<HTMLImageElement | null>
+  previewCanvasRef: React.RefObject<HTMLCanvasElement | null>
   completedCrop: PixelCrop
 }

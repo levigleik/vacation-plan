@@ -18,7 +18,7 @@ export const useDayClick = (month: number): DayClickEventHandler => {
   return (day) => {
     const matchingVacation = !daysSelected?.days?.length
       ? dataGetVacation?.find((vacation) =>
-          vacation.dates.some((dateVacation) =>
+          vacation.dates?.some((dateVacation) =>
             isSameDay(dateVacation.date, day),
           ),
         )

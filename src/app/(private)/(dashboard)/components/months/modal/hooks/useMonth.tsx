@@ -18,7 +18,7 @@ export const useMonth = () => {
     mutationFn: () =>
       getData<VacationWithDatesApiProps[]>({
         url: '/vacation',
-        query: 'include.dates=true&&include.users=true',
+        query: 'include.users=true',
       }),
   })
 
@@ -29,7 +29,7 @@ export const useMonth = () => {
           url: 'vacation',
           id: dayEditId,
           signal,
-          query: 'include.users=true&&include.dates=true',
+          query: 'include.users=true',
         }),
       queryKey: ['vacation-by-id-get', dayEditId],
       enabled: !!dayEditId && dayEditId > 0,
@@ -52,7 +52,7 @@ export const useMonth = () => {
 
     const daysMerge = [...daysInMonthParsed, ...daysSelectedParsed]
     if (dataGetVacationById) {
-      const daysVacation = dataGetVacationById.dates.map((a) => {
+      const daysVacation = dataGetVacationById.dates?.map((a) => {
         return {
           id: a.date,
         }
