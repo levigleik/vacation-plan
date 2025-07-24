@@ -1,11 +1,13 @@
-@import 'tailwindcss';
+@import "tailwindcss";
+@import "../../../node_modules/react-image-crop/dist/ReactCrop.css";
+
 @plugin '../../hero.ts';
 
 @source '../../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
+
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --breakpoint-*: initial;
   --breakpoint-4xs: 340px;
   --breakpoint-3xs: 380px;
   --breakpoint-2xs: 400px;
