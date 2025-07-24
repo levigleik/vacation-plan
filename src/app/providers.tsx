@@ -1,12 +1,11 @@
 'use client'
 
+import { ToastProvider } from '@heroui/toast'
 import { QueryClient, useQueryErrorResetBoundary } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { ErrorBoundary } from 'react-error-boundary'
-import { ToastContainer, Zoom } from 'react-toastify'
 
 import { queryClientConfig } from '@/lib/constants'
-import { cn } from '@/lib/utils'
 import { Button } from '@heroui/button'
 import { HeroUIProvider } from '@heroui/react'
 import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister'
@@ -73,23 +72,13 @@ export function Providers({ children }: { children: React.ReactNode }) {
           }}
         >
           <NextThemesProvider attribute="class" defaultTheme="light">
-            <ToastContainer
-              pauseOnHover={false}
-              pauseOnFocusLoss={false}
-              position="top-center"
-              autoClose={4000}
-              hideProgressBar={false}
-              newestOnTop
-              closeOnClick
-              transition={Zoom}
-              rtl={false}
-              draggable
-              theme="dark"
-              toastClassName={cn(
-                'min-h-10 cursor-pointer justify-between',
-                'overflow-hidden rounded-[25px] bg-gray-900 p-3 text-white',
-                'md:mb-2 mb-8 md:m-0 m-4',
-              )}
+            <ToastProvider
+              placement="top-center"
+              toastProps={{
+                classNames: {
+                  base: 'bg-white dark:bg-gray-800',
+                },
+              }}
             />
             {children}
           </NextThemesProvider>

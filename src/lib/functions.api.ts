@@ -1,6 +1,7 @@
-import api from '@/lib/api'
+import api from '@/services/api'
 import { DeleteData, GetData, PostData, PutData } from '@/types/api'
-import { toast } from 'react-toastify'
+import { addToast } from '@heroui/toast'
+import { isAxiosError } from 'axios'
 
 export const getData = async <TReturn>(val: GetData) => {
   const { url, query, id } = val
@@ -29,10 +30,17 @@ export const deleteData = async <TReturn>(val: DeleteData) => {
   return data
 }
 
-export const toastErrorsApi = (error: any) => {
-  if (error && error.response) {
-    if (Array.isArray(error.response?.data.message)) {
-      error.response?.data.message.forEach((err: string) => toast.error(err))
-    } else toast.error(error.response?.data.message)
-  } else toast.error('Error while trying to connect to the server')
+export const toastErrorsApi = (error: unknown) => {
+  if (isAxiosError(error)) {
+    if (Array.isArray(error?.response?.data.message)) {
+      error.response?.data.message.forEach((err: string) =>
+        addToast({ description: err || 'Error', color: 'danger' }),
+      )
+    } else
+      addToast({ description: error.response?.data.message, color: 'danger' })
+  } else
+    addToast({
+      description: 'Error while trying to connect to the server',
+      color: 'danger',
+    })
 }

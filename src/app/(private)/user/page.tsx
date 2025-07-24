@@ -1,6 +1,10 @@
 'use client'
 
 import Table from '@/components/table'
+import { ColumnProps } from '@/components/table/types'
+import { deleteData, getData, toastErrorsApi } from '@/lib/functions.api'
+import { DeleteData } from '@/types/api'
+import { UserApiProps } from '@/types/models/user'
 import {
   Button,
   Modal,
@@ -10,16 +14,12 @@ import {
   ModalHeader,
   Tooltip,
   useDisclosure,
-} from "@heroui/react"
+} from '@heroui/react'
+import { addToast } from '@heroui/toast'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { FaPencilAlt, FaTrash } from 'react-icons/fa'
-import { ColumnProps } from '@/components/table/types'
-import { DeleteData } from '@/types/api'
-import { deleteData, getData, toastErrorsApi } from '@/lib/functions.api'
-import { UserApiProps } from '@/types/models/user'
-import { toast } from 'react-toastify'
 import { columnsUsers } from './constants'
 
 export default function User() {
@@ -44,7 +44,10 @@ export default function User() {
       id: id,
     })
       .then(() => {
-        toast.success('User deleted successfully')
+        addToast({
+          description: 'User deleted successfully',
+          color: 'success',
+        })
         void refetch()
       })
       .catch((err) => {

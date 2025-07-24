@@ -1,29 +1,29 @@
 'use client'
+import { Button, Input } from '@heroui/react'
 // import logo from '@/assets/images/logo.webp'
 // import Loading from '@/components/loading'
 import Cookie from 'js-cookie'
 // import { jwtDecode } from 'jwt-decode'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Controller, useForm } from 'react-hook-form'
-import { Button, Input } from '@heroui/react'
 
-import { useMutation } from '@tanstack/react-query'
-import { PostData } from '@/types/api'
-import { postData, toastErrorsApi } from '@/lib/functions.api'
-import { UserApiProps } from '@/types/models/user'
-import { cookiesSettings } from '@/lib/constants'
-import { useAuthState } from '@/hooks/auth'
-import { AxiosError } from 'axios'
-import { toast } from 'react-toastify'
-import { FormRegisterProps } from './types'
-import { validateEmail, validatePassword } from '@/lib/validations'
-import Image from 'next/image'
-import logo from '@/assets/images/logo.png'
-import { useEffect, useState } from 'react'
-import { convertToBase64 } from '@/lib/utils'
-import { FaUpload } from 'react-icons/fa'
-import { ModalCropImage } from '@/app/(public)/register/modal'
 import { useRegisterHook } from '@/app/(public)/register/hooks'
+import { ModalCropImage } from '@/app/(public)/register/modal'
+import logo from '@/assets/images/logo.png'
+import { useAuthState } from '@/hooks/auth'
+import { cookiesSettings } from '@/lib/constants'
+import { postData, toastErrorsApi } from '@/lib/functions.api'
+import { convertToBase64 } from '@/lib/utils'
+import { validateEmail, validatePassword } from '@/lib/validations'
+import { PostData } from '@/types/api'
+import { UserApiProps } from '@/types/models/user'
+import { addToast } from '@heroui/toast'
+import { useMutation } from '@tanstack/react-query'
+import { AxiosError } from 'axios'
+import Image from 'next/image'
+import { useEffect, useState } from 'react'
+import { FaUpload } from 'react-icons/fa'
+import { FormRegisterProps } from './types'
 
 const Loading = () => {
   return (
@@ -73,7 +73,10 @@ const Register = () => {
     })
       .then(async (data) => {
         Cookie.set('signed', 'true', cookiesSettings)
-        toast.success('User registered successfully, redirecting...')
+        addToast({
+          description: 'User registered successfully, redirecting...',
+          color: 'success',
+        })
         setSigned(true)
         setProfile(data)
         setImage(undefined)

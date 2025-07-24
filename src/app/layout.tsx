@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from 'next'
 import { Poppins } from 'next/font/google'
-import 'react-toastify/dist/ReactToastify.css'
 import { Providers } from './providers'
 
 import '../assets/styles/globals.css'
@@ -31,7 +30,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt">
-      <body className={font.className}>
+      <body className={font.className} suppressHydrationWarning>
         <Providers>
           {/*<Suspense fallback={<Loading />}>*/}
           <main className="bg-background text-foreground ">

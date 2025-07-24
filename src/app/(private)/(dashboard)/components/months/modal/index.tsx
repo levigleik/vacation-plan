@@ -1,5 +1,16 @@
 'use client'
 
+import { useDashboardMonthHook } from '@/app/(private)/(dashboard)/components/months/hook'
+import { HeaderModalDashboardMonth } from '@/app/(private)/(dashboard)/components/months/modal/header'
+import { useMonth } from '@/app/(private)/(dashboard)/components/months/modal/hooks/useMonth'
+import { PrintModalDashboard } from '@/app/(private)/(dashboard)/components/months/modal/print'
+import { setDatesOnCalendar } from '@/app/(private)/(dashboard)/functions'
+import { useDashboardHook } from '@/app/(private)/(dashboard)/hook'
+import { FormVacationProps, VacationWithDatesApiProps } from '@/app/(private)/(dashboard)/types'
+import { deleteData, getData, postData, putData, toastErrorsApi } from '@/lib/functions.api'
+import { DeleteData, PostData, PutData } from '@/types/api'
+import { UserApiProps } from '@/types/models/user'
+import { VacationApiProps } from '@/types/models/vaction'
 import {
   Button,
   Chip,
@@ -16,34 +27,14 @@ import {
   SelectItem,
   Skeleton,
   Textarea,
-  User,
-} from "@heroui/react"
-import { useDashboardHook } from '@/app/(private)/(dashboard)/hook'
-import { format } from 'date-fns'
-import { Controller, useForm } from 'react-hook-form'
+  User
+} from '@heroui/react'
+import { addToast } from '@heroui/toast'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import {
-  deleteData,
-  getData,
-  postData,
-  putData,
-  toastErrorsApi,
-} from '@/lib/functions.api'
-import { UserApiProps } from '@/types/models/user'
-import {
-  FormVacationProps,
-  VacationWithDatesApiProps,
-} from '@/app/(private)/(dashboard)/types'
-import { FaTimes } from 'react-icons/fa'
-import { DeleteData, PostData, PutData } from '@/types/api'
-import { VacationApiProps } from '@/types/models/vaction'
-import { toast } from 'react-toastify'
-import { setDatesOnCalendar } from '@/app/(private)/(dashboard)/functions'
+import { format } from 'date-fns'
 import { useEffect } from 'react'
-import { useDashboardMonthHook } from '@/app/(private)/(dashboard)/components/months/hook'
-import { useMonth } from '@/app/(private)/(dashboard)/components/months/modal/hooks/useMonth'
-import { HeaderModalDashboardMonth } from '@/app/(private)/(dashboard)/components/months/modal/header'
-import { PrintModalDashboard } from '@/app/(private)/(dashboard)/components/months/modal/print'
+import { Controller, useForm } from 'react-hook-form'
+import { FaTimes } from 'react-icons/fa'
 
 export const ModalVacationDashboard = () => {
   const {
@@ -140,7 +131,10 @@ export const ModalVacationDashboard = () => {
         data: parseData,
       })
         .then(() => {
-          toast.success('Plans registered successfully')
+          addToast({
+            description: 'Plans registered successfully',
+            color: 'success',
+          })
           handleClose(true)
         })
         .catch((error: any) => {
@@ -153,7 +147,10 @@ export const ModalVacationDashboard = () => {
         id: dayEditId,
       })
         .then(() => {
-          toast.success('Plans updated successfully')
+          addToast({
+            description: 'Plans updated successfully',
+            color: 'success',
+          })
           handleClose()
         })
         .catch((error: any) => {
@@ -202,7 +199,10 @@ export const ModalVacationDashboard = () => {
       id: dayEditId,
     })
       .then(() => {
-        toast.success('Plans deleted successfully')
+        addToast({
+          description: 'Plans deleted successfully',
+          color: 'success',
+        })
         handleClose()
       })
       .catch((error: any) => {

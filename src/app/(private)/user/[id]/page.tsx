@@ -1,23 +1,23 @@
 'use client'
 
+import { useRegisterHook } from '@/app/(public)/register/hooks'
+import { ModalCropImage } from '@/app/(public)/register/modal'
+import { Row } from '@/components/layout/grid'
+import { useAuthState } from '@/hooks/auth'
 import { getData, postData, putData, toastErrorsApi } from '@/lib/functions.api'
-import { Button, Input, Skeleton, Switch } from "@heroui/react"
+import { convertBase64ToFile, convertToBase64 } from '@/lib/utils'
+import { validatePassword } from '@/lib/validations'
+import { PostData, PutData } from '@/types/api'
+import { UserApiProps } from '@/types/models/user'
+import { Button, Input, Skeleton, Switch } from '@heroui/react'
+import { addToast } from '@heroui/toast'
 import { useMutation, useQuery } from '@tanstack/react-query'
+import Image from 'next/image'
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { toast } from 'react-toastify'
-import { UserApiProps } from '@/types/models/user'
-import { PostData, PutData } from '@/types/api'
-import { Row } from '@/components/layout/grid'
-import { FormUserProps } from './types'
-import { validatePassword } from '@/lib/validations'
-import Image from 'next/image'
-import { useRegisterHook } from '@/app/(public)/register/hooks'
-import { convertBase64ToFile, convertToBase64 } from '@/lib/utils'
 import { FaUpload } from 'react-icons/fa'
-import { ModalCropImage } from '@/app/(public)/register/modal'
-import { useAuthState } from '@/hooks/auth'
+import { FormUserProps } from './types'
 
 const UserEdit = () => {
   const { id } = useParams<{ id: string | 'new' }>()
@@ -74,7 +74,10 @@ const UserEdit = () => {
         data: parseData as any,
       })
         .then(() => {
-          toast.success('User registered successfully')
+          addToast({
+            description: 'User created successfully',
+            color: 'success',
+          })
           setImage(undefined)
           setImageBase64(undefined)
           reset()
@@ -93,7 +96,10 @@ const UserEdit = () => {
         id: parseInt(id, 10),
       })
         .then((dataUser) => {
-          toast.success('User updated successfully')
+          addToast({
+            description: 'User updated successfully',
+            color: 'success',
+          })
           if (dataUser.email === profile?.email) {
             setProfile({ ...dataUser, password: undefined })
           }
@@ -358,7 +364,7 @@ const UserEdit = () => {
       </Button>
       <ModalCropImage />
     </form>
-  );
+  )
 }
 
 export default UserEdit
