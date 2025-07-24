@@ -1,5 +1,12 @@
-import { Button, Link } from '@heroui/react'
+import { mockUsers } from '@/lib/mock'
+import { Avatar, AvatarGroup } from '@heroui/avatar'
+import { Button } from '@heroui/button'
+import { Card, CardBody, CardHeader } from '@heroui/card'
+import Image from 'next/image'
+import Link from 'next/link'
 import { FaCalendarAlt, FaCalendarPlus, FaImage, FaUsers } from 'react-icons/fa'
+
+import vacationPlanCalendar from '@/assets/images/vacation-planner-calendar.png'
 
 export default function Home() {
   return (
@@ -66,104 +73,45 @@ export default function Home() {
             <div className="absolute -top-10 -left-10 w-32 h-32 bg-primary-50 rounded-full blur-2xl opacity-60"></div>
             <div className="absolute -bottom-12 -right-16 w-48 h-48 bg-pink-100 rounded-full blur-3xl opacity-50"></div>
             <div className="relative flex flex-col space-y-6">
-              <div className="rounded-2xl bg-white shadow-lg p-4 border border-gray-100">
-                <div className="flex items-center gap-3 mb-3">
-                  <i className="text-primary-600 text-2xl" data-fa-i2svg="">
-                    <svg
-                      className="svg-inline--fa fa-calendar-days"
-                      aria-hidden="true"
-                      focusable="false"
-                      data-prefix="fas"
-                      data-icon="calendar-days"
-                      role="img"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 448 512"
-                      data-fa-i2svg=""
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M128 0c17.7 0 32 14.3 32 32V64H288V32c0-17.7 14.3-32 32-32s32 14.3 32 32V64h48c26.5 0 48 21.5 48 48v48H0V112C0 85.5 21.5 64 48 64H96V32c0-17.7 14.3-32 32-32zM0 192H448V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V192zm64 80v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm128 0v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H208c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H336zM64 400v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H208zm112 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H336c-8.8 0-16 7.2-16 16z"
-                      ></path>
-                    </svg>
-                  </i>
+              <Card>
+                <CardHeader className="flex items-center gap-3 mb-3">
+                  <FaCalendarAlt className="text-primary-600 text-lg" />
                   <span className="font-semibold text-gray-800 text-lg">
                     Vacation Calendar
                   </span>
-                </div>
-                <div className="w-full h-40 rounded-lg bg-gray-100 overflow-hidden">
-                  <img
+                </CardHeader>
+                <CardBody className="w-full h-40 rounded-lg bg-gray-100 overflow-hidden">
+                  <Image
+                    width={800}
+                    height={400}
                     className="w-full h-full object-cover"
-                    src="https://storage.googleapis.com/uxpilot-auth.appspot.com/9c870ac40c-70636269e05ec371060d.png"
+                    src={vacationPlanCalendar}
                     alt="vacation calendar ui mockup, modern, clean, colorful, dribbble style"
                   />
-                </div>
-              </div>
+                </CardBody>
+              </Card>
               <div className="flex gap-6">
                 <div className="flex-1 rounded-2xl bg-white shadow-lg p-4 border border-gray-100">
                   <div className="flex items-center gap-2 mb-2">
-                    <i className="text-green-600" data-fa-i2svg="">
-                      <svg
-                        className="svg-inline--fa fa-user-group"
-                        aria-hidden="true"
-                        focusable="false"
-                        data-prefix="fas"
-                        data-icon="user-group"
-                        role="img"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 640 512"
-                        data-fa-i2svg=""
-                      >
-                        <path
-                          fill="currentColor"
-                          d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM609.3 512H471.4c5.4-9.4 8.6-20.3 8.6-32v-8c0-60.7-27.1-115.2-69.8-151.8c2.4-.1 4.7-.2 7.1-.2h61.4C567.8 320 640 392.2 640 481.3c0 17-13.8 30.7-30.7 30.7zM432 256c-31 0-59-12.6-79.3-32.9C372.4 196.5 384 163.6 384 128c0-26.8-6.6-52.1-18.3-74.3C384.3 40.1 407.2 32 432 32c61.9 0 112 50.1 112 112s-50.1 112-112 112z"
-                        ></path>
-                      </svg>
-                    </i>
+                    <FaUsers className="text-green-600 text-lg" />
                     <span className="font-semibold text-gray-800 text-base">
                       Participants
                     </span>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <img
-                      src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg"
-                      className="w-7 h-7 rounded-full border-2 border-white"
-                      alt=""
-                    />
-                    <img
-                      src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg"
-                      className="w-7 h-7 rounded-full border-2 border-white"
-                      alt=""
-                    />
-                    <img
-                      src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg"
-                      className="w-7 h-7 rounded-full border-2 border-white"
-                      alt=""
-                    />
-                    <span className="ml-2 text-xs text-gray-500 font-medium">
-                      +2 friends
-                    </span>
-                  </div>
+                  <AvatarGroup max={3}>
+                    {mockUsers.slice(0, 4).map((user, index) => (
+                      <Avatar
+                        key={user.email}
+                        src={user.photo}
+                        alt={user.name}
+                        title={user.name}
+                      />
+                    ))}
+                  </AvatarGroup>
                 </div>
                 <div className="flex-1 rounded-2xl bg-white shadow-lg p-4 border border-gray-100">
                   <div className="flex items-center gap-2 mb-2">
-                    <i className="text-pink-500" data-fa-i2svg="">
-                      <svg
-                        className="svg-inline--fa fa-image"
-                        aria-hidden="true"
-                        focusable="false"
-                        data-prefix="fas"
-                        data-icon="image"
-                        role="img"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 512 512"
-                        data-fa-i2svg=""
-                      >
-                        <path
-                          fill="currentColor"
-                          d="M0 96C0 60.7 28.7 32 64 32H448c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zM323.8 202.5c-4.5-6.6-11.9-10.5-19.8-10.5s-15.4 3.9-19.8 10.5l-87 127.6L170.7 297c-4.6-5.7-11.5-9-18.7-9s-14.2 3.3-18.7 9l-64 80c-5.8 7.2-6.9 17.1-2.9 25.4s12.4 13.6 21.6 13.6h96 32H424c8.9 0 17.1-4.9 21.2-12.8s3.6-17.4-1.4-24.7l-120-176zM112 192a48 48 0 1 0 0-96 48 48 0 1 0 0 96z"
-                        ></path>
-                      </svg>
-                    </i>
+                    <FaImage className="text-pink-500 text-lg" />
                     <span className="font-semibold text-gray-800 text-base">
                       Photos Gallery
                     </span>
@@ -261,26 +209,16 @@ export default function Home() {
             <p className="text-gray-600 mb-4">
               Add participants and collaborate on the details of your journey.
             </p>
-            <div className="flex items-center justify-center gap-1 mt-2">
-              <img
-                src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg"
-                className="w-10 h-10 rounded-full border-2 border-white"
-                alt=""
-              />
-              <img
-                src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg"
-                className="w-10 h-10 rounded-full border-2 border-white"
-                alt=""
-              />
-              <img
-                src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg"
-                className="w-10 h-10 rounded-full border-2 border-white"
-                alt=""
-              />
-              <span className="ml-2 text-xs text-gray-500 font-medium">
-                + others
-              </span>
-            </div>
+            <AvatarGroup max={3}>
+              {mockUsers.slice(0, 4).map((user, index) => (
+                <Avatar
+                  key={user.email}
+                  src={user.photo}
+                  alt={user.name}
+                  title={user.name}
+                />
+              ))}
+            </AvatarGroup>
           </div>
           <div className="bg-white rounded-2xl shadow-sm p-8 flex flex-col items-center text-center hover:shadow-lg transition-shadow">
             <span className="h-14 w-14 bg-pink-50 rounded-full flex items-center justify-center mb-4">

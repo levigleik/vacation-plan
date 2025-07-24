@@ -1,5 +1,5 @@
 'use client'
-import {DateRangePicker} from "@heroui/react";
+import { DateRangePicker } from '@heroui/date-picker'
 
 export default function Days() {
   return (

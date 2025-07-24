@@ -1,6 +1,6 @@
-import { Meta, type StoryObj } from '@storybook/react'
 import { Calendar } from '@/app/(private)/(dashboard)/components/months/calendar'
-import mockVacation from '../../prisma/mock/vacation.json'
+import mockVacation from '@/lib/mock/vacation.json'
+import { Meta, type StoryObj } from '@storybook/react'
 
 const mockData = mockVacation.map((vacation) => ({
   ...vacation,

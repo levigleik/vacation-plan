@@ -1,10 +1,10 @@
 'use client'
-import { months } from '@/app/(private)/(dashboard)/constants'
-import { format } from 'date-fns'
 import { Calendar } from '@/app/(private)/(dashboard)/components/months/calendar'
-import { Button } from "@heroui/react"
-import { FaCheck, FaTimes } from 'react-icons/fa'
 import { useDashboardMonthHook } from '@/app/(private)/(dashboard)/components/months/hook'
+import { months } from '@/app/(private)/(dashboard)/constants'
+import { Button } from '@heroui/button'
+import { format } from 'date-fns'
+import { FaCheck, FaTimes } from 'react-icons/fa'
 
 export const BodyMonthDashboard = () => {
   const { setModalVacationOpen, daysSelected, setDaysSelected } =

@@ -23,7 +23,7 @@ export const routesFront: {
   // private routes
   {
     path: '/',
-    private: true,
+    private: false,
   },
   {
     path: '/user',
