@@ -209,26 +209,16 @@ export default function Home() {
             <p className="text-gray-600 mb-4">
               Add participants and collaborate on the details of your journey.
             </p>
-            <div className="flex items-center justify-center gap-1 mt-2">
-              <img
-                src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg"
-                className="w-10 h-10 rounded-full border-2 border-white"
-                alt=""
-              />
-              <img
-                src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg"
-                className="w-10 h-10 rounded-full border-2 border-white"
-                alt=""
-              />
-              <img
-                src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg"
-                className="w-10 h-10 rounded-full border-2 border-white"
-                alt=""
-              />
-              <span className="ml-2 text-xs text-gray-500 font-medium">
-                + others
-              </span>
-            </div>
+            <AvatarGroup max={3}>
+              {mockUsers.slice(0, 4).map((user, index) => (
+                <Avatar
+                  key={user.email}
+                  src={user.photo}
+                  alt={user.name}
+                  title={user.name}
+                />
+              ))}
+            </AvatarGroup>
           </div>
           <div className="bg-white rounded-2xl shadow-sm p-8 flex flex-col items-center text-center hover:shadow-lg transition-shadow">
             <span className="h-14 w-14 bg-pink-50 rounded-full flex items-center justify-center mb-4">
