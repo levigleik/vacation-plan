@@ -3,7 +3,7 @@ import { Poppins } from 'next/font/google'
 import 'react-toastify/dist/ReactToastify.css'
 import { Providers } from './providers'
 
-import './globals.css'
+import '../assets/styles/globals.css'
 
 const font = Poppins({ weight: '400', subsets: ['latin'] })
 

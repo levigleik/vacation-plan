@@ -232,7 +232,7 @@ export default function Home() {
           How It Works
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          <div className="bg-white rounded-2xl shadow p-8 flex flex-col items-center text-center hover:shadow-lg transition-shadow">
+          <div className="bg-white rounded-2xl shadow-sm p-8 flex flex-col items-center text-center hover:shadow-lg transition-shadow">
             <span className="h-14 w-14 bg-primary-50 rounded-full flex items-center justify-center mb-4">
               <FaCalendarPlus className="text-primary-600 text-3xl" />
             </span>
@@ -251,7 +251,7 @@ export default function Home() {
               />
             </div>
           </div>
-          <div className="bg-white rounded-2xl shadow p-8 flex flex-col items-center text-center hover:shadow-lg transition-shadow">
+          <div className="bg-white rounded-2xl shadow-sm p-8 flex flex-col items-center text-center hover:shadow-lg transition-shadow">
             <span className="h-14 w-14 bg-green-50 rounded-full flex items-center justify-center mb-4">
               <FaUsers className="text-green-600 text-3xl" />
             </span>
@@ -282,7 +282,7 @@ export default function Home() {
               </span>
             </div>
           </div>
-          <div className="bg-white rounded-2xl shadow p-8 flex flex-col items-center text-center hover:shadow-lg transition-shadow">
+          <div className="bg-white rounded-2xl shadow-sm p-8 flex flex-col items-center text-center hover:shadow-lg transition-shadow">
             <span className="h-14 w-14 bg-pink-50 rounded-full flex items-center justify-center mb-4">
               <FaImage className="text-pink-500 text-3xl" />
             </span>

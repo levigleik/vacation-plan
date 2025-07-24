@@ -1,5 +1,5 @@
 import { Meta, type StoryObj } from '@storybook/react'
-import { Button, ButtonProps } from "@heroui/react"
+import { Button, ButtonProps } from '@heroui/react'
 
 const meta = {
   title: 'Docs/Button/Button',
@@ -56,7 +56,7 @@ const meta = {
         'flat',
         'ghost',
         'light',
-        'shadow',
+        'shadow-sm',
         'solid',
       ] as ButtonProps['variant'][],
       description: 'The variant of the button',
@@ -67,7 +67,7 @@ const meta = {
     radius: 'md',
     className: '',
     size: 'sm',
-    variant: 'shadow',
+    variant: 'shadow-sm',
     children: 'Button',
   },
 } as Meta<typeof Button>

@@ -1,5 +1,5 @@
 import { Meta, type StoryObj } from '@storybook/react'
-import { Card, CardProps } from "@heroui/react"
+import { Card, CardProps } from '@heroui/react'
 
 const meta = {
   title: 'Docs/Card',
@@ -29,8 +29,8 @@ const meta = {
       control: {
         type: 'select',
       },
-      options: ['none', 'sm', 'md', 'lg'] as CardProps['shadow'][],
-      description: 'The shadow of the card',
+      options: ['none', 'sm', 'md', 'lg'] as CardProps['shadow-sm'][],
+      description: 'The shadow-sm of the card',
     },
   },
   args: {

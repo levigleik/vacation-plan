@@ -1,10 +1,10 @@
 "use client";
 
-import type * as React from "react";
-import { DayPicker } from "react-day-picker";
+import type * as React from 'react'
+import { DayPicker } from 'react-day-picker'
 
-import { cn } from "@heroui/react";
-import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
+import { cn } from '@heroui/react'
+import { BiChevronLeft, BiChevronRight } from 'react-icons/bi'
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
@@ -26,7 +26,7 @@ function Calendar({
 				caption_label: "text-sm font-medium",
 				nav: "space-x-1 flex items-center",
 				nav_button: cn(
-					// buttonVariants({ variant: 'outline' }),
+					// buttonVariants({ variant: 'outline-solid' }),
 					"h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100",
 				),
 				nav_button_previous: "absolute left-1",
@@ -62,8 +62,8 @@ function Calendar({
 				...classNames,
 			}}
 			components={{
-				IconLeft: ({ ...props }) => <BiChevronLeft className="h-4 w-4" />,
-				IconRight: ({ ...props }) => <BiChevronRight className="h-4 w-4" />,
+				IconLeft: () => <BiChevronLeft className="h-4 w-4" />,
+				IconRight: () => <BiChevronRight className="h-4 w-4" />,
 			}}
 			{...props}
 		/>

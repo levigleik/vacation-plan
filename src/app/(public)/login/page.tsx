@@ -5,17 +5,14 @@ import { Controller, useForm } from 'react-hook-form'
 import { useMutation } from '@tanstack/react-query'
 import { PostData } from '@/types/api'
 import { postData, toastErrorsApi } from '@/lib/functions.api'
-import { UserApiProps } from '@/types/models/user'
 import { cookiesSettings } from '@/lib/constants'
 import { useAuthState } from '@/hooks/auth'
 import { AxiosError } from 'axios'
-import { Button, Input } from "@heroui/react"
+import { Button, Input } from '@heroui/react'
 import { FormLoginProps, LoginResponseProps } from './types'
 import Loading from 'components/loading'
 import Image from 'next/image'
 import logo from '@/assets/images/logo.png'
-import { TokenProps } from '@/types/auth'
-import { jwtDecode } from 'jwt-decode'
 
 const Login = () => {
   const { control, handleSubmit } = useForm<FormLoginProps>()
@@ -55,10 +52,10 @@ const Login = () => {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-main to-main-white">
+    <div className="flex min-h-screen items-center justify-center bg-linear-to-b from-main to-main-white">
       {isPending && <Loading />}
       {!isPending && (
-        <div className="rounded-md bg-content1 p-10 shadow-sm shadow-main-200 brightness-90 md:w-[500px] md:p-16 md:pt-8">
+        <div className="rounded-md bg-content1 p-10 shadow-xs shadow-main-200 brightness-90 md:w-[500px] md:p-16 md:pt-8">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-6 flex items-center justify-center">
               <Image alt="logo" src={logo} width={200} height={200} />

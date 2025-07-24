@@ -2,13 +2,7 @@
 
 import logo from '@/assets/images/logo.png'
 
-import {
-  Button,
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-} from '@heroui/react'
+import { Button, Navbar, NavbarBrand, NavbarContent, NavbarItem } from '@heroui/react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
@@ -20,13 +14,13 @@ const NavbarComponent = () => {
       classNames={{
         item: [
           '[&>.nav-link]:data-[active=true]:text-background',
-          '[&>.nav-link]:data-[active=true]:underline [&>.nav-link]:data-[active=true]:underline-offset-8',
+          'data-[active=true]:[&>.nav-link]:underline data-[active=true]:[&>.nav-link]:underline-offset-8',
           '[&>.nav-link]:hover:text-background [&>.nav-link]:transition-all [&>.nav-link]:duration-300 [&>.nav-link]:ease-in-out',
-          '[&>.nav-link]:hover:underline [&>.nav-link]:hover:underline-offset-8',
+          'hover:[&>.nav-link]:underline hover:[&>.nav-link]:underline-offset-8',
           '[&>.nav-link]:text-background flex flex-col ',
         ],
         wrapper:
-          'max-w-none w-screen px-4 md:px-8 2xl:px-16 shadow-sm bg-white',
+          'max-w-none w-screen px-4 md:px-8 2xl:px-16 shadow-xs bg-white',
       }}
       height="5rem"
     >

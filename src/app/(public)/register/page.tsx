@@ -5,7 +5,7 @@ import Cookie from 'js-cookie'
 // import { jwtDecode } from 'jwt-decode'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Controller, useForm } from 'react-hook-form'
-import { Button, Input } from "@heroui/react"
+import { Button, Input } from '@heroui/react'
 
 import { useMutation } from '@tanstack/react-query'
 import { PostData } from '@/types/api'
@@ -101,10 +101,10 @@ const Register = () => {
   }, [setImage])
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-main to-main-white">
+    <div className="flex min-h-screen items-center justify-center bg-linear-to-b from-main to-main-white">
       {isPending && <Loading />}
       {!isPending && (
-        <div className=" overflow-auto rounded-md bg-content1 p-10 shadow-sm shadow-main-200 brightness-90 md:w-[500px] md:p-16 md:pt-8">
+        <div className=" overflow-auto rounded-md bg-content1 p-10 shadow-xs shadow-main-200 brightness-90 md:w-[500px] md:p-16 md:pt-8">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-6 flex items-center justify-center">
               <Image alt="logo" src={logo} width={200} height={200} />
@@ -240,7 +240,7 @@ const Register = () => {
                 variant="bordered"
                 type="button"
                 disabled={isPending}
-                onClick={() => {
+                onPress={() => {
                   router.push('/login')
                 }}
               >

@@ -1,5 +1,5 @@
 import { Meta, type StoryObj } from '@storybook/react'
-import { Button, ButtonProps } from "@heroui/react"
+import { Button, ButtonProps } from '@heroui/react'
 import { FaArrowLeft, FaFilePdf, FaPlus, FaTimes } from 'react-icons/fa'
 
 const icons = {
@@ -73,7 +73,7 @@ const meta = {
         'flat',
         'ghost',
         'light',
-        'shadow',
+        'shadow-sm',
         'solid',
       ] as ButtonProps['variant'][],
       description: 'The variant of the button',
@@ -87,7 +87,7 @@ const meta = {
   args: {
     children: 'Plus',
     color: 'default',
-    variant: 'shadow',
+    variant: 'shadow-sm',
     radius: 'full',
     className: '',
     size: 'sm',
