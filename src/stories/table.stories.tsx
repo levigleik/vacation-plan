@@ -1,6 +1,6 @@
+import mockUsers from '@/lib/mock/user.json'
 import type { Meta, StoryObj } from '@storybook/react'
 import Table from '../components/table'
-import mockUsers from '../../prisma/mock/user.json'
 
 const meta = {
   title: 'Docs/Table',

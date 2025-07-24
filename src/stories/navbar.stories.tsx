@@ -1,7 +1,7 @@
+import { NavbarProps } from '@/components/navbar/types'
+import mockUser from '@/lib/mock/user.json'
 import type { Meta, StoryObj } from '@storybook/react'
 import NavbarWrapper from '../components/navbar/wrapper'
-import mockUser from '../../prisma/mock/user.json'
-import { NavbarProps } from '@/components/navbar/types'
 
 const meta = {
   title: 'Docs/Navbar',
