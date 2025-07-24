@@ -1,14 +1,11 @@
-'use client'
-
 import logo from '@/assets/images/logo.png'
 
-import { Button, Navbar, NavbarBrand, NavbarContent, NavbarItem } from '@heroui/react'
+import { Button } from '@heroui/button'
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from '@heroui/navbar'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 const NavbarComponent = () => {
-  const router = useRouter()
-
   return (
     <Navbar
       classNames={{
@@ -40,11 +37,7 @@ const NavbarComponent = () => {
       </NavbarContent>
       <NavbarContent justify="end" className="gap-2">
         <NavbarItem key="signin">
-          <Button
-            className="font-bold"
-            variant="faded"
-            onPress={() => router.push('/signin')}
-          >
+          <Button className="font-bold" variant="faded" as={Link} href="/login">
             Sign In
           </Button>
         </NavbarItem>
@@ -52,7 +45,8 @@ const NavbarComponent = () => {
           <Button
             className="text-white font-bold"
             color="primary"
-            onPress={() => router.push('/signup')}
+            as={Link}
+            href={'/register'}
           >
             Create Account
           </Button>
