@@ -1,4 +1,5 @@
-import { Button, Link } from '@heroui/react'
+import { Button } from '@heroui/button'
+import Link from 'next/link'
 import { FaCalendarAlt, FaCalendarPlus, FaImage, FaUsers } from 'react-icons/fa'
 
 export default function Home() {
