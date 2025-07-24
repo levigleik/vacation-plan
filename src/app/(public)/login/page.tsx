@@ -1,18 +1,19 @@
 'use client'
+import logo from '@/assets/images/logo.png'
+import { useAuthState } from '@/hooks/auth'
+import { cookiesSettings } from '@/lib/constants'
+import { postData, toastErrorsApi } from '@/lib/functions.api'
+import { PostData } from '@/types/api'
+import { Button, Input } from '@heroui/react'
+import { useMutation } from '@tanstack/react-query'
+import { AxiosError } from 'axios'
+import Loading from 'components/loading'
 import Cookie from 'js-cookie'
+import Image from 'next/image'
+import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Controller, useForm } from 'react-hook-form'
-import { useMutation } from '@tanstack/react-query'
-import { PostData } from '@/types/api'
-import { postData, toastErrorsApi } from '@/lib/functions.api'
-import { cookiesSettings } from '@/lib/constants'
-import { useAuthState } from '@/hooks/auth'
-import { AxiosError } from 'axios'
-import { Button, Input } from '@heroui/react'
 import { FormLoginProps, LoginResponseProps } from './types'
-import Loading from 'components/loading'
-import Image from 'next/image'
-import logo from '@/assets/images/logo.png'
 
 const Login = () => {
   const { control, handleSubmit } = useForm<FormLoginProps>()
@@ -107,17 +108,12 @@ const Login = () => {
               <Button
                 variant="bordered"
                 type="button"
-                onPress={() => {
-                  router.push('/register')
-                }}
+                as={Link}
+                href="/register"
               >
                 Register
               </Button>
-              <Button
-                // variant="bordered"
-                type="submit"
-                disabled={isPending}
-              >
+              <Button type="submit" disabled={isPending}>
                 Login
               </Button>
             </div>

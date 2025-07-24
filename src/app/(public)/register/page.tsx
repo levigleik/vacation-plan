@@ -21,6 +21,7 @@ import { addToast } from '@heroui/toast'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { FaUpload } from 'react-icons/fa'
 import { FormRegisterProps } from './types'
@@ -243,17 +244,12 @@ const Register = () => {
                 variant="bordered"
                 type="button"
                 disabled={isPending}
-                onPress={() => {
-                  router.push('/login')
-                }}
+                as={Link}
+                href="/login"
               >
                 Back to Login
               </Button>
-              <Button
-                // variant="bordered"
-                type="submit"
-                disabled={isPending}
-              >
+              <Button type="submit" disabled={isPending}>
                 Register
               </Button>
             </div>
