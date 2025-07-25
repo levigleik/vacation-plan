@@ -1,5 +1,3 @@
-import { UserApiProps } from '@/types/models/user'
-
 export interface FormLoginProps {
   email: string
   password: string
@@ -7,5 +5,10 @@ export interface FormLoginProps {
 export interface LoginResponseProps {
   idToken: string
   refreshToken: string
-  user: UserApiProps
+  user: {
+    email: string
+    userId: number
+    name: string
+    photo?: string
+  }
 }

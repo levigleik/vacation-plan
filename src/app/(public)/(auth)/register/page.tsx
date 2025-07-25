@@ -109,14 +109,7 @@ const Register = () => {
   return (
     <>
       <ViewTransition name="auth-placeholder">
-        <div className="flex-1 bg-green-100 text-center hidden lg:flex rounded-bl-lg rounded-tl-lg">
-          {/*<div*/}
-          {/*  className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"*/}
-          {/*  style={{*/}
-          {/*    backgroundImage:*/}
-          {/*      "url('https://udemy.benesse.co.jp/wp-content/uploads/HiRes-4-detail.jpg')",*/}
-          {/*  }}*/}
-          {/*/>*/}
+        <div className="flex-1 bg-blue-200 text-center hidden lg:flex rounded-bl-lg rounded-tl-lg">
           <Image
             alt="logo"
             src={islandImage}
@@ -126,157 +119,155 @@ const Register = () => {
           />
         </div>
       </ViewTransition>
-      <ViewTransition name="auth-form">
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12 flex flex-col justify-center"
-        >
-          <div className="mb-6 flex items-center justify-center">
-            <Image alt="logo" src={logoImage} width={200} height={200} />
-          </div>
-          <h1 className="my-8 text-center text-2xl font-bold">Register</h1>
-          <div className="mb-4 flex flex-col gap-4">
-            <Controller
-              name="name"
-              control={control}
-              defaultValue=""
-              rules={{ required: 'Field is required' }}
-              render={({ field, fieldState: { error } }) => (
-                <Input
-                  type="text"
-                  id={field.name}
-                  name={field.name}
-                  onChange={field.onChange}
-                  value={field.value}
-                  variant="bordered"
-                  label="Name"
-                  disabled={isPending}
-                  isInvalid={!!error}
-                  errorMessage={error?.message}
-                />
-              )}
-            />
-            <Controller
-              name="email"
-              control={control}
-              defaultValue=""
-              rules={{ validate: (value) => validateEmail(value) }}
-              render={({ field, fieldState: { error } }) => (
-                <Input
-                  type="email"
-                  id={field.name}
-                  name={field.name}
-                  onChange={field.onChange}
-                  value={field.value}
-                  variant="bordered"
-                  label="E-mail"
-                  disabled={isPending}
-                  isInvalid={!!error}
-                  errorMessage={error?.message}
-                />
-              )}
-            />
-            <Input
-              type="text"
-              variant="bordered"
-              label="Photo"
-              disabled
-              endContent={
-                <label className="flex h-full w-fit cursor-pointer flex-col justify-center rounded-md bg-default-100 px-3 py-2">
-                  <input
-                    type="file"
-                    className="hidden"
-                    accept="image/*"
-                    multiple
-                    onChange={(e) => {
-                      if (e.target.files) {
-                        setImage(e.target.files[0])
-                        setTempImage(e.target.files[0])
-                        setModalOpen(true)
-                      }
-                    }}
-                  />
-                  <FaUpload className="text-xl" />
-                </label>
-              }
-            />
-            {imageBase64 && (
-              <div className="flex w-full justify-center">
-                <Image
-                  src={imageBase64}
-                  alt={'image-croppped'}
-                  width={100}
-                  height={100}
-                  title="Edit"
-                  onClick={() => {
-                    if (tempImage) setImage(tempImage)
-                    setModalOpen(true)
-                  }}
-                  className="cursor-pointer rounded-full"
-                />
-              </div>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12 flex flex-col justify-center"
+      >
+        <div className="mb-6 flex items-center justify-center">
+          <Image alt="logo" src={logoImage} width={200} height={200} />
+        </div>
+        <h1 className="my-8 text-center text-2xl font-bold">Register</h1>
+        <div className="mb-4 flex flex-col gap-4">
+          <Controller
+            name="name"
+            control={control}
+            defaultValue=""
+            rules={{ required: 'Field is required' }}
+            render={({ field, fieldState: { error } }) => (
+              <Input
+                type="text"
+                id={field.name}
+                name={field.name}
+                onChange={field.onChange}
+                value={field.value}
+                variant="bordered"
+                label="Name"
+                disabled={isPending}
+                isInvalid={!!error}
+                errorMessage={error?.message}
+              />
             )}
+          />
+          <Controller
+            name="email"
+            control={control}
+            defaultValue=""
+            rules={{ validate: (value) => validateEmail(value) }}
+            render={({ field, fieldState: { error } }) => (
+              <Input
+                type="email"
+                id={field.name}
+                name={field.name}
+                onChange={field.onChange}
+                value={field.value}
+                variant="bordered"
+                label="E-mail"
+                disabled={isPending}
+                isInvalid={!!error}
+                errorMessage={error?.message}
+              />
+            )}
+          />
+          <Input
+            type="text"
+            variant="bordered"
+            label="Photo"
+            disabled
+            endContent={
+              <label className="flex h-full w-fit cursor-pointer flex-col justify-center rounded-md bg-default-100 px-3 py-2">
+                <input
+                  type="file"
+                  className="hidden"
+                  accept="image/*"
+                  multiple
+                  onChange={(e) => {
+                    if (e.target.files) {
+                      setImage(e.target.files[0])
+                      setTempImage(e.target.files[0])
+                      setModalOpen(true)
+                    }
+                  }}
+                />
+                <FaUpload className="text-xl" />
+              </label>
+            }
+          />
+          {imageBase64 && (
+            <div className="flex w-full justify-center">
+              <Image
+                src={imageBase64}
+                alt={'image-croppped'}
+                width={100}
+                height={100}
+                title="Edit"
+                onClick={() => {
+                  if (tempImage) setImage(tempImage)
+                  setModalOpen(true)
+                }}
+                className="cursor-pointer rounded-full"
+              />
+            </div>
+          )}
 
-            <Controller
-              name="password"
-              control={control}
-              defaultValue=""
-              rules={{ validate: (value) => validatePassword(value) }}
-              render={({ field, fieldState: { error } }) => (
-                <Input
-                  label="Password"
-                  variant="bordered"
-                  id={field.name}
-                  onChange={field.onChange}
-                  name={field.name}
-                  value={field.value}
-                  disabled={isPending}
-                  isInvalid={!!error}
-                  errorMessage={error?.message}
-                  type="password"
-                />
-              )}
-            />
-            <Controller
-              name="passwordConfirmation"
-              control={control}
-              defaultValue=""
-              rules={{
-                validate: (value) => validatePassword(password, value),
-              }}
-              render={({ field, fieldState: { error } }) => (
-                <Input
-                  label="Password Confirmation"
-                  variant="bordered"
-                  id={field.name}
-                  onChange={field.onChange}
-                  name={field.name}
-                  value={field.value}
-                  disabled={isPending}
-                  isInvalid={!!error}
-                  errorMessage={error?.message}
-                  type="password"
-                />
-              )}
-            />
-          </div>
-          <div className="flex justify-between">
-            <Button
-              variant="bordered"
-              type="button"
-              disabled={isPending}
-              as={Link}
-              href="/login"
-            >
-              Back to Login
-            </Button>
-            <Button type="submit" disabled={isPending}>
-              Register
-            </Button>
-          </div>
-        </form>
-        <ModalCropImage />
-      </ViewTransition>
+          <Controller
+            name="password"
+            control={control}
+            defaultValue=""
+            rules={{ validate: (value) => validatePassword(value) }}
+            render={({ field, fieldState: { error } }) => (
+              <Input
+                label="Password"
+                variant="bordered"
+                id={field.name}
+                onChange={field.onChange}
+                name={field.name}
+                value={field.value}
+                disabled={isPending}
+                isInvalid={!!error}
+                errorMessage={error?.message}
+                type="password"
+              />
+            )}
+          />
+          <Controller
+            name="passwordConfirmation"
+            control={control}
+            defaultValue=""
+            rules={{
+              validate: (value) => validatePassword(password, value),
+            }}
+            render={({ field, fieldState: { error } }) => (
+              <Input
+                label="Password Confirmation"
+                variant="bordered"
+                id={field.name}
+                onChange={field.onChange}
+                name={field.name}
+                value={field.value}
+                disabled={isPending}
+                isInvalid={!!error}
+                errorMessage={error?.message}
+                type="password"
+              />
+            )}
+          />
+        </div>
+        <div className="flex justify-between">
+          <Button
+            variant="bordered"
+            type="button"
+            disabled={isPending}
+            as={Link}
+            href="/login"
+          >
+            Back to Login
+          </Button>
+          <Button type="submit" disabled={isPending}>
+            Register
+          </Button>
+        </div>
+      </form>
+      <ModalCropImage />
     </>
   )
 }
