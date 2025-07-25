@@ -1,5 +1,5 @@
+import { RegisterHookProps } from '@/app/(public)/(auth)/register/types'
 import { create } from 'zustand'
-import { RegisterHookProps } from '@/app/(public)/register/types'
 
 export const useRegisterHook = create<RegisterHookProps>()((set) => ({
   modalOpen: false,

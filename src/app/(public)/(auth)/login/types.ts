@@ -1,4 +1,4 @@
-import { UserApiProps } from "@/types/models/user"
+import { UserApiProps } from '@/types/models/user'
 
 export interface FormLoginProps {
   email: string

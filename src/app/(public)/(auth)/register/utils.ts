@@ -1,5 +1,5 @@
+import { DownloadCropClickProps } from '@/app/(public)/(auth)/register/types'
 import { PixelCrop } from 'react-image-crop'
-import { DownloadCropClickProps } from '@/app/(public)/register/types'
 
 export async function canvasPreview(
   image: HTMLImageElement,

@@ -1,5 +1,11 @@
 'use client'
 
+import { useRegisterHook } from '@/app/(public)/(auth)/register/hooks'
+import {
+  canvasPreview,
+  onDownloadCropClick,
+} from '@/app/(public)/(auth)/register/utils'
+import { convertToBase64 } from '@/lib/utils'
 import {
   Button,
   Modal,
@@ -7,20 +13,13 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-} from "@heroui/react"
+} from '@heroui/react'
 import Image from 'next/image'
-import { useRegisterHook } from '@/app/(public)/register/hooks'
-import { convertToBase64 } from '@/lib/utils'
 import { useEffect, useRef, useState } from 'react'
 import { Crop, PixelCrop, ReactCrop } from 'react-image-crop'
-import {
-  canvasPreview,
-  onDownloadCropClick,
-} from '@/app/(public)/register/utils'
 
 export const ModalCropImage = () => {
   const { modalOpen, setImage, image, setModalOpen } = useRegisterHook()
-  
 
   const [crop, setCrop] = useState<Crop>({
     unit: '%',
