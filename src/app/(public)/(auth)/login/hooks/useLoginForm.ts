@@ -1,11 +1,11 @@
+import { useAuthState } from '@/hooks/auth'
 import { toastErrorsApi } from '@/lib/functions.api'
 import { AuthService } from '@/services/auth.service'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
-import { useAuthState } from './auth'
 
-export const useLogin = (redirect: string = '') => {
+export const useLoginForm = (redirect: string = '') => {
   const { setProfile, setSigned } = useAuthState()
   const router = useRouter()
 

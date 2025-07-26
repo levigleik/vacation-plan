@@ -1,7 +1,7 @@
-import FormLogin from '@/app/(public)/(auth)/login/components/Form'
 import islandImage from '@/assets/images/island.png'
 import Image from 'next/image'
 import { unstable_ViewTransition as ViewTransition } from 'react'
+import FormLogin from './components/FormLogin'
 
 const LoginPage = () => {
   return (

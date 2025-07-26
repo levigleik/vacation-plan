@@ -1,8 +1,8 @@
-import { useLogin } from '@/hooks/useLogin'
+import { useLoginForm } from '@/app/(public)/(auth)/login/hooks/useLoginForm'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
-import FormLogin from '../Form'
+import FormLogin from '../FormLogin'
 
-jest.mock('@/hooks/useLogin')
+jest.mock('@/app/(public)/(auth)/login/hooks/useLoginForm')
 jest.mock('next/navigation', () => ({
   useSearchParams: () => ({
     get: () => null,
@@ -14,7 +14,7 @@ jest.mock('next/navigation', () => ({
 
 describe('FormLogin', () => {
   beforeEach(() => {
-    jest.mocked(useLogin).mockReturnValue({
+    jest.mocked(useLoginForm).mockReturnValue({
       login: jest.fn(),
       isPending: false,
     })
@@ -36,7 +36,7 @@ describe('FormLogin', () => {
     fireEvent.click(submitButton)
 
     await waitFor(() => {
-      expect(screen.getByText('E-mail is required')).toBeInTheDocument()
+      expect(screen.getByText('Email is invalid')).toBeInTheDocument()
       expect(
         screen.getByText('Password must be at least 6 characters'),
       ).toBeInTheDocument()
@@ -45,7 +45,7 @@ describe('FormLogin', () => {
 
   it('should call login function with valid data', async () => {
     const mockLogin = jest.fn()
-    jest.mocked(useLogin).mockReturnValue({
+    jest.mocked(useLoginForm).mockReturnValue({
       login: mockLogin,
       isPending: false,
     })

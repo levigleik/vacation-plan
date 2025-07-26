@@ -1,13 +1,12 @@
 'use client'
 import logo from '@/assets/images/logo.png'
-import { useLogin } from '@/hooks/useLogin'
-import { AuthService } from '@/services/auth.service'
-import { Button, Input } from '@heroui/react'
+import { Button, Form, Input } from '@heroui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { Controller, useForm } from 'react-hook-form'
+import { useLoginForm } from '../hooks/useLoginForm'
 import { FormLoginProps } from '../types'
 import { loginSchema } from '../validation'
 
@@ -22,13 +21,18 @@ const FormLogin = () => {
 
   const searchParams = useSearchParams()
   const redirect = decodeURIComponent(searchParams.get('redirect') ?? '')
-  const { login, isPending } = useLogin(redirect)
+  const { login, isPending } = useLoginForm(redirect)
+
+  const onSubmit = (formData: FormLoginProps) => {
+    login(formData)
+  }
 
   return (
-    <form
-      onSubmit={handleSubmit(AuthService.login)}
+    <Form
+      onSubmit={handleSubmit(onSubmit)}
       className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12 flex flex-col justify-center"
       data-testid="login-form"
+      validationBehavior="aria"
     >
       <div className="mb-6 flex items-center justify-center">
         <Image alt="logo" src={logo} width={200} height={200} priority />
@@ -89,7 +93,7 @@ const FormLogin = () => {
           {isPending ? 'Loading...' : 'Login'}
         </Button>
       </div>
-    </form>
+    </Form>
   )
 }
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { useRegisterHook } from '@/app/(public)/(auth)/register/hooks'
+import { useRegisterHook } from '@/app/(public)/(auth)/register/hooks/useRegisterModal'
 import {
   canvasPreview,
   onDownloadCropClick,

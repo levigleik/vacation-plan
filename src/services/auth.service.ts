@@ -1,17 +1,21 @@
-import {
-  FormLoginProps,
-  LoginResponseProps,
-} from '@/app/(public)/(auth)/login/types'
+import { FormLoginProps, LoginResponseProps } from '@/app/(public)/(auth)/login/types'
+import { FormRegisterProps } from '@/app/(public)/(auth)/register/types'
 import { cookiesSettings } from '@/lib/constants'
 import { postData } from '@/lib/functions.api'
+import { UserApiProps } from '@/types/models/user'
 import Cookie from 'js-cookie'
 
 export const AuthService = {
   login: async (credentials: FormLoginProps): Promise<LoginResponseProps> => {
-    console.log('VEIO AQUI MESMO')
     return postData<LoginResponseProps, FormLoginProps>({
       url: 'auth/login',
       data: credentials,
+    })
+  },
+  register: async (userData: FormRegisterProps): Promise<UserApiProps> => {
+    return postData<UserApiProps, FormRegisterProps>({
+      url: 'user',
+      data: userData,
     })
   },
 
