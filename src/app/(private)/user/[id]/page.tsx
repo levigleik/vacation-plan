@@ -1,7 +1,7 @@
 'use client'
 
-import { useRegisterHook } from '@/app/(public)/(auth)/register/hooks'
-import { ModalCropImage } from '@/app/(public)/(auth)/register/modal'
+import { ModalCropImage } from '@/app/(public)/(auth)/register/components/CropImage'
+import { useRegisterHook } from '@/app/(public)/(auth)/register/hooks/useRegisterModal'
 import { Row } from '@/components/layout/grid'
 import { useAuthState } from '@/hooks/auth'
 import { getData, postData, putData, toastErrorsApi } from '@/lib/functions.api'

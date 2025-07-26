@@ -36,8 +36,9 @@ export const toastErrorsApi = (error: unknown) => {
       error.response?.data.message.forEach((err: string) =>
         addToast({ description: err || 'Error', color: 'danger' }),
       )
-    } else
+    } else if (error.response?.data.message)
       addToast({ description: error.response?.data.message, color: 'danger' })
+    else addToast({ description: error.message, color: 'danger' })
   } else
     addToast({
       description: 'Error while trying to connect to the server',

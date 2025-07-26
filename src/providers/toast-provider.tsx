@@ -4,10 +4,11 @@ export function ToastProvider() {
   return (
     <ToastProviderHeroUI
       placement="top-center"
+      toastOffset={20}
       toastProps={{
-        classNames: {
-          base: 'bg-white dark:bg-gray-800',
-        },
+        severity: 'success',
+        color: 'success',
+        variant: 'bordered',
       }}
     />
   )
