@@ -1,4 +1,4 @@
-import { CardSummary } from '@/app/(private)/(dashboard)/components/summary/card'
+import { CardSummary } from '@/app/(private)/dashboard/components/summary/card'
 import mockUsers from '@/lib/mock/user.json'
 import mockVacation from '@/lib/mock/vacation.json'
 import { Meta, type StoryObj } from '@storybook/react'

@@ -1,4 +1,4 @@
-import { Calendar } from '@/app/(private)/(dashboard)/components/months/calendar'
+import { Calendar } from '@/app/(private)/dashboard/components/months/calendar'
 import mockVacation from '@/lib/mock/vacation.json'
 import { Meta, type StoryObj } from '@storybook/react'
 
