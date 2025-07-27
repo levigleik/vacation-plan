@@ -1,7 +1,7 @@
 'use client'
 
 import { ModalCropImage } from '@/app/(public)/(auth)/register/components/CropImage'
-import { useRegisterHook } from '@/app/(public)/(auth)/register/hooks/useRegisterModal'
+import { useRegisterModal } from '@/app/(public)/(auth)/register/hooks/useRegisterModal'
 import { Row } from '@/components/layout/grid'
 import { useAuthState } from '@/hooks/auth'
 import { getData, postData, putData, toastErrorsApi } from '@/lib/functions.api'
@@ -21,7 +21,7 @@ import { FormUserProps } from './types'
 
 const UserEdit = () => {
   const { id } = useParams<{ id: string | 'new' }>()
-  const { setModalOpen, setImage, image } = useRegisterHook()
+  const { setModalOpen, setImage, image } = useRegisterModal()
   const { setProfile, profile } = useAuthState()
 
   const { data: dataGetUser, isLoading: loadingGet } = useQuery({
