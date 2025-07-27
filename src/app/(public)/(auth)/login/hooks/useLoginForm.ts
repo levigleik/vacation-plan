@@ -16,7 +16,7 @@ export const useLoginForm = (redirect: string = '') => {
       AuthService.setAuthCookies(data)
       setSigned(true)
       setProfile(data.user)
-      router.push(redirect || '/')
+      router.push(redirect || '/dashboard')
     },
     onError: (error: AxiosError) => {
       toastErrorsApi(error)

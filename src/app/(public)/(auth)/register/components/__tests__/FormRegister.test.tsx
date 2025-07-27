@@ -1,5 +1,5 @@
 import { useRegisterForm } from '@/app/(public)/(auth)/register/hooks/useRegisterForm'
-import { useRegisterHook } from '@/app/(public)/(auth)/register/hooks/useRegisterModal'
+import { useRegisterModal } from '@/app/(public)/(auth)/register/hooks/useRegisterModal'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import FormRegister from '../FormRegister'
 
@@ -24,7 +24,7 @@ describe('FormRegister', () => {
       isPending: false,
     })
 
-    jest.mocked(useRegisterHook).mockReturnValue({
+    jest.mocked(useRegisterModal).mockReturnValue({
       setModalOpen: jest.fn(),
       setImage: jest.fn(),
       image: undefined,

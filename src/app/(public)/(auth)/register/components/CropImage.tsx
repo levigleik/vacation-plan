@@ -1,6 +1,6 @@
 'use client'
 
-import { useRegisterHook } from '@/app/(public)/(auth)/register/hooks/useRegisterModal'
+import { useRegisterModal } from '@/app/(public)/(auth)/register/hooks/useRegisterModal'
 import {
   canvasPreview,
   onDownloadCropClick,
@@ -19,7 +19,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Crop, PixelCrop, ReactCrop } from 'react-image-crop'
 
 export const ModalCropImage = () => {
-  const { modalOpen, setImage, image, setModalOpen } = useRegisterHook()
+  const { modalOpen, setImage, image, setModalOpen } = useRegisterModal()
 
   const [crop, setCrop] = useState<Crop>({
     unit: '%',

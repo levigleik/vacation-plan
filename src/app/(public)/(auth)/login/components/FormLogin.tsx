@@ -30,7 +30,7 @@ const FormLogin = () => {
   return (
     <Form
       onSubmit={handleSubmit(onSubmit)}
-      className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12 flex flex-col justify-center"
+      className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12 flex flex-col justify-center items-stretch"
       data-testid="login-form"
       validationBehavior="aria"
     >

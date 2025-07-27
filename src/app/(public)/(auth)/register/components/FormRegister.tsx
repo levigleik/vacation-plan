@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { FaUpload } from 'react-icons/fa'
 import { useRegisterForm } from '../hooks/useRegisterForm'
-import { useRegisterHook } from '../hooks/useRegisterModal'
+import { useRegisterModal } from '../hooks/useRegisterModal'
 import { FormRegisterProps } from '../types'
 import { registerSchema } from '../validation'
 
@@ -35,7 +35,7 @@ const FormRegister = () => {
     register({ ...formData, photo: photoBase64 })
   }
 
-  const { setModalOpen, setImage, image } = useRegisterHook()
+  const { setModalOpen, setImage, image } = useRegisterModal()
 
   const [tempImage, setTempImage] = useState<File>()
 
