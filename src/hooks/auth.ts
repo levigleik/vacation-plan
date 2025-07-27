@@ -1,5 +1,5 @@
+import { AuthService } from '@/services/auth.service'
 import { AuthStoreProps } from '@/types/auth'
-import Cookie from 'js-cookie'
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 
@@ -18,9 +18,7 @@ export const useAuthState = create<AuthStoreProps>()(
             profile: undefined,
             signed: false,
           }))
-          Cookie.remove('signed')
-          Cookie.remove('idToken')
-          Cookie.remove('refreshToken')
+          AuthService.clearAuthCookies()
           window.location.reload()
         },
       }),

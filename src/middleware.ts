@@ -1,68 +1,41 @@
-import { parse } from 'cookie'
-import { type NextRequest, NextResponse } from 'next/server'
-import { routesFront } from '@/lib/constants'
+import { NextRequest, NextResponse } from 'next/server'
+import { privateRoutes, publicRoutes } from './lib/routes'
 
-const sortedRoutes = routesFront.sort((a, b) => b.path.length - a.path.length)
+export function middleware(req: NextRequest) {
+  const signed = req.cookies.has('signed')
+  const { pathname } = req.nextUrl
 
-const protectedRoutes = sortedRoutes.filter((a) => a.private)
-const publicRoutes = sortedRoutes.filter((a) => !a.private)
-
-export default function middleware(req: NextRequest) {
-  const cookies = parse(req.cookies.toString() ?? '')
-  const signed = cookies.signed
-
-  const protectedRoute = protectedRoutes.find((route) =>
-    req.nextUrl.pathname.startsWith(route.path),
+  const isPublicRoute = publicRoutes.includes(pathname)
+  const isPrivateRoute = privateRoutes.some((route) =>
+    pathname.startsWith(route),
   )
 
-  const publicRoute = publicRoutes.find((route) =>
-    req.nextUrl.pathname.startsWith(route.path),
-  )
+  console.log('pathname', pathname)
+  console.log('isPublicRoute', isPublicRoute)
+  console.log('isPrivateRoute', isPrivateRoute)
+  console.log('signed', signed)
 
-  const absoluteURL = new URL('/', req.nextUrl.origin)
-
-  if (publicRoute && signed) {
-    if (req.nextUrl.pathname !== '/') {
-      return NextResponse.redirect(absoluteURL.toString())
+  if (isPrivateRoute && !signed) {
+    const loginURL = new URL('/login', req.nextUrl.origin)
+    const originalURL = req.nextUrl.pathname + req.nextUrl.search
+    // ignore if redirect is already login or only /
+    if (originalURL === '/' || originalURL.includes('/login')) {
+      return NextResponse.next()
     }
+    loginURL.searchParams.append('redirect', encodeURIComponent(originalURL))
+    return NextResponse.redirect(loginURL.toString())
   }
 
-  if (!signed && publicRoute) {
-    return NextResponse.next()
-  }
-
-  if (!signed && protectedRoute) {
-    if (req.nextUrl.pathname !== '/login') {
-      const loginURL = new URL('/login', req.nextUrl.origin)
-      const originalURL = req.nextUrl.pathname + req.nextUrl.search
-      // // ignore if redirect is already login or only /
-      // if (ignoreRoutes.includes(originalURL) || originalURL === '/') {
-      //   return NextResponse.next()
-      // }
-      loginURL.searchParams.append('redirect', encodeURIComponent(originalURL))
-      return NextResponse.redirect(loginURL.toString())
+  if (isPublicRoute && signed) {
+    if (pathname === '/') {
+      return NextResponse.redirect(new URL('/dashboard', req.url))
     }
+    return NextResponse.redirect(new URL('/', req.url))
   }
 
-  if (protectedRoute && !signed) {
-    if (req.nextUrl.pathname !== '/') {
-      return NextResponse.redirect(absoluteURL.toString())
-    }
-  }
   return NextResponse.next()
 }
 
 export const config = {
-  matcher: [
-    '/',
-    '/dashboard',
-    '/user',
-    '/group',
-    '/login',
-    '/reset-password',
-    '/change-password',
-    '/dashboard/:path*',
-    '/user/:path*',
-    '/group/:path*',
-  ],
+  matcher: ['/((?!api|_next/static|_next/image|.*.png$).*)'],
 }
