@@ -1,12 +1,12 @@
 'use client'
-import { FilterButtonDashboard } from '@/app/(private)/(dashboard)/components/summary/filter'
-import { useDashboardHook } from '@/app/(private)/(dashboard)/hook'
-import { FaTimes } from 'react-icons/fa'
-import { Button } from "@heroui/react"
-import { useMutation } from '@tanstack/react-query'
+import { FilterButtonDashboard } from '@/app/(private)/dashboard/components/summary/filter'
+import { useDashboardSummaryHook } from '@/app/(private)/dashboard/components/summary/hook'
+import { useDashboardHook } from '@/app/(private)/dashboard/hook'
+import { VacationWithDatesApiProps } from '@/app/(private)/dashboard/types'
 import { getData } from '@/lib/functions.api'
-import { VacationWithDatesApiProps } from '@/app/(private)/(dashboard)/types'
-import { useDashboardSummaryHook } from '@/app/(private)/(dashboard)/components/summary/hook'
+import { Button } from '@heroui/react'
+import { useMutation } from '@tanstack/react-query'
+import { FaTimes } from 'react-icons/fa'
 
 export const HeaderSummaryDashboard = () => {
   const { setDataGetVacation, setLoadingGetVacation } = useDashboardHook()

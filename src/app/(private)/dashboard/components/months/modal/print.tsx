@@ -1,10 +1,10 @@
 'use client'
 
-import { Button, Skeleton } from "@heroui/react"
-import { FaFilePdf } from 'react-icons/fa'
-import { PrintSummaryDashboard } from '@/app/(private)/(dashboard)/components/summary/print'
+import { PrintSummaryDashboard } from '@/app/(private)/dashboard/components/summary/print'
+import { VacationWithDatesApiProps } from '@/app/(private)/dashboard/types'
+import { Button, Skeleton } from '@heroui/react'
 import { PDFDownloadLink } from '@react-pdf/renderer'
-import { VacationWithDatesApiProps } from '@/app/(private)/(dashboard)/types'
+import { FaFilePdf } from 'react-icons/fa'
 
 interface PrintModalDashboardProps {
   dataGetVacationById: VacationWithDatesApiProps

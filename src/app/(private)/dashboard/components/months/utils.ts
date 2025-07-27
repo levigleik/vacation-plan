@@ -1,4 +1,4 @@
-import { VacationWithDatesApiProps } from '@/app/(private)/(dashboard)/types'
+import { VacationWithDatesApiProps } from '@/app/(private)/dashboard/types'
 
 const colors = [
   '#001959',

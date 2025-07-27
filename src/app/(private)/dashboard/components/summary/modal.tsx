@@ -1,5 +1,14 @@
 'use client'
 
+import { useDashboardSummaryHook } from '@/app/(private)/dashboard/components/summary/hook'
+import { setDatesOnCalendar } from '@/app/(private)/dashboard/functions'
+import { useDashboardHook } from '@/app/(private)/dashboard/hook'
+import {
+  FormVacationProps,
+  VacationWithDatesApiProps,
+} from '@/app/(private)/dashboard/types'
+import { getData, toastErrorsApi } from '@/lib/functions.api'
+import { UserApiProps } from '@/types/models/user'
 import {
   Button,
   Chip,
@@ -12,19 +21,10 @@ import {
   SelectItem,
   Skeleton,
   User,
-} from "@heroui/react"
-import { useDashboardHook } from '@/app/(private)/(dashboard)/hook'
-import { Controller, useForm } from 'react-hook-form'
+} from '@heroui/react'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { getData, toastErrorsApi } from '@/lib/functions.api'
-import {
-  FormVacationProps,
-  VacationWithDatesApiProps,
-} from '@/app/(private)/(dashboard)/types'
+import { Controller, useForm } from 'react-hook-form'
 import { FaTimes } from 'react-icons/fa'
-import { setDatesOnCalendar } from '@/app/(private)/(dashboard)/functions'
-import { UserApiProps } from '@/types/models/user'
-import { useDashboardSummaryHook } from '@/app/(private)/(dashboard)/components/summary/hook'
 
 export const ModalFilterDashboard = () => {
   const { setDataGetVacation, setDateField, setLoadingGetVacation } =

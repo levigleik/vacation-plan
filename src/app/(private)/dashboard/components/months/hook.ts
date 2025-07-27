@@ -1,5 +1,5 @@
+import { DashboardMonthHookProps } from '@/app/(private)/dashboard/components/months/types'
 import { create } from 'zustand'
-import { DashboardMonthHookProps } from '@/app/(private)/(dashboard)/components/months/types'
 
 export const useDashboardMonthHook = create<DashboardMonthHookProps>()(
   (set) => ({

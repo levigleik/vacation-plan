@@ -1,14 +1,14 @@
 'use client'
 
+import { useDayClick } from '@/app/(private)/dashboard/components/months/calendar/hooks/useDayClick'
+import { useDashboardMonthHook } from '@/app/(private)/dashboard/components/months/hook'
+import { createColorDateMap } from '@/app/(private)/dashboard/components/months/utils'
+import { setDatesOnCalendar } from '@/app/(private)/dashboard/functions'
+import { useDashboardHook } from '@/app/(private)/dashboard/hook'
+import { DashboardProps } from '@/app/(private)/dashboard/types'
 import { Calendar as CalendarUI } from '@/components/calendar'
-import { useDashboardHook } from '@/app/(private)/(dashboard)/hook'
-import { DashboardProps } from '@/app/(private)/(dashboard)/types'
-import { CSSProperties, useEffect, useMemo } from 'react'
 import { format, isSameDay, isSameMonth } from 'date-fns'
-import { setDatesOnCalendar } from '@/app/(private)/(dashboard)/functions'
-import { useDashboardMonthHook } from '@/app/(private)/(dashboard)/components/months/hook'
-import { createColorDateMap } from '@/app/(private)/(dashboard)/components/months/utils'
-import { useDayClick } from '@/app/(private)/(dashboard)/components/months/calendar/hooks/useDayClick'
+import { CSSProperties, useEffect, useMemo } from 'react'
 
 export const Calendar = ({ month, data, theme }: DashboardProps) => {
   const { dateField, setDateField, dataGetVacation } = useDashboardHook()
@@ -33,7 +33,7 @@ export const Calendar = ({ month, data, theme }: DashboardProps) => {
     [dateField],
   )
 
-  const colorDateMap = createColorDateMap(data ? data : dataGetVacation ?? [])
+  const colorDateMap = createColorDateMap(data ? data : (dataGetVacation ?? []))
 
   const modifiersStyles = Object.keys(colorDateMap).reduce(
     (styles, color) => {

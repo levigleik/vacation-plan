@@ -1,7 +1,7 @@
 import {
   DateCalendarProps,
   VacationWithDatesApiProps,
-} from '@/app/(private)/(dashboard)/types'
+} from '@/app/(private)/dashboard/types'
 
 export const setDatesOnCalendar = (datesApi?: VacationWithDatesApiProps[]) => {
   if (!datesApi) return {}

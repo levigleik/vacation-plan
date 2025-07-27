@@ -1,9 +1,9 @@
 'use client'
 
-import { DayClickEventHandler } from 'react-day-picker'
-import { useDashboardHook } from '@/app/(private)/(dashboard)/hook'
-import { useDashboardMonthHook } from '@/app/(private)/(dashboard)/components/months/hook'
+import { useDashboardMonthHook } from '@/app/(private)/dashboard/components/months/hook'
+import { useDashboardHook } from '@/app/(private)/dashboard/hook'
 import { isSameDay, startOfDay } from 'date-fns'
+import { DayClickEventHandler } from 'react-day-picker'
 
 export const useDayClick = (month: number): DayClickEventHandler => {
   const { dataGetVacation } = useDashboardHook()

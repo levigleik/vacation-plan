@@ -1,8 +1,8 @@
 'use client'
 
-import { Button } from "@heroui/react"
+import { useDashboardSummaryHook } from '@/app/(private)/dashboard/components/summary/hook'
+import { Button } from '@heroui/react'
 import { FaFilter } from 'react-icons/fa'
-import { useDashboardSummaryHook } from '@/app/(private)/(dashboard)/components/summary/hook'
 
 export const FilterButtonDashboard = () => {
   const { setModalFilterOpen } = useDashboardSummaryHook()

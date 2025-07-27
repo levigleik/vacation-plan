@@ -1,5 +1,5 @@
-import { HeaderSummaryDashboard } from '@/app/(private)/(dashboard)/components/summary/header'
-import { BodySummaryDashboard } from '@/app/(private)/(dashboard)/components/summary/body'
+import { BodySummaryDashboard } from '@/app/(private)/dashboard/components/summary/body'
+import { HeaderSummaryDashboard } from '@/app/(private)/dashboard/components/summary/header'
 
 export const SummaryDashboard = () => {
   return (

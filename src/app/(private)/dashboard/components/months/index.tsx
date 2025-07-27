@@ -1,5 +1,5 @@
-import { BodyMonthDashboard } from '@/app/(private)/(dashboard)/components/months/body'
-import { HeaderMonthDashboard } from '@/app/(private)/(dashboard)/components/months/header'
+import { BodyMonthDashboard } from '@/app/(private)/dashboard/components/months/body'
+import { HeaderMonthDashboard } from '@/app/(private)/dashboard/components/months/header'
 
 export const MonthDashboard = () => {
   return (

@@ -1,5 +1,5 @@
+import { DashboardSummaryHookProps } from '@/app/(private)/dashboard/components/summary/types'
 import { create } from 'zustand'
-import { DashboardSummaryHookProps } from '@/app/(private)/(dashboard)/components/summary/types'
 
 export const useDashboardSummaryHook = create<DashboardSummaryHookProps>()(
   (set) => ({

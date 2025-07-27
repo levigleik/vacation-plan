@@ -1,12 +1,12 @@
 'use client'
 
-import { useDashboardHook } from '@/app/(private)/(dashboard)/hook'
-import { getDaysInMonth } from 'date-fns'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useDashboardMonthHook } from '@/app/(private)/dashboard/components/months/hook'
+import { useDashboardHook } from '@/app/(private)/dashboard/hook'
+import { VacationWithDatesApiProps } from '@/app/(private)/dashboard/types'
 import { getData } from '@/lib/functions.api'
-import { VacationWithDatesApiProps } from '@/app/(private)/(dashboard)/types'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import { getDaysInMonth } from 'date-fns'
 import { useEffect, useMemo } from 'react'
-import { useDashboardMonthHook } from '@/app/(private)/(dashboard)/components/months/hook'
 
 export const useMonth = () => {
   const { setDataGetVacation } = useDashboardHook()

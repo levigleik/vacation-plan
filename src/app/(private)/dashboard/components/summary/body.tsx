@@ -1,7 +1,7 @@
 'use client'
-import { months } from '@/app/(private)/(dashboard)/constants'
-import { CardSummary } from '@/app/(private)/(dashboard)/components/summary/card'
-import { useDashboardHook } from '@/app/(private)/(dashboard)/hook'
+import { CardSummary } from '@/app/(private)/dashboard/components/summary/card'
+import { months } from '@/app/(private)/dashboard/constants'
+import { useDashboardHook } from '@/app/(private)/dashboard/hook'
 
 export const BodySummaryDashboard = () => {
   const { dataGetVacation, loadingGetVacation } = useDashboardHook()

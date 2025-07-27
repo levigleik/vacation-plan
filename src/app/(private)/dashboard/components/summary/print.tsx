@@ -1,5 +1,6 @@
 'use client'
-import { PrintSummaryDashboardProps } from '@/app/(private)/(dashboard)/components/summary/types'
+import { PrintSummaryDashboardProps } from '@/app/(private)/dashboard/components/summary/types'
+import { UserApiProps } from '@/types/models/user'
 import {
   Document,
   Image,
@@ -9,7 +10,6 @@ import {
   View,
 } from '@react-pdf/renderer'
 import { format } from 'date-fns'
-import { UserApiProps } from '@/types/models/user'
 
 const styles = StyleSheet.create({
   page: {
