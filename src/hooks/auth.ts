@@ -1,4 +1,4 @@
-import { AuthService } from '@/services/auth.service'
+import { clearAuthCookies } from '@/services/token.service'
 import { AuthStoreProps } from '@/types/auth'
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
@@ -10,15 +10,12 @@ export const useAuthState = create<AuthStoreProps>()(
         setProfile: (profile) => {
           set(() => ({ profile }))
         },
-        setSigned: (signed) => {
-          set(() => ({ signed }))
-        },
         logout: async () => {
           set(() => ({
             profile: undefined,
             signed: false,
           }))
-          AuthService.clearAuthCookies()
+          await clearAuthCookies()
           window.location.reload()
         },
       }),

@@ -1,26 +1,25 @@
 import { useAuthState } from '@/hooks/auth'
 import { toastErrorsApi } from '@/lib/functions.api'
-import { AuthService } from '@/services/auth.service'
+import { login } from '@/services/auth.service'
+import { setAuthCookies } from '@/services/token.service'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
 
 export const useLoginForm = (redirect: string = '') => {
-  const { setProfile, setSigned } = useAuthState()
+  const { setProfile } = useAuthState()
   const router = useRouter()
 
   const { mutate, isPending } = useMutation({
-    mutationFn: AuthService.login,
+    mutationFn: login,
     mutationKey: ['login'],
-    onSuccess: (data) => {
-      AuthService.setAuthCookies(data)
-      setSigned(true)
+    onSuccess: async (data) => {
+      await setAuthCookies(data)
       setProfile(data.user)
       router.push(redirect || '/dashboard')
     },
     onError: (error: AxiosError) => {
       toastErrorsApi(error)
-      setSigned(false)
     },
   })
 

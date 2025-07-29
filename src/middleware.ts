@@ -1,8 +1,10 @@
+import { verifySession } from '@/services/token.service'
 import { NextRequest, NextResponse } from 'next/server'
 import { privateRoutes, publicRoutes } from './lib/routes'
 
 export function middleware(req: NextRequest) {
-  const signed = req.cookies.has('signed')
+  const idToken = req.cookies.get('idToken')?.value
+  const isAuthenticated = idToken ? verifySession() : false
   const { pathname } = req.nextUrl
 
   const isPublicRoute = publicRoutes.includes(pathname)
@@ -10,12 +12,7 @@ export function middleware(req: NextRequest) {
     pathname.startsWith(route),
   )
 
-  console.log('pathname', pathname)
-  console.log('isPublicRoute', isPublicRoute)
-  console.log('isPrivateRoute', isPrivateRoute)
-  console.log('signed', signed)
-
-  if (isPrivateRoute && !signed) {
+  if (isPrivateRoute && !isAuthenticated) {
     const loginURL = new URL('/login', req.nextUrl.origin)
     const originalURL = req.nextUrl.pathname + req.nextUrl.search
     // ignore if redirect is already login or only /
@@ -26,7 +23,7 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(loginURL.toString())
   }
 
-  if (isPublicRoute && signed) {
+  if (isPublicRoute && isAuthenticated) {
     if (pathname === '/') {
       return NextResponse.redirect(new URL('/dashboard', req.url))
     }
