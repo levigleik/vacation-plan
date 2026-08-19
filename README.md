@@ -1,6 +1,6 @@
   # Vacation Planner
 
-  [<img src="dashboard.png" alt="dashboard">]
+  <img src="dashboard.png" alt="dashboard">
   ## 💻 Getting Started
 
   Node.js and npm are required to run this project. You can download them [here](https://nodejs.org/en/download/)
@@ -78,7 +78,7 @@
 
   You can find the documentation
 
-  [<img src="documentation.png" alt="documentation">]
+  <img src="documentation.png" alt="documentation">
 
   You can run the following command to generate the documentation:
 
