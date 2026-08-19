@@ -1,7 +1,6 @@
   # Vacation Planner
 
-  [<img src="dashboard.png" alt="dashboard">](https://vacation-plan.vercel.app/)
-  [https://vacation-plan.vercel.app/](https://vacation-plan.vercel.app/)
+  [<img src="dashboard.png" alt="dashboard">]
   ## 💻 Getting Started
 
   Node.js and npm are required to run this project. You can download them [here](https://nodejs.org/en/download/)
@@ -77,10 +76,9 @@
 
   ## 📚 Documentation
 
-  You can find the documentation [https://vacation-plan-docs.netlify.app/](
-  https://vacation-plan-docs.netlify.app/)
+  You can find the documentation
 
-  [<img src="documentation.png" alt="documentation">](https://vacation-plan-docs.netlify.app/)
+  [<img src="documentation.png" alt="documentation">]
 
   You can run the following command to generate the documentation:
 
@@ -97,8 +95,7 @@
   Now you can open [http://localhost:6006](http://localhost:6006) with your browser to see the documentation.
 
   ## 🎉 Deployment
-  I've already deployed the project on Vercel, you can check it out [here](
-  https://vacation-plan.vercel.app/)
+  I've already deployed the project on Vercel, you can check it out [here]
 
   Watch this video to see the project in action:
 
